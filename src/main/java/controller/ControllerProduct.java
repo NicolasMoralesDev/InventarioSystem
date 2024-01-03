@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
-public class controllerProduct {
+public class ControllerProduct {
 
     @PostMapping("/product")
     public String createProduct(){
