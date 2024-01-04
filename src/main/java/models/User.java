@@ -23,50 +23,13 @@ public class User implements UserDetails {
     private Long id;
     @Column(nullable = false)
     private String username;
-
+    private int dni;
     private String firstname;
     private String lastName;
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
 
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String lastName() {
-        return lastName;
-    }
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

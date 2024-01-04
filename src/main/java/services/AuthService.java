@@ -18,6 +18,9 @@ public class AuthService implements IAuthService{
     @Autowired
     private IUserRepository userRepository;
 
+    @Autowired
+    private JwtService jwtService;
+
     @Override
     public AuthResponse login(LoginRequest login) {
         return null;
@@ -26,19 +29,19 @@ public class AuthService implements IAuthService{
     @Override
     public AuthResponse register(RegisterRequest request) {
 
-        User user = new User();
-        user.setUsername(request.getUsername());
-        user.setPassword(request.getPassword());
-        user.setFirstname(request.getFirstname());
-        user.setLastName(request.getLastname());
-        user.setRole(Role.USER);
+        User user =  User.builder()
+                .dni(request.getDni())
+                .username(request.getUsername())
+                .password(request.getPassword())
+                .firstname(request.getFirstname())
+                .lastName(request.getLastname())
+                .role(Role.USER).build();
 
         userRepository.save(user);
-        AuthResponse hh = new AuthResponse();
 
 
         return  AuthResponse.builder()
-                .token("a")
+                .token(jwtService.getToken(user))
                 .build();
     }
 }
