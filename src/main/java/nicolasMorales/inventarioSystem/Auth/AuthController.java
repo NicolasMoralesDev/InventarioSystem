@@ -1,14 +1,13 @@
-package config;
+package nicolasMorales.inventarioSystem.Auth;
 
 
-import dtos.AuthResponse;
-import dtos.LoginRequest;
-import dtos.RegisterRequest;
+import nicolasMorales.inventarioSystem.dtos.AuthResponse;
+import nicolasMorales.inventarioSystem.dtos.LoginRequest;
+import nicolasMorales.inventarioSystem.dtos.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import services.AuthService;
 
 @RestController
 @RequestMapping("/auth")
@@ -16,8 +15,9 @@ import services.AuthService;
 @CrossOrigin (origins = "*")
 public class AuthController {
 
-    @Autowired
-    private AuthService authService;
+
+      @Autowired
+     private AuthService authService;
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request){
@@ -28,7 +28,7 @@ public class AuthController {
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request){
 
-        return  ResponseEntity.ok(authService.register(request));
+       return  ResponseEntity.ok(authService.register(request));
 
     }
 }

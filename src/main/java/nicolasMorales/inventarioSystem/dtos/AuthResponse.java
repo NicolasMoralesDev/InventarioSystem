@@ -1,4 +1,4 @@
-package dtos;
+package nicolasMorales.inventarioSystem.dtos;
 
 
 import lombok.*;

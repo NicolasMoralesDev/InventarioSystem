@@ -1,8 +1,7 @@
-package config;
+package nicolasMorales.inventarioSystem.Config;
 
 import lombok.RequiredArgsConstructor;
-import models.IUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import nicolasMorales.inventarioSystem.models.IUserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;

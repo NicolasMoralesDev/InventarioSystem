@@ -1,4 +1,4 @@
-package models;
+package nicolasMorales.inventarioSystem.models;
 
 
 import jakarta.persistence.*;
@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DialectOverride;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -16,6 +17,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Table(name="user", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
 public class User implements UserDetails {
 
     @Id
@@ -25,6 +27,7 @@ public class User implements UserDetails {
     private String username;
     private int dni;
     private String firstname;
+
     private String lastName;
     private String password;
     @Enumerated(EnumType.STRING)

@@ -1,4 +1,5 @@
-package dtos;
+package nicolasMorales.inventarioSystem.dtos;
+
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,12 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterRequest {
+public class LoginRequest {
 
-    String username;
-    int dni;
-    String password;
-    String firstname;
-    String lastname;
-
+    private String userName;
+    private String password;
 }

@@ -1,4 +1,4 @@
-package controller;
+package nicolasMorales.inventarioSystem.controller;
 
 
 import lombok.RequiredArgsConstructor;

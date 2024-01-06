@@ -1,22 +1,25 @@
-package services;
+package nicolasMorales.inventarioSystem.Auth;
 
 
-import dtos.AuthResponse;
-import dtos.LoginRequest;
-import dtos.RegisterRequest;
+
+import nicolasMorales.inventarioSystem.dtos.AuthResponse;
+import nicolasMorales.inventarioSystem.dtos.LoginRequest;
+import nicolasMorales.inventarioSystem.dtos.RegisterRequest;
 import lombok.RequiredArgsConstructor;
-import models.IUserRepository;
-import models.Role;
-import models.User;
+import nicolasMorales.inventarioSystem.models.IUserRepository;
+import nicolasMorales.inventarioSystem.models.Role;
+import nicolasMorales.inventarioSystem.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 @Service
 @RequiredArgsConstructor
-public class AuthService implements IAuthService{
+public class AuthService implements IAuthService {
 
     @Autowired
     private IUserRepository userRepository;
+
 
     @Autowired
     private JwtService jwtService;
