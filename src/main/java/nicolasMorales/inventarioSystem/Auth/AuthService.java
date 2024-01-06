@@ -10,6 +10,7 @@ import nicolasMorales.inventarioSystem.models.IUserRepository;
 import nicolasMorales.inventarioSystem.models.Role;
 import nicolasMorales.inventarioSystem.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -19,7 +20,7 @@ public class AuthService implements IAuthService {
 
     @Autowired
     private IUserRepository userRepository;
-
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
     private JwtService jwtService;
@@ -35,7 +36,7 @@ public class AuthService implements IAuthService {
         User user =  User.builder()
                 .dni(request.getDni())
                 .username(request.getUsername())
-                .password(request.getPassword())
+                .password(  passwordEncoder.encode(request.getPassword()) )
                 .firstname(request.getFirstname())
                 .lastName(request.getLastname())
                 .role(Role.USER).build();
