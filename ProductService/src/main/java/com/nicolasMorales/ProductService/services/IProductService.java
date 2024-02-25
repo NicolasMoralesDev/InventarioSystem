@@ -11,8 +11,9 @@ public interface IProductService{
 
       String createProduct(Product nuevo);
 
-      String deleteProduct(UUID id);
+      List<String> createBulkProducts(List<Product> products);
 
+      String deleteProduct(UUID id);
 
       List<Product> getProducts();
 

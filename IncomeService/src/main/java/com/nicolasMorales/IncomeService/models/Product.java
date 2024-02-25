@@ -1,19 +1,11 @@
-package com.nicolasMorales.ProductService.models;
+package com.nicolasMorales.IncomeService.models;
 
-
-import jakarta.persistence.*;
-import lombok.Builder;
 import lombok.Data;
 
-import java.util.UUID;
-
-@Entity
 @Data
 public class Product {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+
     private String name;
 
     private String img;
@@ -27,7 +19,5 @@ public class Product {
 
     private int precio;
 
-    private int cant;
-
-
+    private  int cant;
 }

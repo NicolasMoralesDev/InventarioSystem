@@ -1,7 +1,8 @@
 package com.nicolasMorales.IncomeService.controllers;
 
 
-import com.nicolasMorales.IncomeService.modes.Income;
+import com.nicolasMorales.IncomeService.dtos.IncomeDTO;
+import com.nicolasMorales.IncomeService.models.Income;
 import com.nicolasMorales.IncomeService.services.IIncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/Income")
+@RequestMapping("/api/v1/income")
 @CrossOrigin(origins = "*")
 public class ControllerIncome {
 
@@ -19,7 +20,7 @@ public class ControllerIncome {
     private IIncomeService incomeService;
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerIncome(@RequestBody Income income){
+    public ResponseEntity<?> registerIncome(@RequestBody IncomeDTO income){
 
         HashMap<String, String> response = new HashMap<>();
         try {

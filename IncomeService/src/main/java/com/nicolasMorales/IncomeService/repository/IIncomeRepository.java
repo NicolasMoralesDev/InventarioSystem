@@ -1,6 +1,6 @@
 package com.nicolasMorales.IncomeService.repository;
 
-import com.nicolasMorales.IncomeService.modes.Income;
+import com.nicolasMorales.IncomeService.models.Income;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -54,6 +55,19 @@ public class ControllerProduct {
 
     }
 
+    @PostMapping(value = "/bulk")
+    public ResponseEntity<List> addBulkProducts(@RequestBody List<Product> product){
+
+        HashMap<String, String> response = new HashMap<>();
+
+
+
+            List <String> listProducts = productServ.createBulkProducts(product);
+
+            return  ResponseEntity.ok().body(listProducts);
+
+
+    }
     @GetMapping("/get")
     public ResponseEntity<?> getProduct(){
 

@@ -1,10 +1,10 @@
 package com.nicolasMorales.IncomeService.services;
 
-import com.nicolasMorales.IncomeService.modes.Income;
+import com.nicolasMorales.IncomeService.dtos.IncomeDTO;
+import com.nicolasMorales.IncomeService.models.Income;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Supplier;
 
 public interface IIncomeService {
 
@@ -13,7 +13,7 @@ public interface IIncomeService {
 
     public Income getIncomeById(UUID id);
 
-    public String createIncome(Income nuevo);
+    public String createIncome(IncomeDTO nuevo);
 
     public String deleteByIdIncome(UUID id);
 

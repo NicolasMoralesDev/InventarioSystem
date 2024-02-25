@@ -1,10 +1,12 @@
 package com.nicolasMorales.IncomeService.services.impl;
 
-import com.nicolasMorales.IncomeService.modes.Income;
+import com.nicolasMorales.IncomeService.dtos.IncomeDTO;
+import com.nicolasMorales.IncomeService.models.Income;
 import com.nicolasMorales.IncomeService.repository.IIncomeRepository;
 import com.nicolasMorales.IncomeService.services.IIncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.UUID;
@@ -16,28 +18,63 @@ public class IncomeService implements IIncomeService {
     @Autowired
     private IIncomeRepository incomeRepo;
 
+    @Autowired
+    private RestTemplate apiConsumir;
+
     @Override
     public List<Income> getAllIncome() {
-        return null;
+
+       return incomeRepo.findAll();
     }
 
     @Override
     public Income getIncomeById(UUID id) {
-        return null;
+
+        return  incomeRepo.findById(id).orElse(null);
     }
 
     @Override
-    public String createIncome(Income nuevo) {
-        return null;
+    public String createIncome(IncomeDTO nuevo) {
+
+        try {
+
+            Income register = new Income();
+             List<String> listProducts = apiConsumir.postForObject("http://localhost:9002/api/v1/product/bulk", nuevo.getProducts(), List.class );
+            register.setDescription(nuevo.getDescription());
+            register.setProducts(listProducts);
+            register.setSuppliers(nuevo.getSuppliers());
+            incomeRepo.save(register);
+            return "Ingreso registrado!";
+
+        } catch (Exception e){
+            return "Error "+ e.getMessage();
+        }
     }
 
     @Override
     public String deleteByIdIncome(UUID id) {
-        return null;
+
+        try {
+            incomeRepo.deleteById(id);
+
+            return "Registro Borrado Correctamente!";
+
+        } catch (Exception e){
+
+            return "Error "+ e.getMessage();
+        }
     }
 
     @Override
     public String editIncome(Income edit) {
-        return null;
+
+        try {
+
+            incomeRepo.save(edit);
+            return "Registro modificado!";
+
+        } catch (Exception e){
+            return "Error "+ e.getMessage();
+        }
     }
 }

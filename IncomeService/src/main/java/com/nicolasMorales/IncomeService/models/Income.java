@@ -1,4 +1,4 @@
-package com.nicolasMorales.IncomeService.modes;
+package com.nicolasMorales.IncomeService.models;
 
 
 import jakarta.persistence.*;
@@ -17,8 +17,7 @@ public class Income {
     private UUID id;
     private String description;
     private LocalDate dateIncome = LocalDate.now();
-    @ElementCollection
-    private List<String> suppliers;
+    private String suppliers;
     @ElementCollection
     private List <String> products;
 

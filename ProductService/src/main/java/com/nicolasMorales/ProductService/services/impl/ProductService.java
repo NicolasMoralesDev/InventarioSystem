@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,7 +25,6 @@ public class ProductService implements IProductService {
         try {
 
             if (productRepo.findByName(nuevo.getName()) == null) {
-
                 productRepo.save(nuevo);
                 return "Producto agregado!!";
 
@@ -35,6 +35,22 @@ public class ProductService implements IProductService {
         } catch (Exception e){
             return  "Error "+ e;
         }
+    }
+
+    @Override
+    public List <String> createBulkProducts(List<Product> products) {
+
+           List<String> listProducts = new ArrayList<>();
+
+           productRepo.saveAll(products);
+
+           for (Product product : products ){
+
+               listProducts.add(product.getName());
+           }
+
+           return listProducts;
+
     }
 
     @Override
