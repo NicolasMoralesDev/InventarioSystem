@@ -1,10 +1,12 @@
 package com.nicolasMorales.IncomeService.models;
 
+import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
 
 @Data
 public class Product {
 
+    private int codigo;
 
     private String name;
 
@@ -19,5 +21,5 @@ public class Product {
 
     private int precio;
 
-    private  int cant;
+    private int cant;
 }

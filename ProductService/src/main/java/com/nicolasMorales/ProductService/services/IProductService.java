@@ -9,9 +9,8 @@ import java.util.UUID;
 
 public interface IProductService{
 
-      String createProduct(Product nuevo);
 
-      List<String> createBulkProducts(List<Product> products);
+      List<Integer> createBulkProducts(List<Product> products);
 
       String deleteProduct(UUID id);
 

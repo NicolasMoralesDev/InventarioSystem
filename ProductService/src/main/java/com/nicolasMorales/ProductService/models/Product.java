@@ -9,11 +9,18 @@ import java.util.UUID;
 
 @Entity
 @Data
+@Table(
+        uniqueConstraints=
+        @UniqueConstraint(columnNames={"codigo"})
+)
 public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    private int codigo;
+
     private String name;
 
     private String img;

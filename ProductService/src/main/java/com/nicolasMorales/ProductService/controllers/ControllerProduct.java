@@ -21,39 +21,6 @@ public class ControllerProduct {
     private ProductService productServ;
 
 
-    @PostMapping("/create")
-    public ResponseEntity<?> createProduct(@RequestBody Product product){
-
-        try {
-
-            HashMap<String, String> response = new HashMap<>();
-
-            String status = productServ.createProduct(product);
-
-            if (status == "Producto agregado!!") {
-
-                response.put("msg", status );
-
-                return  ResponseEntity.ok().body(response);
-
-
-            } else if (status == "Este Producto ya Existe!!" ){
-
-             response.put("error", status);
-             return ResponseEntity.badRequest().body(response);
-
-            } else {
-
-                response.put("error", status);
-                return  ResponseEntity.ok().body(response);
-            }
-
-        } catch (Exception e){
-
-            return  ResponseEntity.badRequest().body("Error "+ e.getMessage());
-        }
-
-    }
 
     @PostMapping(value = "/bulk")
     public ResponseEntity<List> addBulkProducts(@RequestBody List<Product> product){
@@ -62,7 +29,7 @@ public class ControllerProduct {
 
 
 
-            List <String> listProducts = productServ.createBulkProducts(product);
+            List <Integer> listProducts = productServ.createBulkProducts(product);
 
             return  ResponseEntity.ok().body(listProducts);
 

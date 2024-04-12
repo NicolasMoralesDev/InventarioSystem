@@ -3,6 +3,7 @@ package com.nicolasMorales.IncomeService.services.impl;
 import com.nicolasMorales.IncomeService.dtos.IncomeDTO;
 import com.nicolasMorales.IncomeService.models.Income;
 import com.nicolasMorales.IncomeService.repository.IIncomeRepository;
+import com.nicolasMorales.IncomeService.repository.IProductClient;
 import com.nicolasMorales.IncomeService.services.IIncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +19,11 @@ public class IncomeService implements IIncomeService {
     @Autowired
     private IIncomeRepository incomeRepo;
 
+//    @Autowired
+//    private RestTemplate apiConsumir;
+
     @Autowired
-    private RestTemplate apiConsumir;
+    private IProductClient productClient;
 
     @Override
     public List<Income> getAllIncome() {
@@ -39,7 +43,7 @@ public class IncomeService implements IIncomeService {
         try {
 
             Income register = new Income();
-             List<String> listProducts = apiConsumir.postForObject("http://localhost:9002/api/v1/product/bulk", nuevo.getProducts(), List.class );
+            List<String> listProducts = productClient.addProducts(nuevo.getProducts());
             register.setDescription(nuevo.getDescription());
             register.setProducts(listProducts);
             register.setSuppliers(nuevo.getSuppliers());

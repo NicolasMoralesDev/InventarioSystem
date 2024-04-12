@@ -19,34 +19,29 @@ public class ProductService implements IProductService {
     @Autowired
     private IProductRepository productRepo;
 
-    @Override
-    public String createProduct(Product nuevo) {
 
-        try {
+    public void createProduct(Product nuevo) {
 
-            if (productRepo.findByName(nuevo.getName()) == null) {
+        Product producto = productRepo.findByCodigo(nuevo.getCodigo());
+
+            if ( producto == null) {
                 productRepo.save(nuevo);
-                return "Producto agregado!!";
 
-            } else {
-                return "Este Producto ya Existe!!";
+            } else if (producto.getCodigo() == nuevo.getCodigo()){
+                producto.setCant(nuevo.getCant()+producto.getCant());
+                productRepo.save(producto);
             }
-
-        } catch (Exception e){
-            return  "Error "+ e;
-        }
     }
 
     @Override
-    public List <String> createBulkProducts(List<Product> products) {
+    public List <Integer> createBulkProducts(List<Product> products) {
 
-           List<String> listProducts = new ArrayList<>();
-
-           productRepo.saveAll(products);
+           List<Integer> listProducts = new ArrayList<>();
 
            for (Product product : products ){
 
-               listProducts.add(product.getName());
+               this.createProduct(product);
+               listProducts.add(product.getCodigo());
            }
 
            return listProducts;
