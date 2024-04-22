@@ -60,7 +60,6 @@ public class IncomeService implements IIncomeService {
 
         try {
             incomeRepo.deleteById(id);
-
             return "Registro Borrado Correctamente!";
 
         } catch (Exception e){

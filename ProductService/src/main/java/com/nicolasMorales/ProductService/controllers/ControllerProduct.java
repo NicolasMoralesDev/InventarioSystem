@@ -5,6 +5,7 @@ import com.nicolasMorales.ProductService.models.Category;
 import com.nicolasMorales.ProductService.models.Product;
 import com.nicolasMorales.ProductService.services.impl.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,13 +22,13 @@ public class ControllerProduct {
     private ProductService productServ;
 
 
+    @Value("${server.port}")
+    private int serverPort;
 
     @PostMapping(value = "/bulk")
     public ResponseEntity<List> addBulkProducts(@RequestBody List<Product> product){
 
         HashMap<String, String> response = new HashMap<>();
-
-
 
             List <Integer> listProducts = productServ.createBulkProducts(product);
 
@@ -38,6 +39,7 @@ public class ControllerProduct {
     @GetMapping("/get")
     public ResponseEntity<?> getProduct(){
 
+        System.out.println("serverPort = " + serverPort);
         try {
 
                 return  ResponseEntity.ok().body(productServ.getProducts());
