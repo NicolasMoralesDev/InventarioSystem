@@ -65,6 +65,20 @@ public class ControllerProduct {
 
     }
 
+    @GetMapping("/get/{code}")
+    public ResponseEntity<?> getProductByCode(@PathVariable int code){
+
+        try {
+
+            return  ResponseEntity.ok().body(productServ.getProductsByCode(code));
+
+        } catch (Exception e){
+
+            return  ResponseEntity.badRequest().body("Error "+ e.getMessage());
+        }
+
+    }
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteById(@PathVariable UUID id){

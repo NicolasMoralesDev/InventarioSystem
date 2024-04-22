@@ -1,6 +1,7 @@
 package com.nicolasMorales.ProductService.services;
 
 
+import com.nicolasMorales.ProductService.dto.ProductDTO;
 import com.nicolasMorales.ProductService.models.Product;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface IProductService{
       Product getProductsById(UUID id);
 
       String modifyProduct(Product nuevo);
+
+      ProductDTO getProductsByCode(int code);
 }
