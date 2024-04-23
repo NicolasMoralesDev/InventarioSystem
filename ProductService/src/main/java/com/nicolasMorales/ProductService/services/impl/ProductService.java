@@ -38,9 +38,9 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List <Integer> createBulkProducts(List<Product> products) {
+    public List<Long> createBulkProducts(List<Product> products) {
 
-           List<Integer> listProducts = new ArrayList<>();
+           List<Long> listProducts = new ArrayList<>();
 
            for (Product product : products ){
 
@@ -90,10 +90,9 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public ProductDTO getProductsByCode(int code) {
+    public ProductDTO getProductsByCode(long code) {
 
-        ProductDTO nuevo = productMapper.productToProductDTO(productRepo.findByCodigo(code));
-        return nuevo;
+        return productMapper.productToProductDTO(productRepo.findByCodigo(code));
 
     }
 }

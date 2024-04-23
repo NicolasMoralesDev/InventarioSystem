@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface IProductService{
 
 
-      List<Integer> createBulkProducts(List<Product> products);
+      List<Long> createBulkProducts(List<Product> products);
 
       String deleteProduct(UUID id);
 
@@ -21,5 +21,5 @@ public interface IProductService{
 
       String modifyProduct(Product nuevo);
 
-      ProductDTO getProductsByCode(int code);
+      ProductDTO getProductsByCode(long code);
 }

@@ -16,7 +16,7 @@ public class ProductDTO {
 
     public UUID id;
 
-    private int codigo;
+    private long codigo;
 
     private String name;
 

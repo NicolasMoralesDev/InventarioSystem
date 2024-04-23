@@ -30,7 +30,7 @@ public class ControllerProduct {
 
         HashMap<String, String> response = new HashMap<>();
 
-            List <Integer> listProducts = productServ.createBulkProducts(product);
+            List <Long> listProducts = productServ.createBulkProducts(product);
 
             return  ResponseEntity.ok().body(listProducts);
 
@@ -65,8 +65,8 @@ public class ControllerProduct {
 
     }
 
-    @GetMapping("/get/{code}")
-    public ResponseEntity<?> getProductByCode(@PathVariable int code){
+    @GetMapping("/get/code/{code}")
+    public ResponseEntity<?> getProductByCode(@PathVariable long code){
 
         try {
 

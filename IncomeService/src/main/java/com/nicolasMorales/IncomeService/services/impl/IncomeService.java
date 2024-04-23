@@ -5,6 +5,8 @@ import com.nicolasMorales.IncomeService.models.Income;
 import com.nicolasMorales.IncomeService.repository.IIncomeRepository;
 import com.nicolasMorales.IncomeService.repository.IProductClient;
 import com.nicolasMorales.IncomeService.services.IIncomeService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -38,6 +40,8 @@ public class IncomeService implements IIncomeService {
     }
 
     @Override
+    @CircuitBreaker(name = "product-service", fallbackMethod = "incomeError")
+    @Retry(name = "product-service")
     public String createIncome(IncomeDTO nuevo) {
 
         try {
