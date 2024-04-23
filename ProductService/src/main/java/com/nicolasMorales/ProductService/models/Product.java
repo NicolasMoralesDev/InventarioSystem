@@ -19,7 +19,7 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    private int codigo;
+    private long codigo;
 
     private String name;
 
