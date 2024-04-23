@@ -1,6 +1,8 @@
 package com.nicolasMorales.ProductService.services.impl;
 
 
+import com.nicolasMorales.ProductService.dto.ProductDTO;
+import com.nicolasMorales.ProductService.mapper.ProductMapper;
 import com.nicolasMorales.ProductService.models.Product;
 import com.nicolasMorales.ProductService.repository.IProductRepository;
 import com.nicolasMorales.ProductService.services.IProductService;
@@ -15,9 +17,11 @@ import java.util.UUID;
 @Service
 public class ProductService implements IProductService {
 
-
     @Autowired
     private IProductRepository productRepo;
+
+    @Autowired
+    private ProductMapper productMapper;
 
 
     public void createProduct(Product nuevo) {
@@ -34,9 +38,9 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List <Integer> createBulkProducts(List<Product> products) {
+    public List<Long> createBulkProducts(List<Product> products) {
 
-           List<Integer> listProducts = new ArrayList<>();
+           List<Long> listProducts = new ArrayList<>();
 
            for (Product product : products ){
 
@@ -83,5 +87,12 @@ public class ProductService implements IProductService {
         } catch (Exception e){
             return "Error "+ e.getMessage();
         }
+    }
+
+    @Override
+    public ProductDTO getProductsByCode(long code) {
+
+        return productMapper.productToProductDTO(productRepo.findByCodigo(code));
+
     }
 }
