@@ -1,15 +1,15 @@
 server:
-  port:8081
+  port: 8081
 
 spring:
   application:
     name: config-server
 
-cloud:
-  config:
-    server:
-      git:
-        uri: https://github.com/NicolasMoralesDev/InventarioSystem.git
-        searchPaths: config-data
-        username: ${GIT_USER}
-        password: ${GIT_PASSWORD}
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/NicolasMoralesDev/InventarioSystem.git
+          searchPaths: config-data
+          username: ${GIT_USER}
+          password: ${GIT_PASSWORD}
