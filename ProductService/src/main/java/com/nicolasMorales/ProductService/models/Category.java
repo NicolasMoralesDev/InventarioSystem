@@ -7,7 +7,9 @@ import jakarta.persistence.Id;
 import lombok.Data;
 
 import java.util.UUID;
-
+/*
+    Modelado de la Entidad Category
+ */
 
 @Entity
 @Data

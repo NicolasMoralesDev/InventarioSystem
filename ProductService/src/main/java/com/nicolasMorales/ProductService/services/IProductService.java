@@ -2,6 +2,7 @@ package com.nicolasMorales.ProductService.services;
 
 
 import com.nicolasMorales.ProductService.dto.ProductDTO;
+import com.nicolasMorales.ProductService.dto.ProductPaginationDTO;
 import com.nicolasMorales.ProductService.models.Product;
 
 import java.util.List;
@@ -15,7 +16,9 @@ public interface IProductService{
 
       String deleteProduct(UUID id);
 
-      List<Product> getProducts();
+      String deleteProducts(List <UUID> ids);
+
+      ProductPaginationDTO getProducts(int page);
 
       Product getProductsById(UUID id);
 
