@@ -20,6 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ *  @author Nicolas Morales.
+ *  Implementacion de IProductoService.
+ *  Para la servicios de Productos.
+ */
 @Service
 public class ProductService implements IProductService {
 
@@ -29,7 +34,10 @@ public class ProductService implements IProductService {
     @Autowired
     private ProductMapper productMapper;
 
-
+    /**
+     * Metodo para crear un Producto.
+     * @param nuevo Recibe el nuevo producto a crear.
+     */
     public void createProduct(Product nuevo) {
 
             Product producto = productRepo.findByCodigo(nuevo.getCodigo());
@@ -43,6 +51,10 @@ public class ProductService implements IProductService {
             }
     }
 
+    /**
+     * Metodo para crear masivaente productos.
+     * @param products Recibe los nuevos productos a crear.
+     */
     @Override
     public List<Long> createBulkProducts(List<Product> products) {
            List<Long> listProducts = new ArrayList<>();
@@ -54,6 +66,10 @@ public class ProductService implements IProductService {
            return listProducts;
     }
 
+    /**
+     * Metodo para eliminar un producto.
+     * @param id Recibe el id del producto.
+     */
     @Override
     @Transactional
     public String deleteProduct(UUID id) {
@@ -65,6 +81,10 @@ public class ProductService implements IProductService {
         }
     }
 
+    /**
+     * Metodo para eliminar masivaente productos.
+     * @param ids Recibe una lista con los ids de los productos.
+     */
     @Override
     @Transactional
     @Modifying
@@ -104,18 +124,25 @@ public class ProductService implements IProductService {
         return productRepo.findById(id).orElse(null);
     }
 
+    /**
+     * Metodo para crear masivaente productos.
+     * @param edit Recibe los nuevos productos.
+     */
+    Transactional
     @Override
-    public String modifyProduct(Product nuevo) {
-
+    public String modifyProduct(Product edit) {
         try {
-
-            productRepo.save(nuevo);
+            productRepo.save(edit);
             return "Producto Modificado!";
         } catch (Exception e){
             return "Error "+ e.getMessage();
         }
     }
 
+    /**
+     * Metodo para obtener un producto por su codigo de barras.
+     * @param code Recibe el codigo de barras del producto.
+     */
     @Override
     public ProductDTO getProductsByCode(long code) {
         return productMapper.productToProductDTO(productRepo.findByCodigo(code));

@@ -27,6 +27,11 @@ public class ControllerProduct {
     @Value("${server.port}")
     private int serverPort;
 
+   /**
+    * Metodo para crear masivaente productos.
+    * @param product Recibe una lista con los nuevos  productos.
+    * 
+    */
     @PostMapping(value = "/bulk")
     public ResponseEntity<?> addBulkProducts(@RequestBody List<Product> product){
 
@@ -35,7 +40,7 @@ public class ControllerProduct {
         return  ResponseEntity.ok().body(listProducts);
     }
 
-    @GetMapping("/getAll/{page}")
+    @GetMapping(value = "/getAll/{page}")
     public ResponseEntity<?> getProduct(@PathVariable int page){
         System.out.println("serverPort = " + serverPort);
         try {
@@ -47,7 +52,7 @@ public class ControllerProduct {
         }
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping(value = "/get/{id}")
     public ResponseEntity<?> getProductById(@PathVariable UUID id){
         try {
             return  ResponseEntity.ok().body(productServ.getProductsById(id));
@@ -57,7 +62,7 @@ public class ControllerProduct {
         }
     }
 
-    @GetMapping("/get/code/{code}")
+    @GetMapping(value = "/get/code/{code}")
     public ResponseEntity<?> getProductByCode(@PathVariable long code){
         try {
             return  ResponseEntity.ok().body(productServ.getProductsByCode(code));
@@ -69,7 +74,7 @@ public class ControllerProduct {
     }
 
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<?> deleteById(@PathVariable UUID id){
         try {
 
@@ -91,7 +96,7 @@ public class ControllerProduct {
         }
     }
 
-    @DeleteMapping("/delete/bulk")
+    @DeleteMapping(value = "/delete/bulk")
     public ResponseEntity<?> deleteProductsById(@RequestBody List<UUID> ids){
         try {
 
@@ -114,7 +119,7 @@ public class ControllerProduct {
         }
     }
 
-    @PutMapping("/put")
+    @PutMapping(value = "/put")
     public  ResponseEntity<?> editProduct(@RequestBody Product edit){
         HashMap<String, String> response = new HashMap<>();
 
