@@ -6,7 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-
+/*
+  Clase mapper para entidad Producto y sus DTOS
+ */
 @Component
 public class ProductMapper {
 
@@ -22,6 +24,7 @@ public class ProductMapper {
         productDto.setCant(product.getCant());
         productDto.setSubCategoria(product.getSubCategoria());
         productDto.setCategoria(product.getCategoria());
+        productDto.setDescripcion(productDto.getDescripcion());
 
         return productDto;
     }
@@ -37,6 +40,7 @@ public class ProductMapper {
         nuevo.setCategoria(product.getCategoria());
         nuevo.setCodigo(product.getCodigo());
         nuevo.setPrecio(product.getPrecio());
+        nuevo.setDescripcion(product.getDescripcion());
 
         return nuevo;
     }

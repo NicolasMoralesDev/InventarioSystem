@@ -8,6 +8,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
+/*
+   Entidad Producto
+ */
+
 @Entity
 @Data
 @Table(
@@ -22,7 +26,7 @@ public class Product {
     private UUID id;
     private long codigo;
     private String name;
-    private String description;
+    private String descripcion;
     private String img;
     @ManyToOne
     private Category categoria;
@@ -32,7 +36,7 @@ public class Product {
     private int cant;
     private boolean borrado;
 
-    public Product(UUID id, long codigo, String name, String img, String subCategoria, String marca, int precio, int cant, boolean borrado) {
+    public Product(UUID id, long codigo, String name, String img, String subCategoria, String marca, int precio, int cant, boolean borrado, String descripcion) {
         this.id = id;
         this.codigo = codigo;
         this.name = name;
@@ -42,5 +46,6 @@ public class Product {
         this.precio = precio;
         this.cant = cant;
         this.borrado = false;
+        this.descripcion = descripcion;
     }
 }

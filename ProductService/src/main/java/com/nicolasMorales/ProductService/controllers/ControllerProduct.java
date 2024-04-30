@@ -28,7 +28,7 @@ public class ControllerProduct {
     private int serverPort;
 
     @PostMapping(value = "/bulk")
-    public ResponseEntity<List> addBulkProducts(@RequestBody List<Product> product){
+    public ResponseEntity<?> addBulkProducts(@RequestBody List<Product> product){
 
         HashMap<String, String> response = new HashMap<>();
         List <Long> listProducts = productServ.createBulkProducts(product);
