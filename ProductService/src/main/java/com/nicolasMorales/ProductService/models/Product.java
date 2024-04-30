@@ -8,10 +8,11 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-/*
-   Entidad Producto
- */
 
+/**
+ *  @author Nicolas Morales
+ *  Modelado de la Entidad Producto
+ */
 @Entity
 @Data
 @Table(

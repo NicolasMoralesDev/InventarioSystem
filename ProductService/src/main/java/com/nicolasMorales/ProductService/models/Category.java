@@ -7,10 +7,11 @@ import jakarta.persistence.Id;
 import lombok.Data;
 
 import java.util.UUID;
-/*
-    Modelado de la Entidad Category
- */
 
+/**
+ *  @author Nicolas Morales
+ *  Modelado de la entidad Category
+ */
 @Entity
 @Data
 public class Category {

@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.UUID;
 
-/*
-  Controlador de categoria
+/**
+ *  @author Nicolas Morales.
+ *  Controller de Categoria.
  */
 @RestController
 @RequestMapping("/api/v1/category")
@@ -20,6 +21,11 @@ public class ControllerCategory {
     @Autowired
     private CategoryService categoryServ;
 
+    /**
+     * Controllador para crear una categoria.
+     * @param category Recibe la categoria a crear.
+     * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensage de la operacion.
+     */
     @PostMapping("/create")
     public ResponseEntity<?> createCategory(@RequestBody Category category){
              HashMap<String, String> response = new HashMap<>();
@@ -46,18 +52,24 @@ public class ControllerCategory {
         }
     }
 
+    /**
+     * Controllador para obtener todas las categorias.
+     * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensage de la operacion.
+     */
     @GetMapping("/get")
     public ResponseEntity<?> getCategory(){
         try {
-
             return  ResponseEntity.ok().body(categoryServ.getCategorys());
-
         } catch (Exception e){
-
             return  ResponseEntity.badRequest().body("Error "+ e.getMessage());
         }
     }
 
+    /**
+     * Controllador para obtener una categoria.
+     * @param id Recibe el id de la categoria a obtener.
+     * @return ResponseEntity Devuelve esta entidad con el codigo de estado y la categoria (si es que existe).
+     */
     @GetMapping("/get/{id}")
     public ResponseEntity<?> getCategoryById(@PathVariable UUID id){
         try {
@@ -70,6 +82,11 @@ public class ControllerCategory {
         }
     }
 
+    /**
+     * Controllador para borrar una categoria.
+     * @param id Recibe el id de la categoria a borrar.
+     * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensaje de la operacion.
+     */
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteById(@PathVariable UUID id){
         HashMap<String, String> response = new HashMap<>();
@@ -90,6 +107,12 @@ public class ControllerCategory {
             return  ResponseEntity.badRequest().body("Error "+response);
         }
     }
+
+    /**
+     * Controllador para editar una categoria.
+     * @param edit Recibe el id de la categoria a obtener.
+     * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensaje de la operacion.
+     */
     @PutMapping("/put")
     public  ResponseEntity<?> editCategory(@RequestBody Category edit){
         HashMap<String, String> response = new HashMap<>();

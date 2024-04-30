@@ -6,8 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-/*
-  Clase mapper para entidad Producto y sus DTOS
+/**
+ * @author Nicolas Morales
+ * Clase mapper para entidad Producto y sus DTOS
  */
 @Component
 public class ProductMapper {

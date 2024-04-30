@@ -6,9 +6,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-/*
-   DTO para la paginacion
-   de productos
+/**
+ *  @author Nicolas Morales
+ *  DTO para la paginacion
+ *  de productos
  */
 @Data
 @AllArgsConstructor

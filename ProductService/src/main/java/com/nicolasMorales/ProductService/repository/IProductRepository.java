@@ -10,6 +10,12 @@ import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
+
+/**
+ *  @author Nicolas Morales.
+ *  Interfaz del Repository de la entidad Producto.
+ *  Posee sus metodos JPQL.
+ */
 @Repository
 public interface IProductRepository  extends JpaRepository<Product, UUID> {
 

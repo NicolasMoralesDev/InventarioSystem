@@ -102,6 +102,10 @@ public class ProductService implements IProductService {
         }
     }
 
+    /**
+     * Metodo para obtener los productos paginados.
+     * @param page Recibe el numero de pagina.
+     */
     @Override
     public ProductPaginationDTO getProducts(int page) {
         Pageable pageable = PageRequest.of( page, 10);
@@ -118,6 +122,10 @@ public class ProductService implements IProductService {
         return listProducts;
     }
 
+    /**
+     * Metodo para obtener un producto por id.
+     * @param id Recibe el id del producto.
+     */
     @Override
     public Product getProductsById(UUID id) {
 
@@ -125,10 +133,10 @@ public class ProductService implements IProductService {
     }
 
     /**
-     * Metodo para crear masivaente productos.
-     * @param edit Recibe los nuevos productos.
+     * Metodo para editar un producto.
+     * @param edit Recibe el producto a editar.
      */
-    Transactional
+    @Transactional
     @Override
     public String modifyProduct(Product edit) {
         try {

@@ -7,8 +7,10 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
-/*
-  DTO para devolver un producto
+
+/**
+ *  @author Nicolas Morales
+ *  DTO para la Entidad Productos
  */
 @Data
 @AllArgsConstructor

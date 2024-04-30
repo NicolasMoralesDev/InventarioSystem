@@ -8,7 +8,10 @@ import com.nicolasMorales.ProductService.models.Product;
 import java.util.List;
 import java.util.UUID;
 
-
+/**
+ *  @author Nicolas Morales.
+ *  Interfaz para los servicios de Producto.
+ */
 public interface IProductService{
 
 
