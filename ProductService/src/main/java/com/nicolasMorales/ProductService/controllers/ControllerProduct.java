@@ -43,14 +43,13 @@ public class ControllerProduct {
 
     /**
      * Controllador para obtener productos paginados.
-     * @param page Recibe un entero para especificar la pagina que se solicitara retornar.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y una lista paginada de productos.
      */
-    @GetMapping(value = "/getAll/{page}")
-    public ResponseEntity<?> getProduct(@PathVariable int page){
+    @GetMapping(value = "/getAll")
+    public ResponseEntity<?> getProduct(){
         System.out.println("serverPort = " + serverPort);
         try {
-            return  ResponseEntity.ok().body(productServ.getProducts(page));
+            return  ResponseEntity.ok().body(productServ.getProducts());
 
         } catch (Exception e){
 

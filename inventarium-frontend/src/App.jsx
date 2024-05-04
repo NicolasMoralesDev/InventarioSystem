@@ -1,12 +1,16 @@
 import { useState } from 'react';
 import {
-  DesktopOutlined,
-  FileOutlined,
+  FullscreenExitOutlined,
+  FullscreenOutlined,
+  PicCenterOutlined,
   PieChartOutlined,
+  UsergroupAddOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
+import { Content} from 'antd/lib/layout/layout';
 import Nav from './components/static/Nav';
-const { Header, Content, Footer, Sider } = Layout;
+import Routing from './routes/Routes';
+const { Header, Footer, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
     key,
@@ -16,26 +20,28 @@ function getItem(label, key, icon, children) {
   };
 }
 const items = [
-  getItem('Productos', '1', <PieChartOutlined />),
-  getItem('Categorias', '2', <DesktopOutlined />),
-  getItem('Ingresos', '3', <FileOutlined />),
-  getItem('Egresos', '4', <FileOutlined />),
-  getItem('Usuarios', '5', <FileOutlined />),
+  getItem('Productos', 'productos', <PieChartOutlined />),
+  getItem('Categorias', 'categrias', <PicCenterOutlined />),
+  getItem('Ingresos', 'ingresos', <FullscreenExitOutlined />),
+  getItem('Egresos', 'egresos', <FullscreenOutlined />),
+  getItem('Usuarios', 'usuarios', <UsergroupAddOutlined />),
 ];
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { colorBgContainer },
   } = theme.useToken();
   return (
+    <>
     <Layout
       style={{
         minHeight: '100vh',
       }}
+      className='w-full'
     >
       <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
         <div className="demo-logo-vertical p-5" />
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} />
+        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" onClick={(item)=> location.replace(item.key)} items={items}/>
       </Sider>
       <Layout>
         <Header
@@ -54,26 +60,20 @@ const App = () => {
             margin: '0 16px',
           }}
         >
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              background: colorBgContainer,
-              borderRadius: borderRadiusLG,
-            }}
-          >
-            Bill is a cat.
-          </div>
+       <Routing/>
         </Content>
-        <Footer
+     
+      </Layout>  
+     
+    </Layout>   <Footer
           style={{
             textAlign: 'center',
           }}
+          className='bg-black text-white'
         >
-          Ant Design ©{new Date().getFullYear()} Created by Ant UED
+        Inventarium {new Date().getFullYear()} Desarrollado por Nicolas Morales
         </Footer>
-      </Layout>
-    </Layout>
+    </>
   );
 };
 export default App;

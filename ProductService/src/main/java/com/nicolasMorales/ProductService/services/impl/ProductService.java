@@ -104,20 +104,11 @@ public class ProductService implements IProductService {
 
     /**
      * Metodo para obtener los productos paginados.
-     * @param page Recibe el numero de pagina.
      */
     @Override
-    public ProductPaginationDTO getProducts(int page) {
-        Pageable pageable = PageRequest.of( page, 10);
-        // crea el listado de productos paginable
-        ProductPaginationDTO listProducts = new ProductPaginationDTO();
-        // se setean los datos en el ProductPaginationDTO
-        listProducts.setPage(page);
+    public List <Product> getProducts() {
 
-        Page<Product> productList = productRepo.findAllPage(pageable);
-        List<ProductDTO> productDtoList = productMapper.productListToProductDtoList(productList.getContent());
-        listProducts.setProductos(productDtoList);
-        listProducts.setTotal(productList.getTotalPages());
+        List <Product> listProducts = productRepo.findAll();
 
         return listProducts;
     }

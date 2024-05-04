@@ -21,7 +21,7 @@ public interface IProductService{
 
       String deleteProducts(List <UUID> ids);
 
-      ProductPaginationDTO getProducts(int page);
+      List <Product> getProducts();
 
       Product getProductsById(UUID id);
 
