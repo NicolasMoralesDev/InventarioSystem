@@ -4,6 +4,7 @@ server:
 spring:
   application:
     name: config-server
+
   cloud:
     config:
       server:
@@ -12,3 +13,4 @@ spring:
           searchPaths: config-data
           username: ${GIT_USER}
           password: ${GIT_PASSWORD}
+

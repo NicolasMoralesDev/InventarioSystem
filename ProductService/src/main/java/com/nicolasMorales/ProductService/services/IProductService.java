@@ -2,12 +2,16 @@ package com.nicolasMorales.ProductService.services;
 
 
 import com.nicolasMorales.ProductService.dto.ProductDTO;
+import com.nicolasMorales.ProductService.dto.ProductPaginationDTO;
 import com.nicolasMorales.ProductService.models.Product;
 
 import java.util.List;
 import java.util.UUID;
 
-
+/**
+ *  @author Nicolas Morales.
+ *  Interfaz para los servicios de Producto.
+ */
 public interface IProductService{
 
 
@@ -15,7 +19,9 @@ public interface IProductService{
 
       String deleteProduct(UUID id);
 
-      List<Product> getProducts();
+      String deleteProducts(List <UUID> ids);
+
+      List <Product> getProducts();
 
       Product getProductsById(UUID id);
 

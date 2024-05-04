@@ -1,6 +1,5 @@
 package com.nicolasMorales.IncomeService.models;
 
-import jakarta.persistence.UniqueConstraint;
 import lombok.Data;
 
 @Data
@@ -9,6 +8,8 @@ public class Product {
     private Long codigo;
 
     private String name;
+
+    private String descipcion;
 
     private String img;
 

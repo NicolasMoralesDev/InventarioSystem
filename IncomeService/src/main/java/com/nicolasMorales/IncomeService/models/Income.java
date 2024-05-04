@@ -18,6 +18,7 @@ public class Income {
     private String description;
     private LocalDate dateIncome = LocalDate.now();
     private String suppliers;
+//    private estado;
     @ElementCollection
     private List <String> products;
 

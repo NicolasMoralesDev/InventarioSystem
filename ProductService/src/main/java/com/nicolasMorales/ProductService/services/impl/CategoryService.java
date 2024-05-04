@@ -9,6 +9,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ *  @author Nicolas Morales.
+ *  Implementacion de ICategoryService.
+ *  Para la servicios de Categoria.
+ */
 @Service
 public class CategoryService implements ICategoryService {
 
