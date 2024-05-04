@@ -6,6 +6,10 @@ import com.nicolasMorales.ProductService.models.Product;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ *  @author Nicolas Morales.
+ *  Interfaz para los servicios de Categoria.
+ */
 public interface ICategoryService {
 
         String createCategory(Category nuevo);

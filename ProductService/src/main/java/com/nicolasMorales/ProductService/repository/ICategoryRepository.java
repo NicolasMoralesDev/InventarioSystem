@@ -9,6 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
+/**
+ *  @author Nicolas Morales.
+ *  Interfaz del Repository de la entidad Category.
+ *  Posee sus metodos JPQL.
+ */
 @Repository
 public interface ICategoryRepository extends JpaRepository<Category, UUID> {
 

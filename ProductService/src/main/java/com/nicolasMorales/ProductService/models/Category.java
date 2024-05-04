@@ -8,7 +8,10 @@ import lombok.Data;
 
 import java.util.UUID;
 
-
+/**
+ *  @author Nicolas Morales
+ *  Modelado de la entidad Category
+ */
 @Entity
 @Data
 public class Category {
