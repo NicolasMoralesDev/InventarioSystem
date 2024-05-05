@@ -25,8 +25,8 @@ public class ControllerProduct {
     private ProductService productServ;
 
 
-    @Value("${server.port}")
-    private int serverPort;
+//    @Value("${server.port}")
+//    private int serverPort;
 
    /**
     * Controllador para crear masivaente productos.
@@ -47,7 +47,7 @@ public class ControllerProduct {
      */
     @GetMapping(value = "/getAll")
     public ResponseEntity<?> getProduct(){
-        System.out.println("serverPort = " + serverPort);
+//        System.out.println("serverPort = " + serverPort);
         try {
             return  ResponseEntity.ok().body(productServ.getProducts());
 

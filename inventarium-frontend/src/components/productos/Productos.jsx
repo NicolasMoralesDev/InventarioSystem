@@ -18,8 +18,7 @@ const Productos = () => {
   return (
     <>
     <TablaProductos 
-    dataSourse={productos}
-    
+       dataSourse={ productos }
     />
     </>
   )

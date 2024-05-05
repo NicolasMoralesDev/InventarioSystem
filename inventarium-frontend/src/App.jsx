@@ -7,7 +7,7 @@ import {
   UsergroupAddOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, theme } from 'antd';
-import { Content} from 'antd/lib/layout/layout';
+import { Content } from 'antd/lib/layout/layout';
 import Nav from './components/static/Nav';
 import Routing from './routes/Routes';
 const { Header, Footer, Sider } = Layout;
@@ -33,46 +33,45 @@ const App = () => {
   } = theme.useToken();
   return (
     <>
-    <Layout
-      style={{
-        minHeight: '100vh',
-      }}
-      className='w-full'
-    >
-      <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
-        <div className="demo-logo-vertical p-5" />
-        <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" onClick={(item)=> location.replace(item.key)} items={items}/>
-      </Sider>
-      <Layout>
-        <Header
-          style={{
-            padding: 0,
-            background: colorBgContainer,
-            textAlign: 'center',
-            height: "10%"
-          }}
+      <Layout
+        style={{
+          minHeight: '100vh',
+        }}
+      >
+         <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+          <div className="demo-logo-vertical p-5" />
+          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" onClick={(item) => location.replace(item.key)} items={items} />
+        </Sider> 
+        <Layout
+        >
+          <Header
+            style={{
+              padding: 0,
+              background: colorBgContainer,
+              textAlign: 'center',
+              height: "10%"
+            }}
 
-        > 
-        <Nav />
-        </Header>
-        <Content
-          style={{
-            margin: '0 16px',
-          }}
-        >
-       <Routing/>
-        </Content>
-     
-      </Layout>  
-     
-    </Layout>   <Footer
-          style={{
-            textAlign: 'center',
-          }}
-          className='bg-black text-white'
-        >
+          >
+            <Nav />
+          </Header>
+          <Content
+            style={{
+              margin: '0, 0, 0, 16px',
+            }}
+          >
+            <Routing />
+          </Content>
+        </Layout>
+      </Layout>
+      <Footer
+        style={{
+          textAlign: 'center',
+        }}
+        className='bg-black text-white'
+      >
         Inventarium {new Date().getFullYear()} Desarrollado por Nicolas Morales
-        </Footer>
+      </Footer>
     </>
   );
 };

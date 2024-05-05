@@ -4,9 +4,9 @@ server:
 spring:
   application:
     name: config-server
-
   cloud:
     config:
+      enabled: true
       server:
         git:
           uri: https://github.com/NicolasMoralesDev/InventarioSystem.git

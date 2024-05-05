@@ -6,11 +6,11 @@ import { useState } from "react";
 const TablaProductos = (props) => {
 
     const { dataSourse } = props
-    const [ productosSeleccionados, setProductosSeleccionados ]= useState([])
+    const [productosSeleccionados, setProductosSeleccionados] = useState([])
 
     const onSelectProductos = (productsSelected) => {
-      console.log(productsSelected);
-      setProductosSeleccionados(productsSelected)
+        console.log(productsSelected);
+        setProductosSeleccionados(productsSelected)
     }
 
     const columns = [
@@ -75,15 +75,14 @@ const TablaProductos = (props) => {
     return (
         <>
             <Table
-                size="small"
-                scroll={true}
-                rowKey={(product)=> product.id}
+                className="overflow-x-scroll"
+                rowKey={(product) => product.id}
                 dataSource={dataSourse}
                 columns={columns}
                 pagination={defaultPagination(dataSourse, 15)}
-                rowSelection={ {
+                rowSelection={{
                     selectedRowKeys: productosSeleccionados,
-                    onChange: onSelectProductos,   
+                    onChange: onSelectProductos,
                 }}
                 locale={{
                     emptyText: "No se encontraron Productos"

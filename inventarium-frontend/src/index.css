@@ -39,3 +39,7 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
+.table-selection-column, .ant-table-cell{
+  max-width: 8% !important;
+}
