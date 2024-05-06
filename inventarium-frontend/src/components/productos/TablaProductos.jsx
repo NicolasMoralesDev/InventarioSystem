@@ -60,10 +60,21 @@ const TablaProductos = (props) => {
             key: 'cant',
         },
         {
-            title: 'Acciones',
-            dataIndex: 'address',
+            title: 'Generar Informe',
+            dataIndex: '',
             width: "10%",
-            key: 'address',
+            key: 'generarInforme',
+            render: () => <>
+              <Button title="Editar" className="bg-green-600 text-white">Pdf</Button>
+              <Button title="Editar" className="bg-slate-800 text-white">Excel</Button>
+      
+            </>
+          },
+        {
+            title: 'Acciones',
+            dataIndex: '',
+            width: "10%",
+            key: 'acciones',
             render: () => <>
                 <Button title="Editar" className="bg-green-600 text-white">Editar</Button>
                 <Button title="Editar" className="bg-slate-800 text-white">Ver</Button>
@@ -75,6 +86,7 @@ const TablaProductos = (props) => {
     return (
         <>
             <Table
+                size="small"
                 className="overflow-x-scroll"
                 rowKey={(product) => product.id}
                 dataSource={dataSourse}

@@ -21,9 +21,6 @@ public class IncomeService implements IIncomeService {
     @Autowired
     private IIncomeRepository incomeRepo;
 
-//    @Autowired
-//    private RestTemplate apiConsumir;
-
     @Autowired
     private IProductClient productClient;
 

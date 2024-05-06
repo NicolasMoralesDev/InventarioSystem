@@ -2,13 +2,13 @@
 
 import axios from 'axios';
 
-const url = ["http://localhost:9002/api/v1/product", "http://localhost:9002/api/v1/product"]
+/* const url = ["http://localhost:8761", "http://localhost:443/"] */
 
-
+/* 
 const baseUrl = import.meta.env.VITE_BACKEND_HOST || url[1];
-
+ */
 const useAxiosConf = axios.create({
-  baseURL: baseUrl,
+/*   baseURL: baseUrl, */
   headers: {
     'Content-Type': 'application/json'
   },

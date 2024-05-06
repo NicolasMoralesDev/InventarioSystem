@@ -46,7 +46,7 @@ public class ControllerIncome {
 
     }
 
-    @GetMapping("/get")
+    @GetMapping("/getAll")
     public ResponseEntity<?> getCIncome(){
 
         try {
