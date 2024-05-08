@@ -10,7 +10,8 @@ import { Layout, Menu, theme } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import Nav from './components/static/Nav';
 import Routing from './routes/Routes';
-const { Header, Footer, Sider } = Layout;
+import Foter from './components/common/Foter';
+const { Header, Sider } = Layout;
 function getItem(label, key, icon, children) {
   return {
     key,
@@ -26,6 +27,7 @@ const items = [
   getItem('Egresos', 'egresos', <FullscreenOutlined />),
   getItem('Usuarios', 'usuarios', <UsergroupAddOutlined />),
 ];
+
 const App = () => {
   const [collapsed, setCollapsed] = useState(false);
   const {
@@ -38,9 +40,9 @@ const App = () => {
           minHeight: '100vh',
         }}
       >
-         <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+         <Sider collapsible collapsed={ collapsed } onCollapse={(value) => setCollapsed(value)}>
           <div className="demo-logo-vertical p-5" />
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" onClick={(item) => location.replace(item.key)} items={items} />
+          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" onClick={(item) => location.replace(item.key)} items={ items } />
         </Sider> 
         <Layout
         >
@@ -51,27 +53,19 @@ const App = () => {
               textAlign: 'center',
               height: "10%"
             }}
-
           >
             <Nav />
           </Header>
           <Content
             style={{
-              margin: '0, 0, 0, 16px',
+              margin: '20px',
             }}
           >
             <Routing />
           </Content>
         </Layout>
       </Layout>
-      <Footer
-        style={{
-          textAlign: 'center',
-        }}
-        className='bg-black text-white'
-      >
-        Inventarium {new Date().getFullYear()} Desarrollado por Nicolas Morales
-      </Footer>
+      <Foter/>
     </>
   );
 };

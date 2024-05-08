@@ -9,10 +9,13 @@ const baseUrl = import.meta.env.VITE_BACKEND_HOST || url[1];
  */
 const useAxiosConf = axios.create({
 /*   baseURL: baseUrl, */
+
   headers: {
     'Content-Type': 'application/json'
   },
 });
+
+
 
 /* axiosConf.interceptors.request.use(
   (config) => {
@@ -26,6 +29,5 @@ const useAxiosConf = axios.create({
     return Promise.reject(error);
   }
 ); */
-
 
 export default useAxiosConf;

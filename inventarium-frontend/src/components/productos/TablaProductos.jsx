@@ -1,16 +1,20 @@
-import { Button, Table } from "antd";
+import { Button, Table, Tooltip } from "antd";
 import "./estilos/tablaProductos.css"
 import { defaultPagination } from "../../Hooks/util/DefaultPagination";
 import { useState } from "react";
 
 const TablaProductos = (props) => {
 
-    const { dataSourse } = props
+    // eslint-disable-next-line react/prop-types
+    const { dataSourse, onBorrado } = props
     const [productosSeleccionados, setProductosSeleccionados] = useState([])
 
     const onSelectProductos = (productsSelected) => {
-        console.log(productsSelected);
         setProductosSeleccionados(productsSelected)
+    }
+
+    const onDelete = () => {
+        onBorrado(productosSeleccionados)
     }
 
     const columns = [
@@ -65,26 +69,32 @@ const TablaProductos = (props) => {
             width: "10%",
             key: 'generarInforme',
             render: () => <>
-              <Button title="Editar" className="bg-green-600 text-white">Pdf</Button>
-              <Button title="Editar" className="bg-slate-800 text-white">Excel</Button>
-      
+                <Button title="Generar PDF" className="bg-green-600 text-white">Pdf</Button>
+                <Button title="Generar EXCEL" className="bg-slate-800 text-white">Excel</Button>
             </>
-          },
+        },
         {
             title: 'Acciones',
-            dataIndex: '',
+            dataIndex: 'Acciones',
             width: "10%",
             key: 'acciones',
             render: () => <>
-                <Button title="Editar" className="bg-green-600 text-white">Editar</Button>
-                <Button title="Editar" className="bg-slate-800 text-white">Ver</Button>
-
+                <Button title="Editar Producto" className="bg-green-600 text-white">Editar</Button>
+                <Button title="Ver Producto" className="bg-slate-800 text-white">Ver</Button>
             </>
         },
     ];
 
     return (
         <>
+        <div className="w-full flex justify-end">
+            <Tooltip title={"Borrado Multiple"} >
+                {productosSeleccionados.length > 0 ?
+                    <Button onClick={() => onDelete()}>Borrado Multiple</Button> :
+                    <Button disabled >Borrado Multiple</Button>
+                }
+            </Tooltip>
+        </div>
             <Table
                 size="small"
                 className="overflow-x-scroll"

@@ -9,7 +9,7 @@ const ConfirmationModal = ( props ) => {
               disabled: props.loading
             } } */
             { ...props }
-        >
+        > 
         { props.children }
         </Modal>
     )

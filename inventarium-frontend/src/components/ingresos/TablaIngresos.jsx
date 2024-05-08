@@ -4,19 +4,22 @@ import { defaultPagination } from "../../Hooks/util/DefaultPagination";
 
 
 const TablaIngresos = (props) => {
-  
-// eslint-disable-next-line react/prop-types
-  const { dataSourse, setVisibleEdit } = props
+
+  // eslint-disable-next-line react/prop-types
+  const { dataSourse, setVisibleEdit, onDelete } = props
   const [ingresosSeleccionados, setIngresosSeleccionados] = useState([])
 
   const onSelectIngresos = (ingresosSelected) => {
-    console.log(ingresosSelected);
     setIngresosSeleccionados(ingresosSelected)
+  }
+
+  const onBorrado = () => {
+    onDelete(ingresosSeleccionados)
   }
 
   const onEdit = () => {
     setVisibleEdit(true)
-  } 
+  }
 
   const columns = [
 
@@ -38,8 +41,8 @@ const TablaIngresos = (props) => {
       dataIndex: 'descripcion',
       width: "15%",
       key: 'descripcion',
-    },   
-     {
+    },
+    {
       title: 'Observacion',
       dataIndex: 'description',
       width: "13%",
@@ -51,8 +54,8 @@ const TablaIngresos = (props) => {
       width: "10%",
       key: 'generarInforme',
       render: () => <>
-        <Button title="Editar" className="bg-green-600 text-white">Pdf</Button>
-        <Button title="Editar" className="bg-slate-800 text-white">Excel</Button>
+        <Button title="Generar PDF" className="bg-green-600 text-white">Pdf</Button>
+        <Button title="Generar EXCEL" className="bg-slate-800 text-white">Excel</Button>
       </>
     },
     {
@@ -60,19 +63,24 @@ const TablaIngresos = (props) => {
       dataIndex: '',
       width: "10%",
       key: 'Acciones',
-      render: () => 
-      <>
-        <Button title="Editar" onClick={()=> onEdit()} className="bg-green-600 text-white">Editar</Button>
-        <Button title="Editar" className="bg-slate-800 text-white">Ver</Button>
-      </>
+      render: () =>
+        <>
+          <Button title="Editar Registro" onClick={() => onEdit()} className="bg-green-600 text-white">Editar</Button>
+          <Button title="Ver Registro" className="bg-slate-800 text-white">Ver</Button>
+        </>
     },
   ];
 
   return (
     <>
-    <Tooltip align={"center"} title={"Borrado Multiple"}>
-      <Button>Borrado Multiple</Button>
-    </Tooltip>
+      <div className="w-full flex justify-end">
+        <Tooltip title={"Borrado Multiple"}>
+          {ingresosSeleccionados.length > 0 ?
+            <Button onClick={() => onBorrado()}>Borrado Multiple</Button> :
+            <Button disabled >Borrado Multiple</Button>
+          }
+        </Tooltip>
+      </div>
       <Table
         scroll="small"
         className="overflow-x-scroll"

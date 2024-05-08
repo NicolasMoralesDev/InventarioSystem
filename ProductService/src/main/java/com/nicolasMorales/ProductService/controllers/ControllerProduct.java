@@ -14,7 +14,7 @@ import java.util.UUID;
 
 /**
  *  @author Nicolas Morales.
- *  Controller de Productos.
+ *  Controller de Productos.                            
  */
 @RestController
 @RequestMapping("/api/v1/product")
@@ -120,10 +120,10 @@ public class ControllerProduct {
      * @param ids Recibe una Lista de UUID con los ids de los  producto solicitado.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensage de la operacion.
      */
-    @DeleteMapping(value = "/delete/bulk")
+    @PostMapping(value = "/delete/bulk")
     public ResponseEntity<?> deleteProductsById(@RequestBody List<UUID> ids){
+        System.out.println("ids = " + ids);
         try {
-
             HashMap<String, String> response = new HashMap<>();
 
             String status = productServ.deleteProducts(ids);
