@@ -1,4 +1,4 @@
-import { errorPop } from "../../components/messages/alerts";
+import { errorPop } from "../util/messages/alerts";
 import useAxiosConf from "../util/fetch.hook";
 
 const urlBase = "http://localhost:9002/api/v1/product"

@@ -3,13 +3,16 @@ import { obtenerIngresos } from "../../Hooks/fetch/Ingresos.hook"
 import TablaIngresos from "./TablaIngresos"
 import { Helmet } from "react-helmet"
 import ModalEdit from "./ModalEdit"
-import { errorPop, loadingPop } from "../messages/alerts"
-import { borradoMultipleProductos } from "../../Hooks/fetch/Productos.hook"
+import { errorPop, loadingPop } from "../../Hooks/util/messages/alerts"
+import useForm  from "antd/lib/form/hooks/useForm"
+
 
 const Ingresos = () => {
 
+  const [form] = useForm()
+
   const [ingresos, setIngresos] = useState([])
-  const [statusBorrado, setStatusBorrado] = useState("")
+  const [ingresoEdit, setIngresoEdit] = useState([])
   const [visibleEdit, setVisibleEdit] = useState(false)
 
   const onFetch = async () => {
@@ -17,20 +20,8 @@ const Ingresos = () => {
     setIngresos(request.data)
   }
 
-  const onBorrado = async (ingresosSeleccionados) => {
-    const request = await borradoMultipleProductos(ingresosSeleccionados)
-    setStatusBorrado({ msg: request.msg, status: request.status, error: request.error })
-  }
-
-  useEffect(() => {
-    if (statusBorrado.error) {
-      errorPop(statusBorrado.status)
-    }
-  }, [statusBorrado])
-
-  useEffect(() => { onFetch() }, [visibleEdit])
-  useEffect(() => { loadingPop("Obteniendo Registros...") }, [ingresos])
-  useEffect(() => { loadingPop("Eliminando Registros...") }, [borradoMultipleProductos])
+  useEffect(() => { onFetch() }, [ visibleEdit ])
+  useEffect(() => { loadingPop("Obteniendo Registros...") }, [obtenerIngresos])
 
   return (
     <>
@@ -41,14 +32,16 @@ const Ingresos = () => {
       </Helmet>
       {visibleEdit &&
         <ModalEdit
+          form={ form }
+          ingresoEdit={ ingresoEdit }
           visible={ visibleEdit }
           setVisible={ setVisibleEdit }
         />
       }
       <TablaIngresos
+        setIngresoEdit={ setIngresoEdit }
         setVisibleEdit={ setVisibleEdit }
         dataSourse={ ingresos }
-        onDelete={ onBorrado }
       />
     </>
   )

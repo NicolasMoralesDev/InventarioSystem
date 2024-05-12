@@ -1,23 +1,22 @@
 import { useState } from "react";
 import { Button, Table, Tooltip } from "antd";
 import { defaultPagination } from "../../Hooks/util/DefaultPagination";
-
+import { alertPop } from "../../Hooks/util/messages/alerts";
+import { FileExcelFilled, FilePdfFilled } from "@ant-design/icons";
+import Menu from "../menu/Menu";
 
 const TablaIngresos = (props) => {
 
   // eslint-disable-next-line react/prop-types
-  const { dataSourse, setVisibleEdit, onDelete } = props
+  const { setIngresoEdit, dataSourse, setVisibleEdit } = props
   const [ingresosSeleccionados, setIngresosSeleccionados] = useState([])
 
   const onSelectIngresos = (ingresosSelected) => {
     setIngresosSeleccionados(ingresosSelected)
   }
 
-  const onBorrado = () => {
-    onDelete(ingresosSeleccionados)
-  }
-
-  const onEdit = () => {
+  const onEdit = (income) => {
+    setIngresoEdit(income)
     setVisibleEdit(true)
   }
 
@@ -51,35 +50,33 @@ const TablaIngresos = (props) => {
     {
       title: 'Generar Informe',
       dataIndex: '',
-      width: "10%",
+      width: "14%",
       key: 'generarInforme',
-      render: () => <>
-        <Button title="Generar PDF" className="bg-green-600 text-white">Pdf</Button>
-        <Button title="Generar EXCEL" className="bg-slate-800 text-white">Excel</Button>
-      </>
+      render: () =>
+        <div className="p-0 text-center">
+          <Button title="Generar PDF" className="bg-red-600 btn-rojo-custom text-white xl:w-1/2 sm:w-full "><FilePdfFilled />PDF</Button>
+          <Button title="Generar EXCEL" className="bg-green-600 btn-verde-custom text-white xl:w-1/2 sm:w-full  "><FileExcelFilled />EXCEL</Button>
+        </div>
     },
     {
       title: 'Acciones',
       dataIndex: '',
       width: "10%",
       key: 'Acciones',
-      render: () =>
+      render: (income) =>
         <>
-          <Button title="Editar Registro" onClick={() => onEdit()} className="bg-green-600 text-white">Editar</Button>
-          <Button title="Ver Registro" className="bg-slate-800 text-white">Ver</Button>
+          <Button title="Editar Registro" onClick={() => onEdit(income)} className="bg-slate-800 text-white">Editar</Button>
         </>
     },
   ];
 
   return (
-    <>
-      <div className="w-full flex justify-end">
-        <Tooltip title={"Borrado Multiple"}>
-          {ingresosSeleccionados.length > 0 ?
-            <Button onClick={() => onBorrado()}>Borrado Multiple</Button> :
-            <Button disabled >Borrado Multiple</Button>
-          }
-        </Tooltip>
+    <div className="p-5 bg-slate-200" style={{
+      marginBottom: "5%",
+/*    boxShadow: "-1px -1px 90px -16px ", */
+    }}>  
+     <Menu/>
+      <div className="w-full flex justify-end tabla_botonera">
       </div>
       <Table
         scroll="small"
@@ -96,7 +93,7 @@ const TablaIngresos = (props) => {
           emptyText: "No se encontraron Registros"
         }}
       />
-    </>
+    </div>
   )
 }
 

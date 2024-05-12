@@ -1,23 +1,75 @@
+import { useEffect } from "react";
 import ConfirmationModal from "../modal/ConfirmationModal"
+import { DatePicker, Form, Input } from "antd"
 
-// eslint-disable-next-line react/prop-types
-const ModalEdit = ({ visible, setVisible }) => {
+const ModalEdit = ({form, ingresoEdit, visible, setVisible }) => {
 
+    useEffect(() => {
+        form.setFieldsValue({
+        id: ingresoEdit.id,
+        description: ingresoEdit.description,
+        dateIncome: ingresoEdit.dateIncome,
+        suppliers: [...ingresoEdit.suppliers],
+        products: [...ingresoEdit.products]
+    })
+    
+    }, [ form ])
+
+    console.log(ingresoEdit);
     const cancelModal = () => {
         setVisible(false)
     }
+
+    const onFinish = (values) => {
+        console.log('Success:', values);
+    };
+    const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+    };
 
     return (
         <>
             <ConfirmationModal
                 title={ "Editar Registro" }
-                visible={ visible }
-                okText={ "Guardar" }
+                open={ visible }
+                okText={ "Guardar"}
                 cancelText={ "Cancelar" }
                 onCancel={ cancelModal }
                 onClose={ cancelModal }
+                pnOk={ () => form.validateFields().then(() => onFinish(form.getFieldsValue())).catch(() => {}) }
+            > 
+            <Form
+                form={ form }
+                name="basic"
+                labelCol={{
+                    span: 8,
+                }}
+                wrapperCol={{
+                    span: 16,
+                }}
+                style={{
+                    maxWidth: 600,
+                }}
+                initialValues={{
+                    remember: true,
+                }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+                autoComplete="off"
             >
-                <p>titulo</p>
+                <Form.Item
+                    label="Observación"
+                    name="description"
+                    rules={[
+                        {
+                            required: true,
+                            message: 'Please input your username!',
+                        },
+                    ]}
+                >
+                    <Input />
+                </Form.Item>
+            </Form>
             </ConfirmationModal>
         </>
     )

@@ -43,7 +43,7 @@ public class ControllerProduct {
 
     /**
      * Controllador para obtener productos paginados.
-     * @return ResponseEntity Devuelve esta entidad con el codigo de estado y una lista paginada de productos.
+     * @return ResponseEntity Devuelve esta entidad con el codigo de estado y una lista de productos.
      */
     @GetMapping(value = "/getAll")
     public ResponseEntity<?> getProduct(){

@@ -1,6 +1,5 @@
 import { Modal } from "antd"
 
-// eslint-disable-next-line react/prop-types
 const ConfirmationModal = ( props ) => {
     return (
         <Modal

@@ -2,6 +2,10 @@ package com.nicolasMorales.IncomeService.models;
 
 import lombok.Data;
 
+/**
+ * @author Nicolas Morales.
+ * Clase Entidad Producto.
+ */
 @Data
 public class Product {
 
@@ -9,7 +13,7 @@ public class Product {
 
     private String name;
 
-    private String descipcion;
+    private String descripcion;
 
     private String img;
 

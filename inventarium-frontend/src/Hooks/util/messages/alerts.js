@@ -1,4 +1,5 @@
 import { message } from "antd";
+import Swal from "sweetalert2"
 
 /**
  * PopUp con mensage de info.
@@ -26,8 +27,28 @@ export const loadingPop = (msgCargando, key) => {
 
 /**
  * PopUp con mensage de exito.
- * @params Recime el mensaje a mostrar.
+ * @params Recibe el mensaje a mostrar.
  */
 export const successPop = (msg, key) => {
       message.success({ content: msg, key, duration: 2 });
 };
+
+/**
+ * PopUp con mensage de Confirmacion de Accion.
+ * @params Recibe el mensaje a mostrar.
+ * @params Recibe el tipo de icono a mostrar.
+ * @params Recime la funcion a ejecutar si se confirme la accion.
+ */
+export const alertPop = (msg, icon, funcion) => {
+    Swal.fire({
+        text: msg,
+        icon: icon,
+        showDenyButton: true,
+        confirmButtonText: "Confirmar",
+        denyButtonText: `Cancelar`
+      }).then((result) => {
+        if (result.isConfirmed) {
+          funcion()
+        }
+      });
+}

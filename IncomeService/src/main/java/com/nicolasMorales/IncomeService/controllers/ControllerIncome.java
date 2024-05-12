@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.UUID;
 
+/**
+ * @author Nicolas Morales.
+ * Clase controller para los registros de Ingresos.
+ */
 @RestController
 @RequestMapping("/api/v1/income")
 @CrossOrigin(origins = "*")

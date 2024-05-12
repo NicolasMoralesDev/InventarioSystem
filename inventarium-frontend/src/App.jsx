@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   FullscreenExitOutlined,
   FullscreenOutlined,
@@ -6,12 +5,12 @@ import {
   PieChartOutlined,
   UsergroupAddOutlined,
 } from '@ant-design/icons';
-import { Layout, Menu, theme } from 'antd';
+import { Layout, theme } from 'antd';
 import { Content } from 'antd/lib/layout/layout';
 import Nav from './components/static/Nav';
 import Routing from './routes/Routes';
 import Foter from './components/common/Foter';
-const { Header, Sider } = Layout;
+const { Header } = Layout;
 function getItem(label, key, icon, children) {
   return {
     key,
@@ -29,7 +28,7 @@ const items = [
 ];
 
 const App = () => {
-  const [collapsed, setCollapsed] = useState(false);
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
@@ -40,10 +39,6 @@ const App = () => {
           minHeight: '100vh',
         }}
       >
-         <Sider collapsible collapsed={ collapsed } onCollapse={(value) => setCollapsed(value)}>
-          <div className="demo-logo-vertical p-5" />
-          <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" onClick={(item) => location.replace(item.key)} items={ items } />
-        </Sider> 
         <Layout
         >
           <Header
@@ -54,18 +49,19 @@ const App = () => {
               height: "10%"
             }}
           >
-            <Nav />
+            <Nav/>
           </Header>
           <Content
             style={{
-              margin: '20px',
+              margin: '25px',
+              marginBottom: "5%",
             }}
           >
             <Routing />
-          </Content>
+          </Content>    
+          <Foter/>
         </Layout>
       </Layout>
-      <Foter/>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { errorPop } from "../../components/messages/alerts";
+import { errorPop } from "../util/messages/alerts";
 import useAxiosConf from "../util/fetch.hook";
 
 const urlBase = "http://localhost:9003/api/v1/income"
@@ -11,6 +11,21 @@ export const obtenerIngresos = async ()  => {
 
      try {
            const request = await useAxiosConf.get(`${urlBase}/getAll`)
+           console.log(request);
+           return request;   
+     } catch (error) {
+          errorPop("error al intentar conectarse con el servidor.");
+     }
+}
+
+/**
+ * Edita registros de ingresos
+ * @returns Devuelve un mensaje con elresultado de la operacion.
+ */
+export const modificarIngresos = async ()  => {
+
+     try {
+           const request = await useAxiosConf.get(`${urlBase}/put`)
            return request;   
      } catch (error) {
           errorPop("error al intentar conectarse con el servidor.");
