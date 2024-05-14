@@ -1,4 +1,4 @@
-import { Button, Table, Tooltip } from "antd";
+import { Button, Table, Tag, Tooltip } from "antd";
 import { DeleteFilled, FileExcelFilled, FilePdfFilled } from "@ant-design/icons"
 import "./estilos/tablaProductos.css"
 import { defaultPagination } from "../../Hooks/util/DefaultPagination";
@@ -8,10 +8,12 @@ import Menu from "../menu/Menu";
 
 const TablaProductos = (props) => {
 
-    // eslint-disable-next-line react/prop-types
-    const { dataSourse, onBorrado } = props
-    const [productosSeleccionados, setProductosSeleccionados] = useState([])
+    const { categorias, dataSourse, onBorrado } = props
+    const cateFilter = []
 
+    categorias.map(cate => {cateFilter.push({text: cate.titulo, value: cate.titulo})})
+console.log(cateFilter);
+    const [productosSeleccionados, setProductosSeleccionados] = useState([])
     const onSelectProductos = (productsSelected) => {
         setProductosSeleccionados(productsSelected)
     }
@@ -24,27 +26,28 @@ const TablaProductos = (props) => {
         {
             title: 'Codigo',
             dataIndex: 'codigo',
-            width: "13%",
+            width: "10%",
             key: 'codigo',
             render: (codigo) => <h2 className="text-center">{codigo}</h2>
         },
         {
             title: 'Nombre',
-            dataIndex: 'name',
+            dataIndex: 'nombre',
             width: "13%",
-            key: 'name',
-            render: (name) => <h2 className="text-center">{name}</h2>
+            key: 'nombre',
+            render: (nombre) => <h2 className="text-center">{nombre}</h2>
         },
         {
             title: 'Imagen',
             dataIndex: 'img',
             width: "10%",
             key: 'img',
+            render: (img) => img ? <img src={img} alt={img}/> : "-"
         },
         {
             title: 'Descripcion',
             dataIndex: 'descripcion',
-            width: "15%",
+            width: "13%",
             key: 'descripcion',
         },
         {
@@ -53,6 +56,15 @@ const TablaProductos = (props) => {
             width: "10%",
             key: 'marca',
             render: (marca) => <h2 className="text-center">{marca}</h2>
+        },
+        {
+            title: 'Categoria',
+            dataIndex: 'categoria',
+            width: "10%",
+            key: 'categoria',
+            render: (categoria) => <h2 className="text-center">{categoria.titulo}</h2>,
+            filters: cateFilter,
+            onFilter: (value, record) => record.categoria.titulo === value,
         },
         {
             title: 'Precio',
@@ -67,7 +79,7 @@ const TablaProductos = (props) => {
             dataIndex: 'cant',
             width: "10%",
             sorter: (a, b) => a.cant - b.cant,
-            render: (cant) => <h2 className="text-center">{cant}</h2>,
+            render: (cant) => <Tag color={ cant < 5 ? "volcano" : "green" } title={ cant < 5 ? "Stock Bajo" : "Stock Normal" }>{ cant }</Tag>,
             key: 'cant',
         },
         {
@@ -109,7 +121,6 @@ const TablaProductos = (props) => {
                 </Tooltip>
             </div>
             <Table
-                size="small"
                 className="overflow-x-scroll"
                 rowKey={(product) => product.id}
                 dataSource={dataSourse}

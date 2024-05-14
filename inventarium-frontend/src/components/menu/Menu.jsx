@@ -1,19 +1,16 @@
 import { FullscreenExitOutlined, FullscreenOutlined, PieChartOutlined, UsergroupAddOutlined } from '@ant-design/icons';
 import { Tabs } from 'antd'
-import { useState } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 
 const Menu = () => {
 
     const navigate = useNavigate()
 
-    const [path, setPath] = useState("")
-
       const items = [
-        { key: 'productos', label: <PieChartOutlined/> , children: 'Registro de Productos' },
-        { key: 'ingresos', label: <FullscreenExitOutlined/> , children: 'Registro de Ingresos' },
-        { key: 'egresos', label: <FullscreenOutlined/> , children: 'Registro de Egresos' },
-        { key: 'usuarios', label:  <UsergroupAddOutlined />, children: 'Gestion de Usuarios' },
+        { key: 'productos', label: "Productos", children: 'Registro de Productos', icon: <PieChartOutlined/>  },
+        { key: 'ingresos', label: "Ingresos" , children: 'Registro de Ingresos', icon: <FullscreenExitOutlined/> },
+        { key: 'egresos', label: "Egresos" , children: 'Registro de Egresos', icon: <FullscreenOutlined/> },
+        { key: 'usuarios', label: "Usuarios" , children: 'Gestion de Usuarios', icon: <UsergroupAddOutlined/> },
       ];
 
   return (

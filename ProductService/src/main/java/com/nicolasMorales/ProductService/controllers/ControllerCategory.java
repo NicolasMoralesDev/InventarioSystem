@@ -1,6 +1,5 @@
 package com.nicolasMorales.ProductService.controllers;
 
-
 import com.nicolasMorales.ProductService.models.Category;
 import com.nicolasMorales.ProductService.services.impl.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ public class ControllerCategory {
      * @param category Recibe la categoria a crear.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensage de la operacion.
      */
-    @PostMapping("/create")
+    @PostMapping(value = "/create")
     public ResponseEntity<?> createCategory(@RequestBody Category category){
              HashMap<String, String> response = new HashMap<>();
         try {
@@ -56,7 +55,7 @@ public class ControllerCategory {
      * Controllador para obtener todas las categorias.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensage de la operacion.
      */
-    @GetMapping("/get")
+    @GetMapping(value = "/getAll")
     public ResponseEntity<?> getCategory(){
         try {
             return  ResponseEntity.ok().body(categoryServ.getCategorys());
@@ -70,7 +69,7 @@ public class ControllerCategory {
      * @param id Recibe el id de la categoria a obtener.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y la categoria (si es que existe).
      */
-    @GetMapping("/get/{id}")
+    @GetMapping(value = "/get/{id}")
     public ResponseEntity<?> getCategoryById(@PathVariable UUID id){
         try {
 
@@ -87,7 +86,7 @@ public class ControllerCategory {
      * @param id Recibe el id de la categoria a borrar.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensaje de la operacion.
      */
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<?> deleteById(@PathVariable UUID id){
         HashMap<String, String> response = new HashMap<>();
         try {
@@ -113,7 +112,7 @@ public class ControllerCategory {
      * @param edit Recibe el id de la categoria a obtener.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensaje de la operacion.
      */
-    @PutMapping("/put")
+    @PutMapping(value = "/put")
     public  ResponseEntity<?> editCategory(@RequestBody Category edit){
         HashMap<String, String> response = new HashMap<>();
 

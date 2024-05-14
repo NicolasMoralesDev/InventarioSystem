@@ -1,6 +1,5 @@
 package com.nicolasMorales.ProductService.models;
 
-import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,17 +10,14 @@ import java.util.UUID;
 
 /**
  *  @author Nicolas Morales
- *  Modelado de la entidad Category
+ *  Modelado de la entidad SubCategory
  */
 @Entity
 @Data
-public class Category {
+public class SubCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String titulo;
-    @Nullable
-    private String descripcion;
-
 }

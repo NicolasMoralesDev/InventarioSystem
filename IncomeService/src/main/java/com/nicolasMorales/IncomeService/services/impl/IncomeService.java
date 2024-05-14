@@ -30,7 +30,6 @@ public class IncomeService implements IIncomeService {
 
     @Override
     public List<Income> getAllIncome() {
-        System.out.println("incomeRepo.findAll() = " + incomeRepo.findAll());
        return incomeRepo.findAll();
     }
 

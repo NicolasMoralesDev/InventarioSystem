@@ -1,6 +1,9 @@
 package com.nicolasMorales.IncomeService.models;
 
+import jakarta.persistence.ElementCollection;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * @author Nicolas Morales.
@@ -10,21 +13,14 @@ import lombok.Data;
 public class Product {
 
     private Long codigo;
-
-    private String name;
-
+    private String nombre;
     private String descripcion;
-
     private String img;
-
-//    @ManyToOne
-//    private Category categoria;
-
-    private String subCategoria;
-
+    @ElementCollection
+    private List<String> categoria;
+    @ElementCollection
+    private List <String> subCategoria;
     private String marca;
-
-    private int precio;
-
+    private double precio;
     private int cant;
 }

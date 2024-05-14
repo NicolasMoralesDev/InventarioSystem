@@ -2,7 +2,6 @@ package com.nicolasMorales.ProductService.services;
 
 
 import com.nicolasMorales.ProductService.dto.ProductDTO;
-import com.nicolasMorales.ProductService.dto.ProductPaginationDTO;
 import com.nicolasMorales.ProductService.models.Product;
 
 import java.util.List;
