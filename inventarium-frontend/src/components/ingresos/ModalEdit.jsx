@@ -15,7 +15,6 @@ const ModalEdit = ({form, ingresoEdit, visible, setVisible }) => {
     
     }, [ form ])
 
-    console.log(ingresoEdit);
     const cancelModal = () => {
         setVisible(false)
     }

@@ -28,3 +28,16 @@ export const borradoMultipleProductos = async (productosIds) => {
           errorPop("error al intentar conectarse con el servidor.");
      } 
 }
+
+/**
+ * Realiza Editado de productos.
+ * @returns Devuelve un mensaje con el estado de la operacion.
+ */
+export const editarProducto = async (producto) => {
+     try {
+       const request = await useAxiosConf.put(`${urlBase}/put`, producto)
+       return request;   
+     } catch (error) {
+          errorPop("error al intentar conectarse con el servidor.");
+     } 
+}

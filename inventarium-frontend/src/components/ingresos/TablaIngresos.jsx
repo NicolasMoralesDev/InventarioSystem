@@ -1,13 +1,11 @@
 import { useState } from "react";
 import { Button, Table, Tooltip } from "antd";
 import { defaultPagination } from "../../Hooks/util/DefaultPagination";
-import { alertPop } from "../../Hooks/util/messages/alerts";
 import { FileExcelFilled, FilePdfFilled } from "@ant-design/icons";
 import Menu from "../menu/Menu";
 
 const TablaIngresos = (props) => {
 
-  // eslint-disable-next-line react/prop-types
   const { setIngresoEdit, dataSourse, setVisibleEdit } = props
   const [ingresosSeleccionados, setIngresosSeleccionados] = useState([])
 
@@ -21,7 +19,6 @@ const TablaIngresos = (props) => {
   }
 
   const columns = [
-
     {
       title: 'Fecha de Ingreso',
       dataIndex: 'dateIncome',
@@ -49,7 +46,6 @@ const TablaIngresos = (props) => {
     },
     {
       title: 'Generar Informe',
-      dataIndex: '',
       width: "14%",
       key: 'generarInforme',
       render: () =>

@@ -8,14 +8,19 @@ import Menu from "../menu/Menu";
 
 const TablaProductos = (props) => {
 
-    const { categorias, dataSourse, onBorrado } = props
+    const {setVisibleEdit, setProductoEdit,  categorias, dataSourse, onBorrado } = props
+    
     const cateFilter = []
-
-    categorias.map(cate => {cateFilter.push({text: cate.titulo, value: cate.titulo})})
-console.log(cateFilter);
+    categorias.length > 0 ? categorias.map(cate => {cateFilter.push({text: cate.titulo, value: cate.titulo})}) : ""
     const [productosSeleccionados, setProductosSeleccionados] = useState([])
+
     const onSelectProductos = (productsSelected) => {
         setProductosSeleccionados(productsSelected)
+    }
+
+    const onEdit = (producto) => {
+        setProductoEdit(producto)
+        setVisibleEdit(true)
     }
 
     const onDelete = () => {
@@ -69,37 +74,36 @@ console.log(cateFilter);
         {
             title: 'Precio',
             dataIndex: 'precio',
-            width: "10%",
+            width: "15%",
             key: 'precio',
             sorter: (a, b) => a.precio - b.precio,
             render: (precio) => <h2 className="text-center">{`$ ${precio}`}</h2>
         },
         {
-            title: 'Cantidad',
+            title: 'Stock',
             dataIndex: 'cant',
-            width: "10%",
+            width: "5%",
             sorter: (a, b) => a.cant - b.cant,
-            render: (cant) => <Tag color={ cant < 5 ? "volcano" : "green" } title={ cant < 5 ? "Stock Bajo" : "Stock Normal" }>{ cant }</Tag>,
+            render: (cant) => <Tag color={ cant < 10 ? "volcano-inverse" : cant < 20 ? "yellow-inverse": "green-inverse" } title={ cant < 10 ? "Stock Minimo" : cant < 20 ? "Stock Bajo" : "Stock Normal" }>{ cant }</Tag>,
             key: 'cant',
         },
         {
             title: 'Generar Informe',
             dataIndex: '',
-            width: "15%",
+            width: "13%",
             key: 'generarInforme',
             render: () => 
                 <div className="p-0 text-center">
-                    <Button title="Generar PDF" className="bg-red-600 btn-rojo-custom text-white xl:w-1/2 sm:w-full "><FilePdfFilled />PDF</Button>
-                    <Button title="Generar EXCEL" className="bg-green-600 btn-verde-custom text-white xl:w-1/2 sm:w-full  "><FileExcelFilled />EXCEL</Button>
+                    <Tooltip title="Generar PDF"> <Button title="Generar PDF" className="bg-red-600 btn-rojo-custom text-white xl:w-1/2 sm:w-full "><FilePdfFilled />PDF</Button></Tooltip> 
+                    <Tooltip title="Generar EXCEL"> <Button title="Generar EXCEL" className="bg-green-600 btn-verde-custom text-white xl:w-1/2 sm:w-full"><FileExcelFilled />EXCEL</Button></Tooltip>
                 </div>
         },
         {
             title: 'Acciones',
-            dataIndex: 'Acciones',
             width: "10%",
             key: 'acciones',
-            render: () => <>
-                <Button title="Editar Producto" className="bg-slate-800 btn-verde-custom text-white">Editar</Button>
+            render: (producto) => <>
+                <Button title="Editar Producto" onClick={ () => onEdit(producto) } className="bg-slate-800 btn-verde-custom text-white">Editar</Button>
          {/*        <Button title="Ver Producto" className="bg-slate-800  text-white">Ver</Button> */}
             </>
         },
@@ -112,15 +116,16 @@ console.log(cateFilter);
 /*          boxShadow: "-1px -1px 55px -16px ", */
         }}> 
            <Menu/>
-            <div className="w-full flex justify-end tabla_botonera">
+            <div className="w-full flex justify-end tabla_botonera p-3">
                 <Tooltip title={"Borrado Multiple"} >
                     {productosSeleccionados.length > 0 ?
                         <Button className="bg-red-800 btn-bordo-custom text-white" onClick={() => onDelete()}> <DeleteFilled />Borrado Multiple</Button> :
-                        <Button disabled><DeleteFilled />Borrado Multiple</Button>
+                        <Button disabled><DeleteFilled/>Borrado Multiple</Button>
                     }
                 </Tooltip>
             </div>
             <Table
+                size="small"
                 className="overflow-x-scroll"
                 rowKey={(product) => product.id}
                 dataSource={dataSourse}
@@ -133,8 +138,6 @@ console.log(cateFilter);
                 }}
                 locale={{
                     emptyText: "No se encontraron Productos",
-                    filterSearchPlaceholder: 'put',
-                    sortTitle:"2cccccccccccccccccccccc",
                 }}
             />
         </div>

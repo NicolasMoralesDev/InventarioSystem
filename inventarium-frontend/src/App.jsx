@@ -31,11 +31,10 @@ const App = () => {
           </Header>
           <Content
             style={{
-              margin: '25px',
-              marginBottom: "5%",
+              margin: '1%'
             }}
           >
-            <Routing />
+            <Routing/>
           </Content>    
           <Foter/>
         </Layout>

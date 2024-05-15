@@ -2,4 +2,12 @@
    max-width: 12px !important;
 }
 
+.ant-modal-content {
+   width: 90%;
+}
+
+textarea:where(.css-dev-only-do-not-override-1okl62o).ant-input {
+   resize: none;
+}
+
 

@@ -1,6 +1,5 @@
 package com.nicolasMorales.ProductService.models;
 
-
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.Builder;
@@ -9,7 +8,6 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.UUID;
-
 
 /**
  *  @author Nicolas Morales

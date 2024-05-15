@@ -6,11 +6,9 @@ import ModalEdit from "./ModalEdit"
 import { errorPop, loadingPop } from "../../Hooks/util/messages/alerts"
 import useForm  from "antd/lib/form/hooks/useForm"
 
-
 const Ingresos = () => {
 
   const [form] = useForm()
-
   const [ingresos, setIngresos] = useState([])
   const [ingresoEdit, setIngresoEdit] = useState([])
   const [visibleEdit, setVisibleEdit] = useState(false)
