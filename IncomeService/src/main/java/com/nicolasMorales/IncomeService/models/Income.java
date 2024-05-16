@@ -8,6 +8,10 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * @author Nicolas Morales.
+ * Clase Entidad Ingresos.
+ */
 @Entity
 @Data
 public class Income {
@@ -17,7 +21,8 @@ public class Income {
     private UUID id;
     private String description;
     private LocalDate dateIncome = LocalDate.now();
-    private String suppliers;
+    @ElementCollection
+    private List <String> suppliers;
 //    private estado;
     @ElementCollection
     private List <String> products;

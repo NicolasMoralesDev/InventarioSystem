@@ -2,7 +2,7 @@ package com.nicolasMorales.ProductService.services;
 
 
 import com.nicolasMorales.ProductService.dto.ProductDTO;
-import com.nicolasMorales.ProductService.dto.ProductPaginationDTO;
+import com.nicolasMorales.ProductService.exepciones.BussinesException;
 import com.nicolasMorales.ProductService.models.Product;
 
 import java.util.List;
@@ -27,5 +27,5 @@ public interface IProductService{
 
       String modifyProduct(Product nuevo);
 
-      ProductDTO getProductsByCode(long code);
+      ProductDTO getProductsByCode(long code) throws BussinesException;
 }

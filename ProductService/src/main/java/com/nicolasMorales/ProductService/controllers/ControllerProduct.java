@@ -1,6 +1,6 @@
 package com.nicolasMorales.ProductService.controllers;
 
-
+import com.nicolasMorales.ProductService.exepciones.BussinesException;
 import com.nicolasMorales.ProductService.models.Product;
 import com.nicolasMorales.ProductService.services.impl.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.UUID;
 
 /**
  *  @author Nicolas Morales.
- *  Controller de Productos.
+ *  Controller de Productos.                            
  */
 @RestController
 @RequestMapping("/api/v1/product")
@@ -24,9 +24,8 @@ public class ControllerProduct {
     @Autowired
     private ProductService productServ;
 
-
-    @Value("${server.port}")
-    private int serverPort;
+//    @Value("${server.port}")
+//    private int serverPort;
 
    /**
     * Controllador para crear masivaente productos.
@@ -43,11 +42,11 @@ public class ControllerProduct {
 
     /**
      * Controllador para obtener productos paginados.
-     * @return ResponseEntity Devuelve esta entidad con el codigo de estado y una lista paginada de productos.
+     * @return ResponseEntity Devuelve esta entidad con el codigo de estado y una lista de productos.
      */
     @GetMapping(value = "/getAll")
     public ResponseEntity<?> getProduct(){
-        System.out.println("serverPort = " + serverPort);
+//        System.out.println("serverPort = " + serverPort);
         try {
             return  ResponseEntity.ok().body(productServ.getProducts());
 
@@ -78,13 +77,13 @@ public class ControllerProduct {
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y el producto (si es que se encuenta).
      */
     @GetMapping(value = "/get/code/{code}")
-    public ResponseEntity<?> getProductByCode(@PathVariable long code){
+    public ResponseEntity<?> getProductByCode(@PathVariable Long code){
+        HashMap<String, String> response = new HashMap<>();
         try {
             return  ResponseEntity.ok().body(productServ.getProductsByCode(code));
-
-        } catch (Exception e){
-
-            return  ResponseEntity.badRequest().body("Error "+ e.getMessage());
+        } catch (BussinesException e){
+            response.put("error",e.getMessage());
+            return  ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
@@ -120,10 +119,9 @@ public class ControllerProduct {
      * @param ids Recibe una Lista de UUID con los ids de los  producto solicitado.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensage de la operacion.
      */
-    @DeleteMapping(value = "/delete/bulk")
+    @PostMapping(value = "/delete/bulk")
     public ResponseEntity<?> deleteProductsById(@RequestBody List<UUID> ids){
         try {
-
             HashMap<String, String> response = new HashMap<>();
 
             String status = productServ.deleteProducts(ids);

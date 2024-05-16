@@ -2,15 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+input::t{
+  resize: none;
+}
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
-  color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -19,7 +18,6 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
   text-decoration: inherit;
 }
 
@@ -35,7 +33,44 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
+.table-selection-column, .ant-table-cell{
+  max-width: 3% !important;
+}
+
+.ant-table-cell, .ant-table-selection {
+  text-align: center !important;
+}
+
+.ant-table-cell {
+  font-weight: bold;
+}
+
+.ant-btn > span {
+  display: inline-flex;
+}
+
+.btn-rojo-custom:hover {
+  color: white !important;
+  border-color: none !important;
+  background-color: rgb(220 38 38) !important;
+}
+
+.btn-bordo-custom:hover {
+  color: white !important;
+  border-color: none !important;
+  background-color: rgb(153 27 27) !important;
+}
+
+.btn-verde-custom:hover {
+  color: white !important;
+  border-color: none !important;
+  background-color: rgb(22 163 74) !important;
+}
+
+/* .tabla_botonera button{
+  background: #000;
+} */

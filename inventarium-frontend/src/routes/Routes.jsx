@@ -4,8 +4,8 @@ import {
     Routes,
 } from "react-router-dom";
 import TablaProductos from "../components/productos/TablaProductos";
-import TablaIngresos from "../components/ingresos/TablaIngresos";
 import Productos from "../components/productos/Productos";
+import Ingresos from "../components/ingresos/Ingresos";
 
 const Routing = () => {
     return (
@@ -13,7 +13,7 @@ const Routing = () => {
             <Routes>
                 <Route path="/productos" element={ <Productos/> } exact />
                 <Route path="/categorias" element={ <TablaProductos/> } exact />
-                <Route path="/ingresos" element={ <TablaIngresos/> } exact />
+                <Route path="/ingresos" element={ <Ingresos/> } exact />
                 <Route path="/egresos" element={ <TablaProductos/> } exact />
                 <Route path="/usuarios" element={ <TablaProductos/> } exact />
                 <Route path="/login" element={ <TablaProductos/> } exact />
