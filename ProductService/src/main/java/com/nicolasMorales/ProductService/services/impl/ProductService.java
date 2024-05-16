@@ -1,17 +1,12 @@
 package com.nicolasMorales.ProductService.services.impl;
 
-
 import com.nicolasMorales.ProductService.dto.ProductDTO;
-import com.nicolasMorales.ProductService.dto.ProductPaginationDTO;
+import com.nicolasMorales.ProductService.exepciones.BussinesException;
 import com.nicolasMorales.ProductService.mapper.ProductMapper;
 import com.nicolasMorales.ProductService.models.Product;
 import com.nicolasMorales.ProductService.repository.IProductRepository;
 import com.nicolasMorales.ProductService.services.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -143,8 +138,16 @@ public class ProductService implements IProductService {
      * @param code Recibe el codigo de barras del producto.
      */
     @Override
-    public ProductDTO getProductsByCode(long code) {
-        return productMapper.productToProductDTO(productRepo.findByCodigo(code));
-
+    public ProductDTO getProductsByCode(long code) throws BussinesException {
+        try {
+            Product product = productRepo.findByCodigo(code);
+            if (product != null) {
+                return productMapper.productToProductDTO(product);
+            } else {
+                throw new BussinesException("No se encontro ningun producto asociado al codigo: " + code);
+            }
+        } catch (BussinesException e) {
+            throw new BussinesException("Error " + e.getMessage());
+        }
     }
 }

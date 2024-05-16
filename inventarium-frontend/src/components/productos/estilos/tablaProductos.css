@@ -1,4 +1,13 @@
 .ant-table-cell, .ant-table-selection-column{
    max-width: 12px !important;
-   padding: 0;
 }
+
+.ant-modal-content {
+   width: 90%;
+}
+
+textarea:where(.css-dev-only-do-not-override-1okl62o).ant-input {
+   resize: none;
+}
+
+

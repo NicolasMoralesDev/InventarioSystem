@@ -24,7 +24,7 @@ public class CategoryService implements ICategoryService {
     public String createCategory(Category nueva) {
 
         try {
-            if (cateRepo.findByTitle(nueva.getTitle()) == null) {
+            if (cateRepo.findByTitle(nueva.getTitulo()) == null) {
 
                 cateRepo.save(nueva);
                 return "Categoria agregada!!";

@@ -14,6 +14,10 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * @author Nicolas Morales.
+ * DTO para la entidad Ingresos.
+ */
 @Service
 public class IncomeService implements IIncomeService {
 
@@ -21,15 +25,11 @@ public class IncomeService implements IIncomeService {
     @Autowired
     private IIncomeRepository incomeRepo;
 
-//    @Autowired
-//    private RestTemplate apiConsumir;
-
     @Autowired
     private IProductClient productClient;
 
     @Override
     public List<Income> getAllIncome() {
-
        return incomeRepo.findAll();
     }
 

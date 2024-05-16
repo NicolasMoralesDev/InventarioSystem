@@ -1,22 +1,20 @@
 package com.nicolasMorales.ProductService.repository;
 
 import com.nicolasMorales.ProductService.models.Category;
-import com.nicolasMorales.ProductService.models.Product;
+import com.nicolasMorales.ProductService.models.SubCategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.UUID;
-
 /**
  *  @author Nicolas Morales.
- *  Interfaz del Repository de la entidad Category.
+ *  Interfaz del Repository de la entidad SubCategoria.
  *  Posee sus metodos JPQL.
  */
 @Repository
-public interface ICategoryRepository extends JpaRepository<Category, UUID> {
+public interface ISubCategoryRepository extends JpaRepository<SubCategory, Long> {
 
-    @Query("SELECT c FROM Category c WHERE c.titulo = :titulo")
-    Category findByTitle(@Param("titulo") String titulo);
+    @Query("SELECT s FROM SubCategory s WHERE s.titulo = :titulo")
+    SubCategory findByTitle(@Param("titulo") String titulo);
 }

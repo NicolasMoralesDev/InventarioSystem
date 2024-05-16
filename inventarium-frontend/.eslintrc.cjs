@@ -13,6 +13,9 @@ module.exports = {
   plugins: ['react-refresh'],
   rules: {
     'react/jsx-no-target-blank': 'off',
+    "no-unused-vars": {
+      "varsIgnorePattern": "^prop$" // This ignores props starting with "prop"
+    },
     'react-refresh/only-export-components': [
       'warn',
       { allowConstantExport: true },
