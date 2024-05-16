@@ -1,18 +1,20 @@
 
 import { useEffect, useState } from "react"
 import { Helmet } from "react-helmet"
-import { borradoMultipleProductos, editarProducto, obtenerProductos } from "../../Hooks/fetch/Productos.hook"
+import { borradoMultipleProductos, editarProducto, obtenerProductoByCodigo, obtenerProductos } from "../../Hooks/fetch/Productos.hook"
 import TablaProductos from "./TablaProductos"
 import { errorPop, loadingPop, successPop } from "../../Hooks/util/messages/alerts"
 import { obtenerCategorias } from "../../Hooks/fetch/Categorias.hook"
 import useForm  from "antd/lib/form/hooks/useForm"
 import ModalEdit from "./ModalEdit"
 import { obtenerSubCategorias } from "../../Hooks/fetch/SubCategorias.hook"
+import FormBusqueda from "./formBusqueda/FormBusqueda"
 
 const Productos = () => {
 
   const [form] = useForm()
   const [productos, setProductos] = useState([])
+  const [productoCode, setProductoCode] = useState([])
   const [productoEdit, setProductoEdit] = useState([])
   const [visibleEdit, setVisibleEdit] = useState(false)
   const [categorias, setCategorias] = useState([])
@@ -27,6 +29,11 @@ const Productos = () => {
     setSubCategorias(resSubCate.data)
     setCategorias(resCate.data)
     setProductos(resProdu.data)
+  }
+
+  const onGetByCode = async (code) => {
+    const request = await obtenerProductoByCodigo(code)
+    setProductoCode([request.data])
   }
 
   const onBorrado = async (productosIds) => {
@@ -61,6 +68,10 @@ const Productos = () => {
         <title>Listado Productos</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
+      <FormBusqueda
+         form={ form }
+         onGetByCode={ onGetByCode }
+      />
       {
         visibleEdit &&
         <ModalEdit 
@@ -77,7 +88,7 @@ const Productos = () => {
         setVisibleEdit={ setVisibleEdit }
         setProductoEdit={ setProductoEdit }
         categorias={ categorias }
-        dataSourse={ productos }
+        dataSourse={ Object.keys(productoCode).length != 0 ? productoCode :  productos }
         onBorrado={ onBorrado }
       />
     </>

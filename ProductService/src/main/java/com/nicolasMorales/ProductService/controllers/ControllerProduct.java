@@ -1,5 +1,6 @@
 package com.nicolasMorales.ProductService.controllers;
 
+import com.nicolasMorales.ProductService.exepciones.BussinesException;
 import com.nicolasMorales.ProductService.models.Product;
 import com.nicolasMorales.ProductService.services.impl.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,13 +77,13 @@ public class ControllerProduct {
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y el producto (si es que se encuenta).
      */
     @GetMapping(value = "/get/code/{code}")
-    public ResponseEntity<?> getProductByCode(@PathVariable long code){
+    public ResponseEntity<?> getProductByCode(@PathVariable Long code){
+        HashMap<String, String> response = new HashMap<>();
         try {
             return  ResponseEntity.ok().body(productServ.getProductsByCode(code));
-
-        } catch (Exception e){
-
-            return  ResponseEntity.badRequest().body("Error "+ e.getMessage());
+        } catch (BussinesException e){
+            response.put("error",e.getMessage());
+            return  ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
@@ -120,7 +121,6 @@ public class ControllerProduct {
      */
     @PostMapping(value = "/delete/bulk")
     public ResponseEntity<?> deleteProductsById(@RequestBody List<UUID> ids){
-        System.out.println("ids = " + ids);
         try {
             HashMap<String, String> response = new HashMap<>();
 

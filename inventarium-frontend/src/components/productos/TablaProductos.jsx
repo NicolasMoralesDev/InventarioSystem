@@ -9,7 +9,6 @@ import Menu from "../menu/Menu";
 const TablaProductos = (props) => {
 
     const {setVisibleEdit, setProductoEdit,  categorias, dataSourse, onBorrado } = props
-    
     const cateFilter = []
     categorias.length > 0 ? categorias.map(cate => {cateFilter.push({text: cate.titulo, value: cate.titulo})}) : ""
     const [productosSeleccionados, setProductosSeleccionados] = useState([])

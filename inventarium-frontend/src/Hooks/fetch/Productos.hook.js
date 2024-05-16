@@ -17,6 +17,19 @@ export const obtenerProductos = async () => {
 }
 
 /**
+ * Busca producto por codigo de barras.
+ * @returns Devuelve el producto relacionado con el codigo.
+ */
+export const obtenerProductoByCodigo = async (code) => {
+     try {
+          const request = await useAxiosConf.get(`${urlBase}/get/code/${code}`)
+          return request;
+     } catch (error) {
+          errorPop(error.response.data);
+     }
+}
+
+/**
  * Realiza Borrado multiple de productos.
  * @returns Devuelve un listado de productos.
  */

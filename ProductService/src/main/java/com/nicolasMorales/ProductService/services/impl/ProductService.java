@@ -1,6 +1,7 @@
 package com.nicolasMorales.ProductService.services.impl;
 
 import com.nicolasMorales.ProductService.dto.ProductDTO;
+import com.nicolasMorales.ProductService.exepciones.BussinesException;
 import com.nicolasMorales.ProductService.mapper.ProductMapper;
 import com.nicolasMorales.ProductService.models.Product;
 import com.nicolasMorales.ProductService.repository.IProductRepository;
@@ -137,8 +138,16 @@ public class ProductService implements IProductService {
      * @param code Recibe el codigo de barras del producto.
      */
     @Override
-    public ProductDTO getProductsByCode(long code) {
-        return productMapper.productToProductDTO(productRepo.findByCodigo(code));
-
+    public ProductDTO getProductsByCode(long code) throws BussinesException {
+        try {
+            Product product = productRepo.findByCodigo(code);
+            if (product != null) {
+                return productMapper.productToProductDTO(product);
+            } else {
+                throw new BussinesException("No se encontro ningun producto asociado al codigo: " + code);
+            }
+        } catch (BussinesException e) {
+            throw new BussinesException("Error " + e.getMessage());
+        }
     }
 }
