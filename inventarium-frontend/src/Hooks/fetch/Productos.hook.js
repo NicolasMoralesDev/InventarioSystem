@@ -51,6 +51,19 @@ export const editarProducto = async (producto) => {
        const request = await useAxiosConf.put(`${urlBase}/put`, producto)
        return request;   
      } catch (error) {
-          errorPop("error al intentar conectarse con el servidor.");
+          errorPop("error al intentar editar el Producto.");
+     } 
+}
+
+/**
+ * Realiza la carga de productos.
+ * @returns Devuelve un mensaje con el estado de la operacion.
+ */
+export const crearProducto = async (producto) => {
+     try {
+       const request = await useAxiosConf.post(`${urlBase}/post`, producto)
+       return request;   
+     } catch (error) {
+          errorPop(`Error ${error}`);
      } 
 }

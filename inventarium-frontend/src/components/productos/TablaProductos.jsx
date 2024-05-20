@@ -1,5 +1,5 @@
 import { Button, Table, Tag, Tooltip } from "antd";
-import { DeleteFilled, FileExcelFilled, FilePdfFilled } from "@ant-design/icons"
+import { DeleteFilled, EditOutlined, FileExcelFilled, FilePdfFilled, ProductFilled } from "@ant-design/icons"
 import "./estilos/tablaProductos.css"
 import { defaultPagination } from "../../Hooks/util/DefaultPagination";
 import { useState } from "react";
@@ -8,13 +8,17 @@ import Menu from "../menu/Menu";
 
 const TablaProductos = (props) => {
 
-    const {setVisibleEdit, setProductoEdit,  categorias, dataSourse, onBorrado } = props
+    const { setVisibleAdd, setVisibleEdit, setProductoEdit,  categorias, dataSourse, onBorrado } = props
     const cateFilter = []
     categorias.length > 0 ? categorias.map(cate => {cateFilter.push({text: cate.titulo, value: cate.titulo})}) : ""
     const [productosSeleccionados, setProductosSeleccionados] = useState([])
 
     const onSelectProductos = (productsSelected) => {
         setProductosSeleccionados(productsSelected)
+    }
+
+    const onAdd = () => {
+        setVisibleAdd(true)
     }
 
     const onEdit = (producto) => {
@@ -88,13 +92,12 @@ const TablaProductos = (props) => {
         },
         {
             title: 'Generar Informe',
-            dataIndex: '',
             width: "13%",
             key: 'generarInforme',
             render: () => 
                 <div className="p-0 text-center">
-                    <Tooltip title="Generar PDF"> <Button title="Generar PDF" className="bg-red-600 btn-rojo-custom text-white xl:w-1/2 sm:w-full "><FilePdfFilled />PDF</Button></Tooltip> 
-                    <Tooltip title="Generar EXCEL"> <Button title="Generar EXCEL" className="bg-green-600 btn-verde-custom text-white xl:w-1/2 sm:w-full"><FileExcelFilled />EXCEL</Button></Tooltip>
+                    <Tooltip title="Generar PDF"> <Button title="Generar PDF" className="bg-red-700 btn-rojo-custom text-white xl:w-1/2 sm:w-full "><FilePdfFilled />PDF</Button></Tooltip> 
+                    <Tooltip title="Generar EXCEL"> <Button title="Generar EXCEL" className="bg-green-700 btn-verde-custom text-white xl:w-1/2 sm:w-full"><FileExcelFilled />EXCEL</Button></Tooltip>
                 </div>
         },
         {
@@ -102,7 +105,7 @@ const TablaProductos = (props) => {
             width: "10%",
             key: 'acciones',
             render: (producto) => <>
-                <Button title="Editar Producto" onClick={ () => onEdit(producto) } className="bg-slate-800 btn-verde-custom text-white">Editar</Button>
+                <Button title="Editar Producto" onClick={ () => onEdit(producto) } className="bg-cyan-950 btn-cyan-custom text-white">Editar <EditOutlined /></Button>
          {/*        <Button title="Ver Producto" className="bg-slate-800  text-white">Ver</Button> */}
             </>
         },
@@ -112,13 +115,16 @@ const TablaProductos = (props) => {
         <div className="p-5 pt-0 bg-slate-200" 
         style={{
             marginBottom: "5%",
-/*          boxShadow: "-1px -1px 55px -16px ", */
         }}> 
            <Menu/>
             <div className="w-full flex justify-end tabla_botonera p-3">
-                <Tooltip title={"Borrado Multiple"} >
-                    {productosSeleccionados.length > 0 ?
-                        <Button className="bg-red-800 btn-bordo-custom text-white" onClick={() => onDelete()}> <DeleteFilled />Borrado Multiple</Button> :
+                <Tooltip title={ "Cargar Producto" }>
+                    <Button className="bg-blue-950 btn-cyan-custom text-white" onClick={ onAdd }> <ProductFilled/> Cargar Producto</Button>
+                </Tooltip>
+                <Tooltip title={ "Borrado Multiple" }>
+                    { productosSeleccionados.length > 0 ?
+                        <Button className="bg-red-800 btn-bordo-custom text-white" onClick={ () => onDelete() }> <DeleteFilled/> Borrado Multiple</Button> 
+                        :
                         <Button disabled><DeleteFilled/>Borrado Multiple</Button>
                     }
                 </Tooltip>
@@ -126,11 +132,11 @@ const TablaProductos = (props) => {
             <Table
                 size="small"
                 className="overflow-x-scroll"
-                rowKey={(product) => product.id}
-                dataSource={dataSourse}
-                sortDirections={["ascend", "descend"]}
-                columns={columns}
-                pagination={defaultPagination(dataSourse, 15)}
+                rowKey={ (product) => product.id }
+                dataSource={ dataSourse }
+                sortDirections={ ["ascend", "descend"] }
+                columns={ columns }
+                pagination={ defaultPagination(dataSourse, 15) }
                 rowSelection={{
                     selectedRowKeys: productosSeleccionados,
                     onChange: onSelectProductos,

@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.UUID;
 
 /**
+ *  Controller de Productos.
  *  @author Nicolas Morales.
- *  Controller de Productos.                            
  */
 @RestController
 @RequestMapping("/api/v1/product")
@@ -38,6 +38,19 @@ public class ControllerProduct {
         HashMap<String, String> response = new HashMap<>();
         List <Long> listProducts = productServ.createBulkProducts(product);
         return  ResponseEntity.ok().body(listProducts);
+    }
+
+    /**
+     * Controllador para crear productos individualmente.
+     * @param product Recibe el nuevo producto.
+     * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensaje.
+     */
+    @PostMapping(value = "/post")
+    public ResponseEntity<?> addProduct(@RequestBody Product product){
+
+        HashMap<String, String> response = new HashMap<>();
+        Product producto = productServ.createProduct(product);
+        return  ResponseEntity.ok().body(producto);
     }
 
     /**
