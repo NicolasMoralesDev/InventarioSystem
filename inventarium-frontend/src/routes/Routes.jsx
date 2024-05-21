@@ -14,9 +14,9 @@ const Routing = () => {
                 <Route path="/productos" element={ <Productos/> } exact />
                 <Route path="/categorias" element={ <TablaProductos/> } exact />
                 <Route path="/ingresos" element={ <Ingresos/> } exact />
-                <Route path="/egresos" element={ <TablaProductos/> } exact />
-                <Route path="/usuarios" element={ <TablaProductos/> } exact />
-                <Route path="/login" element={ <TablaProductos/> } exact />
+                <Route path="/egresos" element={ <Ingresos/> } exact />
+                <Route path="/usuarios" element={ <Ingresos/> } exact />
+                <Route path="/login" element={ <Ingresos/> } exact />
             </Routes>
         </BrowserRouter>
     )

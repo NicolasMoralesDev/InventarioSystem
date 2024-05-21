@@ -3,7 +3,7 @@ import { obtenerIngresos } from "../../Hooks/fetch/Ingresos.hook"
 import TablaIngresos from "./TablaIngresos"
 import { Helmet } from "react-helmet"
 import ModalEdit from "./ModalEdit"
-import { errorPop, loadingPop } from "../../Hooks/util/messages/alerts"
+import { loadingPop } from "../../Hooks/util/messages/alerts"
 import useForm  from "antd/lib/form/hooks/useForm"
 
 const Ingresos = () => {
