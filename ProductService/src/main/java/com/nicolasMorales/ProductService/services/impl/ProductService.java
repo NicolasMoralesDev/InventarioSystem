@@ -33,17 +33,19 @@ public class ProductService implements IProductService {
      * Metodo para crear un Producto.
      * @param nuevo Recibe el nuevo producto a crear.
      */
-    public void createProduct(Product nuevo) {
-
+    @Transactional
+    @Override
+    public void createProduct(Product nuevo) throws BussinesException{
+        try {
             Product producto = productRepo.findByCodigo(nuevo.getCodigo());
-
             if ( producto == null) {
                 productRepo.save(nuevo);
-
             } else if (producto.getCodigo() == nuevo.getCodigo()){
                 producto.setCant(nuevo.getCant()+producto.getCant());
-                productRepo.save(producto);
             }
+        } catch ( Exception  e) {
+            throw new BussinesException("Error, No se pudo cargar el producto: " + nuevo.getNombre());
+        }
     }
 
     /**
@@ -51,12 +53,16 @@ public class ProductService implements IProductService {
      * @param products Recibe los nuevos productos a crear.
      */
     @Override
-    public List<Long> createBulkProducts(List<Product> products) {
-           List<Long> listProducts = new ArrayList<>();
+    public List<Long> createBulkProducts(List<Product> products) throws BussinesException{
 
+           List<Long> listProducts = new ArrayList<>();
            for (Product product : products ){
-               this.createProduct(product);
-               listProducts.add(product.getCodigo());
+               try {
+                   this.createProduct(product);
+                   listProducts.add(product.getCodigo());
+               } catch (BussinesException e){
+                   throw new BussinesException("Error, No se pudo cargar el producto: " + product.getNombre());
+               }
            }
            return listProducts;
     }
@@ -83,17 +89,18 @@ public class ProductService implements IProductService {
     @Override
     @Transactional
     @Modifying
-    public String deleteProducts(List <UUID> ids) {
+    public void deleteProducts(List <UUID> ids) throws BussinesException{
         Product producto;
-
         try {
             for (UUID id : ids){
-              producto = productRepo.findById(id).orElse(null);
+                 producto = productRepo.findById(id).orElse(null);
+                if (producto == null) {
+                    throw new BussinesException("El ID del producto es invaido!");
+                }
               producto.setBorrado(true);
             }
-            return "Productos Borrados Correctamente!!";
-        } catch (Exception e){
-            return  "Error "+ e;
+        } catch (BussinesException e){
+            throw new BussinesException("Error "+ e);
         }
     }
 
@@ -101,11 +108,16 @@ public class ProductService implements IProductService {
      * Metodo para obtener los productos paginados.
      */
     @Override
-    public List <Product> getProducts() {
-
-        List <Product> listProducts = productRepo.findAll();
-
-        return listProducts;
+    public List <Product> getProducts() throws BussinesException{
+        try {
+            List <Product> listProducts = productRepo.findAll();
+            if (listProducts == null) {
+                throw new BussinesException("No se encontraron Productos cargados!!");
+            }
+            return listProducts;
+        } catch (BussinesException e) {
+           throw new BussinesException(e.getMessage());
+        }
     }
 
     /**

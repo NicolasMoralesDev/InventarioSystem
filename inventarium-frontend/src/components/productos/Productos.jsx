@@ -1,14 +1,14 @@
 
 import { useEffect, useState } from "react"
 import { Helmet } from "react-helmet"
-import { borradoMultipleProductos, editarProducto, obtenerProductoByCodigo, obtenerProductos } from "../../Hooks/fetch/Productos.hook"
+import { borradoMultipleProductos, crearProducto, editarProducto, obtenerProductoByCodigo, obtenerProductos } from "../../Hooks/fetch/Productos.hook"
 import TablaProductos from "./TablaProductos"
 import { errorPop, loadingPop, successPop } from "../../Hooks/util/messages/alerts"
 import { obtenerCategorias } from "../../Hooks/fetch/Categorias.hook"
 import useForm  from "antd/lib/form/hooks/useForm"
-import ModalEdit from "./ModalEdit"
 import { obtenerSubCategorias } from "../../Hooks/fetch/SubCategorias.hook"
 import FormBusqueda from "./formBusqueda/FormBusqueda"
+import ProductosModal from "./ProductosModal"
 
 const Productos = () => {
 
@@ -16,34 +16,41 @@ const Productos = () => {
   const [productos, setProductos] = useState([])
   const [productoCode, setProductoCode] = useState([])
   const [productoEdit, setProductoEdit] = useState([])
+  const [visibleAdd, setVisibleAdd] = useState(false)
   const [visibleEdit, setVisibleEdit] = useState(false)
   const [categorias, setCategorias] = useState([])
   const [subCategorias, setSubCategorias] = useState([])
   const [statusBorrado, setStatusBorrado] = useState("")
+  const [statusAdd, setStatusAdd] = useState("")
   const [statusEdit, setStatusEdit] = useState("")
 
   const onFetch = async () => {
-    const resProdu = await obtenerProductos()
-    const resCate = await obtenerCategorias()
-    const resSubCate = await obtenerSubCategorias()
-    setSubCategorias(resSubCate.data)
-    setCategorias(resCate.data)
-    setProductos(resProdu.data)
+     const resProdu = await obtenerProductos()
+     const resCate = await obtenerCategorias()
+     const resSubCate = await obtenerSubCategorias()
+     setSubCategorias(resSubCate.data)
+     setCategorias(resCate.data)
+     setProductos(resProdu.data)
   }
 
   const onGetByCode = async (code) => {
-    const request = await obtenerProductoByCodigo(code)
-    setProductoCode([request.data])
+     const request = await obtenerProductoByCodigo(code)
+     setProductoCode([request.data])
   }
 
   const onBorrado = async (productosIds) => {
-   const request = await borradoMultipleProductos(productosIds)
-   setStatusBorrado({error: request.error, msg: request.data.msg, status: request.status})
+     const request = await borradoMultipleProductos(productosIds)
+     setStatusBorrado({error: request.error, msg: request.data.msg, status: request.status})
   }
 
   const onEdit = async (productoEdit) => {
-    const request = await editarProducto(productoEdit)
-    setStatusEdit(request.data.msg)
+     const request = await editarProducto(productoEdit)
+     setStatusEdit(request.data.msg)
+  }
+
+  const onAdd = async (productoAdd) => {
+     const request = await crearProducto(productoAdd)
+     setStatusAdd(request.data.msg)
   }
 
   useEffect(() => {
@@ -58,8 +65,9 @@ const Productos = () => {
   useEffect(() => { onFetch() }, [])
 /*   useEffect(() => { editarProducto ? loadingPop("Editando Producto...") : ""}, [editarProducto]) */
   useEffect(() => { if (statusEdit) { successPop(statusEdit),  onFetch(), setVisibleEdit(false) } }, [statusEdit])
+  useEffect(() => { if (statusAdd) { successPop(statusAdd),  onFetch(), setVisibleAdd(false) } }, [statusAdd])
   useEffect(() => { statusBorrado ? loadingPop("Borrando Productos...")  : "" }, [ statusBorrado ])
-  useEffect(() => { productos.length < 1 || statusBorrado || statusEdit ? loadingPop("Obteniendo Productos...") : "" }, [ productos ])
+  useEffect(() => { productos.length < 1 || statusBorrado || statusEdit || statusAdd ? loadingPop("Obteniendo Productos...") : "" }, [ productos ])
 
   return (
     <>
@@ -69,22 +77,36 @@ const Productos = () => {
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       <FormBusqueda
-         form={ form }
          onGetByCode={ onGetByCode }
       />
       {
         visibleEdit &&
-        <ModalEdit 
+        <ProductosModal 
          form={ form }
          categorias={ categorias }
          subCategorias={ subCategorias }
          productoEdit={ productoEdit }
          visible={ visibleEdit }
          setVisible={ setVisibleEdit }
-         onEdit={ onEdit }
+         onSend={ onEdit }
+         edit={ true }
+        />
+      }
+      {
+        visibleAdd &&
+        <ProductosModal 
+         form={ form }
+         categorias={ categorias }
+         subCategorias={ subCategorias }
+         productoEdit={ productoEdit }
+         visible={ visibleAdd }
+         setVisible={ setVisibleAdd }
+         onSend={ onAdd }
+         edit={ false }
         />
       }
       <TablaProductos
+        setVisibleAdd={ setVisibleAdd }
         setVisibleEdit={ setVisibleEdit }
         setProductoEdit={ setProductoEdit }
         categorias={ categorias }

@@ -34,21 +34,21 @@ const formItemLayout = {
       },
     },}
 
-const ModalEdit = ({ form, categorias, subCategorias, productoEdit, visible, setVisible, onEdit }) => {
+const ProductosModal = ({ form, categorias, subCategorias, productoEdit, visible, setVisible, onSend, edit }) => {
 
     useEffect(() => {
         form.setFieldsValue({
-            id: productoEdit.id,
-            codigo: productoEdit.codigo,
-            nombre: productoEdit.nombre,
-            descripcion: productoEdit.descripcion,
-            img: productoEdit.img,
-            categoria: productoEdit.categoria.id,
-            subCategoria: productoEdit.subCategoria,
-            marca: productoEdit.marca,
-            precio: productoEdit.precio,
-            cant: productoEdit.cant,
-            borrado: productoEdit.borrado
+            id: edit ? productoEdit.id : "",
+            codigo: edit ? productoEdit.codigo : "",
+            nombre: edit ? productoEdit.nombre : "",
+            descripcion: edit ? productoEdit.descripcion : "",
+            img: edit ? productoEdit.img : "",
+            categoria: edit ? productoEdit.categoria.id : "",
+            subCategoria: edit ? productoEdit.subCategoria : [],
+            marca: edit ? productoEdit.marca : "",
+            precio: edit ? productoEdit.precio : "",
+            cant: edit ? productoEdit.cant : "",
+            borrado: edit ? productoEdit.borrado : ""
         })
     }, [form])
 
@@ -70,7 +70,7 @@ const ModalEdit = ({ form, categorias, subCategorias, productoEdit, visible, set
             cant: values.cant,
             borrado: values.borrado
         }
-        onEdit(data)
+        onSend(data)
     };
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
@@ -79,16 +79,16 @@ const ModalEdit = ({ form, categorias, subCategorias, productoEdit, visible, set
     return (
         <>
             <ConfirmationModal
-                title={ "Editar Producto" }
+                title={ edit ? "Editar Producto" : "Agregar Producto" }
                 open={ visible }
                 okText={ "Guardar" }
-                cancelText={ "Cancelar"}
+                cancelText={ "Cancelar" }
                 onCancel={ cancelModal }
                 onClose={ cancelModal }
-                onOk={() => form.validateFields().then(() => onFinish(form.getFieldsValue())).catch(() => { })}
+                onOk={ () => form.validateFields().then(() => onFinish(form.getFieldsValue())).catch(() => {}) }
             >
                 <Form
-                    form={form}
+                    form={ form }
                     name="basic"
                     style={{
                         maxWidth: "100%",
@@ -96,16 +96,16 @@ const ModalEdit = ({ form, categorias, subCategorias, productoEdit, visible, set
                     initialValues={{
                         remember: true,
                     }}
-                    onFinish={onFinish}
-                    onFinishFailed={onFinishFailed}
+                    onFinish={ onFinish }
+                    onFinishFailed={ onFinishFailed }
                     autoComplete="off"
                 >
                     <Form.Item name="id" hidden><Input /></Form.Item>
                     <Form.Item name="borrado" hidden><Input /></Form.Item>
                     <Form.Item name="img" hidden><Input /></Form.Item><Card className="w-full">
-                    <Row gutter={[2, 2]}>
-                            <Row gutter={[5, 1]} className="w-full">
-                                <Col span={11} >
+                    <Row gutter={ [2, 2]} >
+                            <Row gutter={ [5, 1] } className="w-full">
+                                <Col span={ 11 } >
                                     <Form.Item
                                         label="Codigo:"
                                         name="codigo"
@@ -116,7 +116,7 @@ const ModalEdit = ({ form, categorias, subCategorias, productoEdit, visible, set
                                             },
                                         ]}
                                     >
-                                        <InputNumber disabled={true} />
+                                        <InputNumber disabled={ edit ? true : false } />
                                     </Form.Item>
                                 </Col>
                                 <Col>
@@ -130,24 +130,24 @@ const ModalEdit = ({ form, categorias, subCategorias, productoEdit, visible, set
                                             },
                                         ]}
                                     >
-                                        <Input maxLength={30}/>
+                                        <Input maxLength={ 30 }/>
                                     </Form.Item>
                                 </Col>
                             </Row>
                     </Row>
-                    <Row gutter={[3, 4]}>
-                        <Col span={22}>
+                    <Row gutter={ [3, 4] }>
+                        <Col span={ 22 }>
                             <Form.Item
                                 label="Descripcion:"
                                 name="descripcion"
                             >
-                                <TextArea maxLength={100}/>
+                                <TextArea maxLength={ 100 }/>
                             </Form.Item>
                         </Col>
                     </Row>
-                    <Row gutter={[2, 2]}>
-                            <Row gutter={[2, 1]} className="w-full">
-                                <Col span={17}>
+                    <Row gutter={ [2, 2] }>
+                            <Row gutter={ [2, 1] } className="w-full">
+                                <Col span={ 17 }>
                                     <Form.Item
                                         label="Categoria:"
                                         name="categoria"
@@ -167,7 +167,7 @@ const ModalEdit = ({ form, categorias, subCategorias, productoEdit, visible, set
                                         </Select>
                                     </Form.Item>
                                 </Col>
-                                <Col span={22}>
+                                <Col span={ 22 }>
                                     <Form.List
                                         name="subCategoria"
                                     >
@@ -258,7 +258,7 @@ const ModalEdit = ({ form, categorias, subCategorias, productoEdit, visible, set
                                     },
                                 ]}
                             >
-                                <InputNumber min={1}/>
+                                <InputNumber min={ 1 }/>
                             </Form.Item>
                             </Col>
                         <Col>
@@ -272,7 +272,7 @@ const ModalEdit = ({ form, categorias, subCategorias, productoEdit, visible, set
                                     },
                                 ]}
                             >
-                                <InputNumber max={50000} min={0}/>
+                                <InputNumber max={ 50000 } min={ 0 }/>
                               </Form.Item>    
                             </Col>
                     </Row>       
@@ -283,4 +283,4 @@ const ModalEdit = ({ form, categorias, subCategorias, productoEdit, visible, set
     )
 }
 
-export default ModalEdit
+export default ProductosModal

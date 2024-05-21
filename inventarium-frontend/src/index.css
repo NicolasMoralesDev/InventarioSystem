@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-input::t{
-  resize: none;
-}
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -43,6 +40,7 @@ button {
 
 .ant-table-cell, .ant-table-selection {
   text-align: center !important;
+  padding: 2em;
 }
 
 .ant-table-cell {
@@ -65,12 +63,8 @@ button {
   background-color: rgb(153 27 27) !important;
 }
 
-.btn-verde-custom:hover {
+.btn-cyan-custom:hover {
   color: white !important;
   border-color: none !important;
-  background-color: rgb(22 163 74) !important;
+  background-color: rgb(21 94 117) !important;
 }
-
-/* .tabla_botonera button{
-  background: #000;
-} */
