@@ -2,9 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-input::t{
-  resize: none;
-}
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -43,6 +40,7 @@ button {
 
 .ant-table-cell, .ant-table-selection {
   text-align: center !important;
+  padding: 2em;
 }
 
 .ant-table-cell {
@@ -70,7 +68,3 @@ button {
   border-color: none !important;
   background-color: rgb(21 94 117) !important;
 }
-
-/* .tabla_botonera button{
-  background: #000;
-} */

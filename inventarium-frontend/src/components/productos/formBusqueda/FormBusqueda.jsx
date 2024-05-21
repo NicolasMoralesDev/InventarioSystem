@@ -1,8 +1,10 @@
 import React from 'react'
 import { Col, Form, InputNumber, Row } from 'antd'
+import useForm from 'antd/lib/form/hooks/useForm';
 
-const FormBusqueda = ({ form, onGetByCode }) => {
+const FormBusqueda = ({ onGetByCode }) => {
 
+    const [form] = useForm()
     const onFinish = (values) => {
         onGetByCode(values.codigo)
         form.setFieldsValue({ codigo:"" })
@@ -26,10 +28,11 @@ const FormBusqueda = ({ form, onGetByCode }) => {
           autoComplete="on"
       >
           <Row gutter={ [1, 1] } className='w-full' justify={ 'center' }>
-              <Col span={ 70 } className='w-1/3'>
+              <Col span={ 30 } className='xl:w-1/3 lg:w-1/3'>
                   <Form.Item
                       label="Busqueda por codigo de Barras"
                       name="codigo"
+                      className='pl-10 w-full'
                       rules={[
                           {
                               required: true,

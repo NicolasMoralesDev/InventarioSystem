@@ -14,14 +14,15 @@ import java.util.UUID;
  */
 public interface IProductService{
 
+      void createProduct(Product nuevo) throws BussinesException;
 
-      List<Long> createBulkProducts(List<Product> products);
+      List<Long> createBulkProducts(List<Product> products) throws BussinesException;
 
       String deleteProduct(UUID id);
 
-      String deleteProducts(List <UUID> ids);
+      void deleteProducts(List <UUID> ids) throws BussinesException;
 
-      List <Product> getProducts();
+      List <Product> getProducts() throws BussinesException;
 
       Product getProductsById(UUID id);
 

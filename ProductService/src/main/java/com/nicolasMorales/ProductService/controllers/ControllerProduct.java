@@ -34,10 +34,13 @@ public class ControllerProduct {
     */
     @PostMapping(value = "/bulk")
     public ResponseEntity<?> addBulkProducts(@RequestBody List<Product> product){
-
-        HashMap<String, String> response = new HashMap<>();
-        List <Long> listProducts = productServ.createBulkProducts(product);
-        return  ResponseEntity.ok().body(listProducts);
+       HashMap<String, String> response = new HashMap<>();
+       try {
+           List <Long> listProducts = productServ.createBulkProducts(product);
+           return  ResponseEntity.ok().body(listProducts);
+       } catch (BussinesException e) {
+           return  ResponseEntity.badRequest().body(response.put("error", e.getMessage()));
+       }
     }
 
     /**
@@ -47,10 +50,14 @@ public class ControllerProduct {
      */
     @PostMapping(value = "/post")
     public ResponseEntity<?> addProduct(@RequestBody Product product){
-
-        HashMap<String, String> response = new HashMap<>();
-        Product producto = productServ.createProduct(product);
-        return  ResponseEntity.ok().body(producto);
+         HashMap<String, String> response = new HashMap<>();
+         try {
+             productServ.createProduct(product);
+             response.put("msg", "Producto cargado Correctamente!!");
+             return  ResponseEntity.ok().body(response);
+         } catch (BussinesException e){
+             return  ResponseEntity.badRequest().body(response.put("error", e.getMessage()));
+         }
     }
 
     /**
@@ -62,9 +69,7 @@ public class ControllerProduct {
 //        System.out.println("serverPort = " + serverPort);
         try {
             return  ResponseEntity.ok().body(productServ.getProducts());
-
-        } catch (Exception e){
-
+        } catch (BussinesException e){
             return  ResponseEntity.badRequest().body("Error "+ e.getMessage());
         }
     }
@@ -78,7 +83,6 @@ public class ControllerProduct {
     public ResponseEntity<?> getProductById(@PathVariable UUID id){
         try {
             return  ResponseEntity.ok().body(productServ.getProductsById(id));
-
         } catch (Exception e){
             return  ResponseEntity.badRequest().body("Error "+ e.getMessage());
         }
@@ -107,10 +111,8 @@ public class ControllerProduct {
      */
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<?> deleteById(@PathVariable UUID id){
+        HashMap<String, String> response = new HashMap<>();
         try {
-
-            HashMap<String, String> response = new HashMap<>();
-
             String status = productServ.deleteProduct(id);
 
             if (status == "Producto Borrado Correctamente!!") {
@@ -134,22 +136,12 @@ public class ControllerProduct {
      */
     @PostMapping(value = "/delete/bulk")
     public ResponseEntity<?> deleteProductsById(@RequestBody List<UUID> ids){
+        HashMap<String, String> response = new HashMap<>();
         try {
-            HashMap<String, String> response = new HashMap<>();
-
-            String status = productServ.deleteProducts(ids);
-
-            if (status == "Productos Borrados Correctamente!!") {
-
-                response.put("msg", status );
-
-                return  ResponseEntity.ok().body(response);
-            } else {
-                response.put("error", status);
-                return  ResponseEntity.badRequest().body(response);
-
-            }
-        } catch (Exception e){
+            productServ.deleteProducts(ids);
+            response.put("msg", "Productos Borrados Correctamente!!");
+            return  ResponseEntity.ok().body(response);
+        } catch (BussinesException e){
             return  ResponseEntity.badRequest().body("Error "+e.getMessage());
         }
     }

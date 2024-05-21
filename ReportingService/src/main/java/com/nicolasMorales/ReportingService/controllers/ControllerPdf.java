@@ -1,5 +1,6 @@
 package com.nicolasMorales.ReportingService.controllers;
 
+import com.nicolasMorales.ReportingService.dtos.ProductDTO;
 import com.nicolasMorales.ReportingService.services.impl.PdfService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.List;
 
 /**
  * Controller de Reportes PDF.
@@ -24,8 +23,8 @@ public class ControllerPdf {
     private PdfService pdfServ;
 
     @PostMapping("/generate")
-    public void generatePDF(HttpServletResponse response) throws IOException {
-        byte[] pdfBytes = pdfServ.generatePdf().toByteArray();
+    public void generatePDF(HttpServletResponse response, @RequestBody List<ProductDTO> productos) throws IOException {
+        byte[] pdfBytes = pdfServ.generatePdf(productos).toByteArray();
 
         // Set response headers
         response.setContentType("application/pdf");

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import ConfirmationModal from "../modal/ConfirmationModal"
-import { DatePicker, Form, Input } from "antd"
+import { Form, Input } from "antd"
 
 const ModalEdit = ({form, ingresoEdit, visible, setVisible }) => {
 

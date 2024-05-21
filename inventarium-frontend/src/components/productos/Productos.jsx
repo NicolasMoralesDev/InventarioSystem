@@ -21,6 +21,7 @@ const Productos = () => {
   const [categorias, setCategorias] = useState([])
   const [subCategorias, setSubCategorias] = useState([])
   const [statusBorrado, setStatusBorrado] = useState("")
+  const [statusAdd, setStatusAdd] = useState("")
   const [statusEdit, setStatusEdit] = useState("")
 
   const onFetch = async () => {
@@ -49,7 +50,7 @@ const Productos = () => {
 
   const onAdd = async (productoAdd) => {
      const request = await crearProducto(productoAdd)
-     setStatusEdit(request.data.msg)
+     setStatusAdd(request.data.msg)
   }
 
   useEffect(() => {
@@ -64,8 +65,9 @@ const Productos = () => {
   useEffect(() => { onFetch() }, [])
 /*   useEffect(() => { editarProducto ? loadingPop("Editando Producto...") : ""}, [editarProducto]) */
   useEffect(() => { if (statusEdit) { successPop(statusEdit),  onFetch(), setVisibleEdit(false) } }, [statusEdit])
+  useEffect(() => { if (statusAdd) { successPop(statusAdd),  onFetch(), setVisibleAdd(false) } }, [statusAdd])
   useEffect(() => { statusBorrado ? loadingPop("Borrando Productos...")  : "" }, [ statusBorrado ])
-  useEffect(() => { productos.length < 1 || statusBorrado || statusEdit ? loadingPop("Obteniendo Productos...") : "" }, [ productos ])
+  useEffect(() => { productos.length < 1 || statusBorrado || statusEdit || statusAdd ? loadingPop("Obteniendo Productos...") : "" }, [ productos ])
 
   return (
     <>
@@ -75,7 +77,6 @@ const Productos = () => {
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       <FormBusqueda
-         form={ form }
          onGetByCode={ onGetByCode }
       />
       {
@@ -87,7 +88,7 @@ const Productos = () => {
          productoEdit={ productoEdit }
          visible={ visibleEdit }
          setVisible={ setVisibleEdit }
-         onEdit={ onEdit }
+         onSend={ onEdit }
          edit={ true }
         />
       }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Table, Tooltip } from "antd";
+import { Button, Table } from "antd";
 import { defaultPagination } from "../../Hooks/util/DefaultPagination";
 import { FileExcelFilled, FilePdfFilled } from "@ant-design/icons";
 import Menu from "../menu/Menu";
@@ -69,7 +69,6 @@ const TablaIngresos = (props) => {
   return (
     <div className="p-5 bg-slate-200" style={{
       marginBottom: "5%",
-/*    boxShadow: "-1px -1px 90px -16px ", */
     }}>  
      <Menu/>
       <div className="w-full flex justify-end tabla_botonera">
