@@ -10,8 +10,8 @@ const urlBase = "http://localhost:9003/api/v1/income"
 export const obtenerIngresos = async ()  => {
 
      try {
-           const request = await useAxiosConf.get(`${urlBase}/getAll`)
-           return request;   
+          const request = await useAxiosConf.get(`${urlBase}/getAll`)
+          return request;
      } catch (error) {
           errorPop("error al intentar conectarse con el servidor.");
      }

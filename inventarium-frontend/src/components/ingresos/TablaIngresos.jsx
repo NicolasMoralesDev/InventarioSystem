@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { Button, Table } from "antd";
+import { Button, Table, Tooltip } from "antd";
 import { defaultPagination } from "../../Hooks/util/DefaultPagination";
-import { FileExcelFilled, FilePdfFilled } from "@ant-design/icons";
+import { EditOutlined, FileExcelFilled, FilePdfFilled } from "@ant-design/icons";
 import Menu from "../menu/Menu";
+import dayjs from "dayjs";
 
 const TablaIngresos = (props) => {
 
   const { setIngresoEdit, dataSourse, setVisibleEdit } = props
   const [ingresosSeleccionados, setIngresosSeleccionados] = useState([])
-
   const onSelectIngresos = (ingresosSelected) => {
     setIngresosSeleccionados(ingresosSelected)
   }
@@ -21,10 +21,11 @@ const TablaIngresos = (props) => {
   const columns = [
     {
       title: 'Fecha de Ingreso',
-      dataIndex: 'dateIncome',
+      dataIndex: 'fechaIngreso',
       width: "13%",
-      sorter: (a, b) => a.dateIncome - b.dateIncome,
-      key: 'dateIncome',
+      sorter: (a, b) => a.fechaIngreso + b.fechaIngreso,
+      key: 'fechaIngreso',
+      render: (fechaIngreso) => <p>{ dayjs(fechaIngreso).format('DD/MM/YYYY HH:mm') }</p>
     },
     {
       title: 'Provedores',
@@ -46,24 +47,23 @@ const TablaIngresos = (props) => {
     },
     {
       title: 'Generar Informe',
-      width: "14%",
+      width: "13%",
       key: 'generarInforme',
-      render: () =>
-        <div className="p-0 text-center">
-          <Button title="Generar PDF" className="bg-red-600 btn-rojo-custom text-white xl:w-1/2 sm:w-full "><FilePdfFilled />PDF</Button>
-          <Button title="Generar EXCEL" className="bg-green-600 btn-verde-custom text-white xl:w-1/2 sm:w-full  "><FileExcelFilled />EXCEL</Button>
-        </div>
-    },
-    {
+      render: () => 
+          <div className="p-0 text-center">
+              <Tooltip title="Generar PDF"> <Button title="Generar PDF" className="bg-red-700 btn-rojo-custom text-white xl:w-1/2 sm:w-full "><FilePdfFilled />PDF</Button></Tooltip> 
+              <Tooltip title="Generar EXCEL"> <Button title="Generar EXCEL" className="bg-green-700 btn-verde-custom text-white xl:w-1/2 sm:w-full"><FileExcelFilled />EXCEL</Button></Tooltip>
+          </div>
+  },
+  {
       title: 'Acciones',
-      dataIndex: '',
       width: "10%",
-      key: 'Acciones',
-      render: (income) =>
-        <>
-          <Button title="Editar Registro" onClick={() => onEdit(income)} className="bg-slate-800 text-white">Editar</Button>
-        </>
-    },
+      key: 'acciones',
+      render: (ingreso) => <>
+          <Button title="Editar Regisro" /* onClick={ () => onEdit(ingreso) } */ className="bg-cyan-950 btn-cyan-custom text-white">Editar <EditOutlined/></Button>
+   {/*        <Button title="Ver Producto" className="bg-slate-800  text-white">Ver</Button> */}
+      </>
+  },
   ];
 
   return (

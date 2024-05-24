@@ -8,7 +8,7 @@ import Menu from "../menu/Menu";
 
 const TablaProductos = (props) => {
 
-    const { setVisibleAdd, setVisibleEdit, setProductoEdit,  categorias, dataSourse, onBorrado } = props
+    const { setVisibleAdd, setVisibleEdit, setProductoEdit,  categorias, dataSourse, onBorrado, loading } = props
     const cateFilter = []
     categorias.length > 0 ? categorias.map(cate => {cateFilter.push({text: cate.titulo, value: cate.titulo})}) : ""
     const [productosSeleccionados, setProductosSeleccionados] = useState([])
@@ -70,7 +70,7 @@ const TablaProductos = (props) => {
             dataIndex: 'categoria',
             width: "10%",
             key: 'categoria',
-            render: (categoria) => <h2 className="text-center">{categoria.titulo}</h2>,
+            render: (categoria) => categoria ? <h2 className="text-center">{categoria.titulo} </h2> : <h2 className="text-center">-</h2>,
             filters: cateFilter,
             onFilter: (value, record) => record.categoria.titulo === value,
         },
@@ -144,6 +144,7 @@ const TablaProductos = (props) => {
                 locale={{
                     emptyText: "No se encontraron Productos",
                 }}
+                loading={ loading }
             />
         </div>
     )

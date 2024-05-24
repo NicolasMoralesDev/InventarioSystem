@@ -1,24 +1,23 @@
 package com.nicolasMorales.IncomeService.dtos;
 
-import com.nicolasMorales.IncomeService.models.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
  * @author Nicolas Morales.
- * DTO para la entidad Ingresos.
+ * DTO para Retornar Registros Ingresos.
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class IncomeDTO {
+public class IncomeDTOResponse {
 
     private String description;
-    private List <String> suppliers;
-    private List <Product> products;
-    private String fechaIngreso;
+    private List<String> suppliers;
+    private LocalDateTime fechaIngreso;
 
 }

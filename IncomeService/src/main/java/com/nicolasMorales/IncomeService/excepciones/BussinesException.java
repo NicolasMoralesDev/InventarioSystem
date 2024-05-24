@@ -2,7 +2,6 @@ package com.nicolasMorales.IncomeService.excepciones;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
  * @author Nicolas Morales.

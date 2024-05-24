@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * DTO para para manipular los datos de los productos.
+ */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

@@ -17,6 +17,6 @@ import java.util.List;
 public interface IProductClient {
 
     @PostMapping("/product/bulk")
-    public List<String> addProducts (@RequestBody List<Product> productos);
+    public List<Long> addProducts (@RequestBody List<Product> productos);
     
 }

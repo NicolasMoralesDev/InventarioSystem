@@ -11,7 +11,7 @@ import java.io.OutputStream;
 import java.util.List;
 
 /**
- * Controller de Reportes PDF.
+ * Controller de Reportes PDF para Productos.
  * @author Nicolas Morales.
  */
 @RestController
@@ -22,16 +22,22 @@ public class ControllerPdf {
     @Autowired
     private PdfService pdfServ;
 
-    @PostMapping("/generate")
+    /**
+     * Genera un informe PDF con los productos enviados.
+     * @param response Retorna el PDF
+     * @param productos Recibe un listado de productos que se desean incluir en el informe.
+     * @throws IOException Excepcion para manejar errores de la generacion del PDF.
+     */
+    @PostMapping( value = "/productos/generate")
     public void generatePDF(HttpServletResponse response, @RequestBody List<ProductDTO> productos) throws IOException {
-        byte[] pdfBytes = pdfServ.generatePdf(productos).toByteArray();
+        byte[] pdfBytes = pdfServ.generatePdfIngresos(productos).toByteArray();
 
         // Set response headers
         response.setContentType("application/pdf");
         response.setContentLength(pdfBytes.length);
         response.setHeader("Content-Disposition", "attachment; filename=product_table.pdf");
 
-        // Write the PDF data to the response
+        // Escribe el PDF con la informacion a retornar
         OutputStream outputStream = response.getOutputStream();
         outputStream.write(pdfBytes);
         outputStream.flush();

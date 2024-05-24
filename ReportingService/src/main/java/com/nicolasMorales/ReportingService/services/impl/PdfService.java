@@ -22,8 +22,15 @@ import java.util.List;
 
 @Service
 public class PdfService implements IPdfService {
+
+    /**
+     * Servicio para generar reportes PDF de Productos seleccionados.
+     * @param productos Recibe un Array de ProductDTO con los productos.
+     * @return Retorna el ByteArrayOutputStream del PDF generado.
+     * @throws IOException Excepcion para manejar errores de la generacion del PDF.
+     */
     @Override
-    public ByteArrayOutputStream generatePdf(List<ProductDTO> productos) throws IOException  {
+    public ByteArrayOutputStream generatePdfIngresos(List<ProductDTO> productos) throws IOException  {
      // Creación del documento PDF
 
      ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -38,16 +45,16 @@ public class PdfService implements IPdfService {
      PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
      Paragraph titulo = new Paragraph("Reporte de Mercaderia").setTextAlignment(TextAlignment.CENTER).setFont(font);
 
-        table.addCell(new Paragraph("Codigo").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
-        table.addCell(new Paragraph("Nombre").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
-        table.addCell(new Paragraph("Descripcion").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
-        table.addCell(new Paragraph("Categoria").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
-        table.addCell(new Paragraph("Sub categoria").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
-        table.addCell(new Paragraph("Marca").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
-        table.addCell(new Paragraph("Precio").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
-        table.addCell(new Paragraph("Stock").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
+     table.addCell(new Paragraph("Codigo").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
+     table.addCell(new Paragraph("Nombre").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
+     table.addCell(new Paragraph("Descripcion").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
+     table.addCell(new Paragraph("Categoria").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
+     table.addCell(new Paragraph("Sub categoria").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
+     table.addCell(new Paragraph("Marca").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
+     table.addCell(new Paragraph("Precio").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
+     table.addCell(new Paragraph("Stock").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
 
-// Iterate through the product array, extracting and adding data to the table
+        // Extrae la informaciondel Array para ser agregada a la tabla.
      for (ProductDTO producto : productos) {
          table.addCell(new Paragraph(String.valueOf(producto.getCodigo())).setTextAlignment(TextAlignment.CENTER));
          table.addCell(String.valueOf(producto.getNombre())); // Nombre
@@ -56,7 +63,7 @@ public class PdfService implements IPdfService {
          table.addCell(String.valueOf(producto.getSubCategoria())); // Sub Categoria
          table.addCell(String.valueOf(producto.getMarca())); // Marca
          table.addCell( new Paragraph(String.valueOf(" $ "+producto.getPrecio())).setTextAlignment(TextAlignment.CENTER)); // Precio
-         table.addCell( new Paragraph(String.valueOf(producto.getCant())).setTextAlignment(TextAlignment.CENTER)); // Cantidad
+         table.addCell( new Paragraph(String.valueOf(producto.getCant())).setTextAlignment(TextAlignment.CENTER)); // Stock
      }
      document.add(titulo);
      document.add(table);

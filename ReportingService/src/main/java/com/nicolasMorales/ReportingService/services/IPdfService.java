@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface IPdfService {
 
-    public ByteArrayOutputStream generatePdf (List <ProductDTO> productos) throws IOException;
+    public ByteArrayOutputStream generatePdfIngresos (List <ProductDTO> productos) throws IOException;
 }

@@ -18,6 +18,7 @@ const Productos = () => {
   const [productoEdit, setProductoEdit] = useState([])
   const [visibleAdd, setVisibleAdd] = useState(false)
   const [visibleEdit, setVisibleEdit] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [categorias, setCategorias] = useState([])
   const [subCategorias, setSubCategorias] = useState([])
   const [statusBorrado, setStatusBorrado] = useState("")
@@ -40,6 +41,7 @@ const Productos = () => {
 
   const onBorrado = async (productosIds) => {
      const request = await borradoMultipleProductos(productosIds)
+     setLoading(true)
      setStatusBorrado({error: request.error, msg: request.data.msg, status: request.status})
   }
 
@@ -62,12 +64,13 @@ const Productos = () => {
     } 
   }, [ statusBorrado ])
 
-  useEffect(() => { onFetch() }, [])
+  useEffect(() => { onFetch(), setLoading(false) }, [])
 /*   useEffect(() => { editarProducto ? loadingPop("Editando Producto...") : ""}, [editarProducto]) */
   useEffect(() => { if (statusEdit) { successPop(statusEdit),  onFetch(), setVisibleEdit(false) } }, [statusEdit])
   useEffect(() => { if (statusAdd) { successPop(statusAdd),  onFetch(), setVisibleAdd(false) } }, [statusAdd])
   useEffect(() => { statusBorrado ? loadingPop("Borrando Productos...")  : "" }, [ statusBorrado ])
-  useEffect(() => { productos.length < 1 || statusBorrado || statusEdit || statusAdd ? loadingPop("Obteniendo Productos...") : "" }, [ productos ])
+  useEffect(() => { if (productos.length < 1 || statusBorrado || statusEdit || statusAdd) { loadingPop("Obteniendo Productos..."), setLoading(true) } }, [ productos ])
+  useEffect(() => { if (productos.length > 0 || productoCode.length > 0) { setLoading(false) } }, [ productos, productoCode ])
 
   return (
     <>
@@ -112,6 +115,7 @@ const Productos = () => {
         categorias={ categorias }
         dataSourse={ Object.keys(productoCode).length != 0 ? productoCode :  productos }
         onBorrado={ onBorrado }
+        loading={ loading }
       />
     </>
   )

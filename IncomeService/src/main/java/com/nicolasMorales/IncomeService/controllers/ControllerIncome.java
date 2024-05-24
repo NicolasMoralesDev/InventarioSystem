@@ -23,7 +23,7 @@ public class ControllerIncome {
     @Autowired
     private IIncomeService incomeService;
 
-    @PostMapping("/register")
+    @PostMapping(value = "/register")
     public ResponseEntity<?> registerIncome(@RequestBody IncomeDTO income){
 
         HashMap<String, String> response = new HashMap<>();
@@ -50,21 +50,16 @@ public class ControllerIncome {
 
     }
 
-    @GetMapping("/getAll")
+    @GetMapping(value = "/getAll")
     public ResponseEntity<?> getCIncome(){
-
         try {
-
             return  ResponseEntity.ok().body(incomeService.getAllIncome());
-
         } catch (Exception e){
-
             return  ResponseEntity.badRequest().body("Error "+ e.getMessage());
         }
-
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping(value = "/get/{id}")
     public ResponseEntity<?> getIncomeById(@PathVariable UUID id){
 
         try {
@@ -110,7 +105,7 @@ public class ControllerIncome {
     }
 
 
-    @PutMapping("/put")
+    @PutMapping(value = "/put")
     public  ResponseEntity<?> editIncome(@RequestBody Income edit){
 
         HashMap<String, String> response = new HashMap<>();
