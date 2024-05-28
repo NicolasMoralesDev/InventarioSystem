@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
-import { obtenerIngresos } from "../../Hooks/fetch/Ingresos.hook"
+import { modificarIngresos, obtenerIngresos } from "../../Hooks/fetch/Ingresos.hook"
 import TablaIngresos from "./TablaIngresos"
 import { Helmet } from "react-helmet"
 import ModalEdit from "./ModalEdit"
-import { loadingPop } from "../../Hooks/util/messages/alerts"
-import useForm  from "antd/lib/form/hooks/useForm"
+import { loadingPop, successPop } from "../../Hooks/util/messages/alerts"
+import useForm from "antd/lib/form/hooks/useForm"
 
 const Ingresos = () => {
 
@@ -13,6 +13,8 @@ const Ingresos = () => {
   const [ingresoEdit, setIngresoEdit] = useState([])
   const [visibleEdit, setVisibleEdit] = useState(false)
 
+  const [statusEdit, setStatusEdit] = useState("")
+
   const onFetch = async () => {
     const request = await obtenerIngresos()
     setIngresos(request.data)
@@ -20,6 +22,13 @@ const Ingresos = () => {
 
   useEffect(() => { onFetch() }, [ visibleEdit ])
   useEffect(() => { loadingPop("Obteniendo Registros...") }, [obtenerIngresos])
+  useEffect(() => { if (statusEdit) { successPop(statusEdit) } }, [statusEdit])
+
+  const onEdit = async (ingreso) => {
+    const request = await modificarIngresos(ingreso)
+    setVisibleEdit(false)
+    setStatusEdit(request.data.msg)
+  }
 
   return (
     <>
@@ -34,6 +43,7 @@ const Ingresos = () => {
           ingresoEdit={ ingresoEdit }
           visible={ visibleEdit }
           setVisible={ setVisibleEdit }
+          onSend={ onEdit }
         />
       }
       <TablaIngresos

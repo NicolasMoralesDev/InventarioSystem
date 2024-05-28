@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * @author Nicolas Morales.
- * DTO para la entidad Ingresos.
+ * DTO para editar los registros de ingresos.
  */
 @Data
 @AllArgsConstructor

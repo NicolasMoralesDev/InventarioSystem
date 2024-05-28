@@ -4,7 +4,7 @@ import { Button, Card, Col, Form, Input, InputNumber, Row, Select } from "antd"
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import TextArea from "antd/es/input/TextArea";
 
-const formItemLayout = {
+  const formItemLayout = {
     labelCol: {
       xs: {
         span: 24,
@@ -32,9 +32,9 @@ const formItemLayout = {
         span: 20,
         offset: 4,
       },
-    },}
+  },}
 
-const ProductosModal = ({ form, categorias, subCategorias, productoEdit, visible, setVisible, onSend, edit }) => {
+  const ProductosModal = ({ form, categorias, subCategorias, productoEdit, visible, setVisible, onSend, edit }) => {
 
     useEffect(() => {
         form.setFieldsValue({
@@ -81,8 +81,8 @@ const ProductosModal = ({ form, categorias, subCategorias, productoEdit, visible
             <ConfirmationModal
                 title={ edit ? "Editar Producto" : "Agregar Producto" }
                 open={ visible }
-                okText={ "Guardar" }
-                cancelText={ "Cancelar" }
+                okText="Guardar"
+                cancelText="Cancelar"
                 onCancel={ cancelModal }
                 onClose={ cancelModal }
                 onOk={ () => form.validateFields().then(() => onFinish(form.getFieldsValue())).catch(() => {}) }
@@ -100,9 +100,10 @@ const ProductosModal = ({ form, categorias, subCategorias, productoEdit, visible
                     onFinishFailed={ onFinishFailed }
                     autoComplete="off"
                 >
-                    <Form.Item name="id" hidden><Input /></Form.Item>
-                    <Form.Item name="borrado" hidden><Input /></Form.Item>
-                    <Form.Item name="img" hidden><Input /></Form.Item><Card className="w-full">
+                    <Form.Item name="id" hidden><Input/></Form.Item>
+                    <Form.Item name="borrado" hidden><Input/></Form.Item>
+                    <Form.Item name="img" hidden><Input/></Form.Item>
+                    <Card className="w-full">
                     <Row gutter={ [2, 2]} >
                             <Row gutter={ [5, 1] } className="w-full">
                                 <Col span={ 11 } >
@@ -230,7 +231,7 @@ const ProductosModal = ({ form, categorias, subCategorias, productoEdit, visible
                                 </Col>
                             </Row>
                     </Row>
-                    <Row gutter={[8, 8]}>
+                    <Row gutter={ [8, 8] }>
                         <Col>
                             <Form.Item
                                 label="Marca:"
@@ -242,11 +243,11 @@ const ProductosModal = ({ form, categorias, subCategorias, productoEdit, visible
                                     },
                                 ]}
                             >
-                                <Input maxLength={25}/>
+                                <Input maxLength={ 25 }/>
                             </Form.Item>
                         </Col>
                     </Row>
-                    <Row gutter={[17,2]}>
+                    <Row gutter={ [17,2] }>
                         <Col>
                             <Form.Item
                                 label="Precio $"

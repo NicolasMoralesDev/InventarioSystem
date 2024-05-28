@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.UUID;
 
 /**
  * @author Nicolas Morales.
@@ -16,6 +15,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class ProductDTO {
 
+   private long codigo;
    private String nombre;
-   private UUID codigo;
 }

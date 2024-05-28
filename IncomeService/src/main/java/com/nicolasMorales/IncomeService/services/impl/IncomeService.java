@@ -2,17 +2,17 @@ package com.nicolasMorales.IncomeService.services.impl;
 
 import com.nicolasMorales.IncomeService.dtos.IncomeDTO;
 import com.nicolasMorales.IncomeService.dtos.IncomeDTOResponse;
+import com.nicolasMorales.IncomeService.dtos.IncomeEditDTO;
+import com.nicolasMorales.IncomeService.excepciones.BussinesException;
 import com.nicolasMorales.IncomeService.mapper.IncomeMapper;
 import com.nicolasMorales.IncomeService.models.Income;
 import com.nicolasMorales.IncomeService.repository.IIncomeRepository;
 import com.nicolasMorales.IncomeService.repository.IProductClient;
-import com.nicolasMorales.IncomeService.services.IIncomeService;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,7 +22,7 @@ import java.util.UUID;
  * DTO para la entidad Ingresos.
  */
 @Service
-public class IncomeService implements IIncomeService {
+public class IncomeService implements com.nicolasMorales.IncomeService.services.IncomeService {
 
     @Autowired
     private IncomeMapper incomeMapper;
@@ -39,9 +39,17 @@ public class IncomeService implements IIncomeService {
     }
 
     @Override
-    public Income getIncomeById(UUID id) {
-
-        return  incomeRepo.findById(id).orElse(null);
+    public Income getIncomeById(UUID id) throws BussinesException {
+        try {
+            Income registro = incomeRepo.findById(id).orElse(null);
+            if (registro == null) {
+                throw new BussinesException("No se encontro ningun registro con el ID : "+ id);
+            } else {
+                return registro;
+            }
+        } catch (BussinesException e) {
+            throw new BussinesException("Error "+ e.getMessage());
+        }
     }
 
     @Override
@@ -77,16 +85,16 @@ public class IncomeService implements IIncomeService {
         }
     }
 
+    @Transactional
     @Override
-    public String editIncome(Income edit) {
-
+    public void editIncome(IncomeEditDTO edit) throws BussinesException {
         try {
+            Income ingreso = this.getIncomeById(edit.getId());
+            ingreso.setId(edit.getId());
+            ingreso.setDescription(edit.getDescripcion());
 
-            incomeRepo.save(edit);
-            return "Registro modificado!";
-
-        } catch (Exception e){
-            return "Error "+ e.getMessage();
+        } catch (BussinesException e){
+            throw new BussinesException("Error "+ e.getMessage());
         }
     }
 }

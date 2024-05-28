@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Button, Table, Tooltip } from "antd";
 import { defaultPagination } from "../../Hooks/util/DefaultPagination";
 import { EditOutlined, FileExcelFilled, FilePdfFilled } from "@ant-design/icons";
-import Menu from "../menu/Menu";
 import dayjs from "dayjs";
+import Menu from "../Menu/Menu";
 
 const TablaIngresos = (props) => {
 
@@ -20,30 +20,37 @@ const TablaIngresos = (props) => {
 
   const columns = [
     {
-      title: 'Fecha de Ingreso',
+      title: 'Fecha y Hora de Ingreso',
       dataIndex: 'fechaIngreso',
       width: "13%",
       sorter: (a, b) => a.fechaIngreso + b.fechaIngreso,
       key: 'fechaIngreso',
       render: (fechaIngreso) => <p>{ dayjs(fechaIngreso).format('DD/MM/YYYY HH:mm') }</p>
     },
-    {
+     {
       title: 'Provedores',
-      dataIndex: 'suppliers',
+      dataIndex: 'provedores',
       width: "10%",
-      key: 'suppliers',
+      key: 'provedores',
     },
     {
       title: 'Usuario que Registro',
       dataIndex: 'descripcion',
       width: "15%",
-      key: 'descripcion',
+      key: 'descripciones',
+    },
+    {
+      title: 'Productos Registrados',
+      dataIndex: 'productos',
+      width: "15%",
+      key: 'productos',
+      render: (productos) => productos ? productos.map((producto) => <p className="text-justify" key={ producto.codigo }>{ producto.codigo } - { producto.nombre }</p>) : ""
     },
     {
       title: 'Observacion',
-      dataIndex: 'description',
+      dataIndex: 'descripcion',
       width: "13%",
-      key: 'description',
+      key: 'descripcion',
     },
     {
       title: 'Generar Informe',
@@ -60,7 +67,7 @@ const TablaIngresos = (props) => {
       width: "10%",
       key: 'acciones',
       render: (ingreso) => <>
-          <Button title="Editar Regisro" /* onClick={ () => onEdit(ingreso) } */ className="bg-cyan-950 btn-cyan-custom text-white">Editar <EditOutlined/></Button>
+          <Button title="Editar Registro"  onClick={ () => onEdit(ingreso) } className="bg-cyan-950 btn-cyan-custom text-white">Editar <EditOutlined/></Button>
    {/*        <Button title="Ver Producto" className="bg-slate-800  text-white">Ver</Button> */}
       </>
   },
@@ -76,17 +83,17 @@ const TablaIngresos = (props) => {
       <Table
         scroll="small"
         className="overflow-x-scroll"
-        rowKey={(ingreso) => ingreso.id}
-        dataSource={dataSourse}
-        columns={columns}
-        pagination={defaultPagination(dataSourse, 10)}
-        rowSelection={{
+        rowKey={ (ingreso) => ingreso.id }
+        dataSource={ dataSourse }
+        columns={ columns }
+        pagination={ defaultPagination(dataSourse, 10) }
+        rowSelection={ {
           selectedRowKeys: ingresosSeleccionados,
           onChange: onSelectIngresos,
-        }}
-        locale={{
+        } }
+        locale={ {
           emptyText: "No se encontraron Registros"
-        }}
+        } }
       />
     </div>
   )

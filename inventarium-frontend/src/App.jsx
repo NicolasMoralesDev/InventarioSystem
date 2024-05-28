@@ -3,7 +3,7 @@ import { Content } from 'antd/lib/layout/layout';
 import Nav from './components/common/Nav';
 import Routing from './routes/Routes';
 import Foter from './components/common/Foter';
-import Menu from './components/menu/Menu';
+
 const { Header } = Layout;
 
 const App = () => {

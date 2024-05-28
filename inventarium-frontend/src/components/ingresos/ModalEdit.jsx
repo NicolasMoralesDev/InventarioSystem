@@ -2,15 +2,12 @@ import { useEffect } from "react";
 import ConfirmationModal from "../modal/ConfirmationModal"
 import { Form, Input } from "antd"
 
-const ModalEdit = ({form, ingresoEdit, visible, setVisible }) => {
+const ModalEdit = ({ form, ingresoEdit, visible, setVisible, onSend }) => {
 
     useEffect(() => {
         form.setFieldsValue({
         id: ingresoEdit.id,
-        description: ingresoEdit.description,
-        dateIncome: ingresoEdit.dateIncome,
-        suppliers: [...ingresoEdit.suppliers],
-        products: [...ingresoEdit.products]
+        descripcion: ingresoEdit.descripcion,
     })
     
     }, [ form ])
@@ -20,8 +17,14 @@ const ModalEdit = ({form, ingresoEdit, visible, setVisible }) => {
     }
 
     const onFinish = (values) => {
-        console.log('Success:', values);
+        const data =  {
+            id: values.id,
+            descripcion: values.descripcion,
+        }
+        onSend(data)
+        console.log('Success');
     };
+    
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
@@ -29,13 +32,13 @@ const ModalEdit = ({form, ingresoEdit, visible, setVisible }) => {
     return (
         <>
             <ConfirmationModal
-                title={ "Editar Registro" }
+                title="Editar Registro"
                 open={ visible }
-                okText={ "Guardar"}
-                cancelText={ "Cancelar" }
+                okText="Guardar"
+                cancelText="Cancelar"
                 onCancel={ cancelModal }
                 onClose={ cancelModal }
-                pnOk={ () => form.validateFields().then(() => onFinish(form.getFieldsValue())).catch(() => {}) }
+                onOk={ () => form.validateFields().then(() => onFinish(form.getFieldsValue())).catch(() => {}) }
             > 
             <Form
                 form={ form }
@@ -52,17 +55,18 @@ const ModalEdit = ({form, ingresoEdit, visible, setVisible }) => {
                 initialValues={{
                     remember: true,
                 }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
+                onFinish={ onFinish }
+                onFinishFailed={ onFinishFailed }
                 autoComplete="off"
             >
+                <Form.Item name="id" hidden><Input/></Form.Item>
                 <Form.Item
                     label="Observación"
-                    name="description"
+                    name="descripcion"
                     rules={[
                         {
                             required: true,
-                            message: 'Please input your username!',
+                            message: 'Ingrese una observacion!',
                         },
                     ]}
                 >

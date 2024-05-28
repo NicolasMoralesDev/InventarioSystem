@@ -11,7 +11,7 @@ import java.util.UUID;
 
 /**
  *  @author Nicolas Morales.
- *  Controller de Categoria.
+ *  Controller de Categorias.
  */
 @RestController
 @RequestMapping("/api/v1/category")

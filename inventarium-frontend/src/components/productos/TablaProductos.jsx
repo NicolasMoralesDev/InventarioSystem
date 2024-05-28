@@ -1,16 +1,16 @@
+import { useState } from "react";
+import Menu from "../Menu/Menu";
+import { defaultPagination } from "../../Hooks/util/DefaultPagination";
 import { Button, Table, Tag, Tooltip } from "antd";
 import { DeleteFilled, EditOutlined, FileExcelFilled, FilePdfFilled, ProductFilled } from "@ant-design/icons"
-import "./estilos/tablaProductos.css"
-import { defaultPagination } from "../../Hooks/util/DefaultPagination";
-import { useState } from "react";
 import { alertPop } from "../../Hooks/util/messages/alerts";
-import Menu from "../menu/Menu";
+import "./estilos/tablaProductos.css"
 
 const TablaProductos = (props) => {
 
-    const { setVisibleAdd, setVisibleEdit, setProductoEdit,  categorias, dataSourse, onBorrado, loading } = props
+    const { setVisibleAdd, setVisibleEdit, setProductoEdit,  categorias, dataSourse, onBorrado, loading, isList } = props
     const cateFilter = []
-    categorias.length > 0 ? categorias.map(cate => {cateFilter.push({text: cate.titulo, value: cate.titulo})}) : ""
+    categorias?.length > 0 ? categorias.map(cate => {cateFilter.push({text: cate.titulo, value: cate.titulo})}) : ""
     const [productosSeleccionados, setProductosSeleccionados] = useState([])
 
     const onSelectProductos = (productsSelected) => {
@@ -90,7 +90,8 @@ const TablaProductos = (props) => {
             render: (cant) => <Tag color={ cant < 10 ? "volcano-inverse" : cant < 20 ? "yellow-inverse": "green-inverse" } title={ cant < 10 ? "Stock Minimo" : cant < 20 ? "Stock Bajo" : "Stock Normal" }>{ cant }</Tag>,
             key: 'cant',
         },
-        {
+         isList ?
+        { 
             title: 'Generar Informe',
             width: "13%",
             key: 'generarInforme',
@@ -99,7 +100,7 @@ const TablaProductos = (props) => {
                     <Tooltip title="Generar PDF"> <Button title="Generar PDF" className="bg-red-700 btn-rojo-custom text-white xl:w-1/2 sm:w-full "><FilePdfFilled />PDF</Button></Tooltip> 
                     <Tooltip title="Generar EXCEL"> <Button title="Generar EXCEL" className="bg-green-700 btn-verde-custom text-white xl:w-1/2 sm:w-full"><FileExcelFilled />EXCEL</Button></Tooltip>
                 </div>
-        },
+        } : {},
         {
             title: 'Acciones',
             width: "10%",
@@ -118,9 +119,13 @@ const TablaProductos = (props) => {
         }}> 
            <Menu/>
             <div className="w-full flex justify-end tabla_botonera p-3">
+                { isList ?
                 <Tooltip title={ "Cargar Producto" }>
                     <Button className="bg-blue-950 btn-cyan-custom text-white" onClick={ onAdd }> <ProductFilled/> Cargar Producto</Button>
                 </Tooltip>
+                : 
+                <></>
+                }
                 <Tooltip title={ "Borrado Multiple" }>
                     { productosSeleccionados.length > 0 ?
                         <Button className="bg-red-800 btn-bordo-custom text-white" onClick={ () => onDelete() }> <DeleteFilled/> Borrado Multiple</Button> 

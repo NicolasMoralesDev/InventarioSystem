@@ -4,6 +4,20 @@ import useAxiosConf from "../util/fetch.hook";
 const urlBase = "http://localhost:9003/api/v1/income"
 
 /**
+ * Registro de Ingresos.
+ * @returns Devuelve un mensaje con el resultado de la operacion.
+ */
+export const registrarIngresos = async (ingreso)  => {
+
+     try {
+          const request = await useAxiosConf.post(`${urlBase}/register`, ingreso)
+          return request;
+     } catch (error) {
+          errorPop("error al intentar conectarse con el servidor."+ error);
+     }
+}
+
+/**
  * Obtiene todos los registros de ingresos
  * @returns Devuelve un listado de registros de ingresos.
  */
@@ -19,14 +33,14 @@ export const obtenerIngresos = async ()  => {
 
 /**
  * Edita registros de ingresos
- * @returns Devuelve un mensaje con elresultado de la operacion.
+ * @returns Devuelve un mensaje con el resultado de la operacion.
  */
-export const modificarIngresos = async ()  => {
+export const modificarIngresos = async (ingreso)  => {
 
      try {
-           const request = await useAxiosConf.get(`${urlBase}/put`)
+           const request = await useAxiosConf.put(`${urlBase}/modify`, ingreso)
            return request;   
      } catch (error) {
-          errorPop("error al intentar conectarse con el servidor.");
+          errorPop(error);
      }
 }

@@ -1,12 +1,12 @@
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 import { Helmet } from "react-helmet"
+import { obtenerCategorias } from "../../Hooks/fetch/Categorias.hook"
+import { obtenerSubCategorias } from "../../Hooks/fetch/SubCategorias.hook"
 import { borradoMultipleProductos, crearProducto, editarProducto, obtenerProductoByCodigo, obtenerProductos } from "../../Hooks/fetch/Productos.hook"
 import TablaProductos from "./TablaProductos"
 import { errorPop, loadingPop, successPop } from "../../Hooks/util/messages/alerts"
-import { obtenerCategorias } from "../../Hooks/fetch/Categorias.hook"
 import useForm  from "antd/lib/form/hooks/useForm"
-import { obtenerSubCategorias } from "../../Hooks/fetch/SubCategorias.hook"
 import FormBusqueda from "./formBusqueda/FormBusqueda"
 import ProductosModal from "./ProductosModal"
 
@@ -21,6 +21,7 @@ const Productos = () => {
   const [loading, setLoading] = useState(false)
   const [categorias, setCategorias] = useState([])
   const [subCategorias, setSubCategorias] = useState([])
+  
   const [statusBorrado, setStatusBorrado] = useState("")
   const [statusAdd, setStatusAdd] = useState("")
   const [statusEdit, setStatusEdit] = useState("")

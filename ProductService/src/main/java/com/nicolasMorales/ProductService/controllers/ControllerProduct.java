@@ -1,5 +1,7 @@
 package com.nicolasMorales.ProductService.controllers;
 
+import com.nicolasMorales.ProductService.dto.ProductDTO;
+import com.nicolasMorales.ProductService.dto.ProductIncomeResponseDTO;
 import com.nicolasMorales.ProductService.exepciones.BussinesException;
 import com.nicolasMorales.ProductService.models.Product;
 import com.nicolasMorales.ProductService.services.impl.ProductService;
@@ -13,8 +15,8 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- *  Controller de Productos.
  *  @author Nicolas Morales.
+ *  Controller de Productos.
  */
 @RestController
 @RequestMapping("/api/v1/product")
@@ -98,6 +100,27 @@ public class ControllerProduct {
         HashMap<String, String> response = new HashMap<>();
         try {
             return  ResponseEntity.ok().body(productServ.getProductsByCode(code));
+        } catch (BussinesException e){
+            response.put("error",e.getMessage());
+            return  ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    /**
+     * Controllador para ser consumido por IncomeService para obtener un producto por su codigo de Barras.
+     * @param code Recibe un UUID del producto solicitado.
+     * @return ResponseEntity Devuelve esta entidad con el codigo de estado y el producto (si es que se encuenta).
+     */
+    @GetMapping(value = "/get/income/code/{code}")
+    public ResponseEntity<?> getProductByCodeForIncome(@PathVariable Long code){
+        HashMap<String, String> response = new HashMap<>();
+        ProductIncomeResponseDTO productResponse = new ProductIncomeResponseDTO();
+
+        try {
+            ProductDTO producto = productServ.getProductsByCode(code);
+            productResponse.setNombre(producto.getNombre());
+            productResponse.setCodigo(producto.getCodigo());
+            return  ResponseEntity.ok().body(productResponse);
         } catch (BussinesException e){
             response.put("error",e.getMessage());
             return  ResponseEntity.badRequest().body(e.getMessage());
