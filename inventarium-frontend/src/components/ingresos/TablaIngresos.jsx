@@ -28,14 +28,15 @@ const TablaIngresos = (props) => {
       render: (fechaIngreso) => <p>{ dayjs(fechaIngreso).format('DD/MM/YYYY HH:mm') }</p>
     },
      {
-      title: 'Provedores',
-      dataIndex: 'provedores',
+      title: 'Provedor',
+      dataIndex: 'provedor',
       width: "10%",
-      key: 'provedores',
+      key: 'provedor',
+      render: (provedor) => provedor ? <p> { provedor } </p> : <p>-</p> 
     },
     {
       title: 'Usuario que Registro',
-      dataIndex: 'descripcion',
+      dataIndex: 'observacio',
       width: "15%",
       key: 'descripciones',
     },
@@ -48,9 +49,9 @@ const TablaIngresos = (props) => {
     },
     {
       title: 'Observacion',
-      dataIndex: 'descripcion',
+      dataIndex: 'observacion',
       width: "13%",
-      key: 'descripcion',
+      key: 'observacion',
     },
     {
       title: 'Generar Informe',
@@ -58,7 +59,7 @@ const TablaIngresos = (props) => {
       key: 'generarInforme',
       render: () => 
           <div className="p-0 text-center">
-              <Tooltip title="Generar PDF"> <Button title="Generar PDF" className="bg-red-700 btn-rojo-custom text-white xl:w-1/2 sm:w-full "><FilePdfFilled />PDF</Button></Tooltip> 
+              <Tooltip title="Generar PDF"> <Button title="Generar PDF" className="bg-red-700 btn-rojo-custom text-white xl:w-1/2 sm:w-full"><FilePdfFilled />PDF</Button></Tooltip> 
               <Tooltip title="Generar EXCEL"> <Button title="Generar EXCEL" className="bg-green-700 btn-verde-custom text-white xl:w-1/2 sm:w-full"><FileExcelFilled />EXCEL</Button></Tooltip>
           </div>
   },
@@ -68,7 +69,6 @@ const TablaIngresos = (props) => {
       key: 'acciones',
       render: (ingreso) => <>
           <Button title="Editar Registro"  onClick={ () => onEdit(ingreso) } className="bg-cyan-950 btn-cyan-custom text-white">Editar <EditOutlined/></Button>
-   {/*        <Button title="Ver Producto" className="bg-slate-800  text-white">Ver</Button> */}
       </>
   },
   ];

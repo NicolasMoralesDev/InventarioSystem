@@ -2,11 +2,10 @@ package com.nicolasMorales.ProductService.controllers;
 
 import com.nicolasMorales.ProductService.dto.ProductDTO;
 import com.nicolasMorales.ProductService.dto.ProductIncomeResponseDTO;
-import com.nicolasMorales.ProductService.exepciones.BussinesException;
+import com.nicolasMorales.ProductService.exceptions.BussinesException;
 import com.nicolasMorales.ProductService.models.Product;
 import com.nicolasMorales.ProductService.services.impl.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

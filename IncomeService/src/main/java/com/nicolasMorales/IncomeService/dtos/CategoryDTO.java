@@ -8,13 +8,12 @@ import java.util.UUID;
 
 /**
  * @author Nicolas Morales.
- * DTO para Retornar Registros Ingresos.
+ * DTO para agregar categorias a los productos.
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class IncomeEditDTO {
+public class CategoryDTO {
 
     private UUID id;
-    private String observacion;
 }

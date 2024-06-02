@@ -1,5 +1,4 @@
-package com.nicolasMorales.IncomeService.excepciones;
-
+package com.nicolasMorales.ProductService.exceptions;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

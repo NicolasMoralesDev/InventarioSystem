@@ -42,8 +42,10 @@ public class IncomeMapper {
         IncomeDTOResponse incomeDTOResponse = new IncomeDTOResponse();
         List<ProductDTO> productos = new ArrayList<>();
         incomeDTOResponse.setId(income.getId());
-        incomeDTOResponse.setDescripcion(income.getDescription());
+        incomeDTOResponse.setObservacion(income.getDescription());
         incomeDTOResponse.setFechaIngreso(income.getDateIncome());
+        incomeDTOResponse.setProvedor(income.getSupplier());
+        incomeDTOResponse.setSaldado(income.isSettled());
 
         for (long codigo : income.getProducts()) {
             productos.add( productClient.getProductByCode(codigo) );

@@ -7,7 +7,7 @@ const ModalEdit = ({ form, ingresoEdit, visible, setVisible, onSend }) => {
     useEffect(() => {
         form.setFieldsValue({
         id: ingresoEdit.id,
-        descripcion: ingresoEdit.descripcion,
+        observacion: ingresoEdit.observacion,
     })
     
     }, [ form ])
@@ -19,7 +19,7 @@ const ModalEdit = ({ form, ingresoEdit, visible, setVisible, onSend }) => {
     const onFinish = (values) => {
         const data =  {
             id: values.id,
-            descripcion: values.descripcion,
+            observacion: values.observacion,
         }
         onSend(data)
         console.log('Success');
@@ -62,7 +62,7 @@ const ModalEdit = ({ form, ingresoEdit, visible, setVisible, onSend }) => {
                 <Form.Item name="id" hidden><Input/></Form.Item>
                 <Form.Item
                     label="Observación"
-                    name="descripcion"
+                    name="observacion"
                     rules={[
                         {
                             required: true,

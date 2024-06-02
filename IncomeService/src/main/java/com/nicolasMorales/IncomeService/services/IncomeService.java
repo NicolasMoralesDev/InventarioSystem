@@ -3,7 +3,7 @@ package com.nicolasMorales.IncomeService.services;
 import com.nicolasMorales.IncomeService.dtos.IncomeDTO;
 import com.nicolasMorales.IncomeService.dtos.IncomeDTOResponse;
 import com.nicolasMorales.IncomeService.dtos.IncomeEditDTO;
-import com.nicolasMorales.IncomeService.excepciones.BussinesException;
+import com.nicolasMorales.IncomeService.exceptions.BussinesException;
 import com.nicolasMorales.IncomeService.models.Income;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public interface IncomeService {
 
     public Income getIncomeById(UUID id) throws BussinesException;
 
-    public String createIncome(IncomeDTO nuevo);
+    public void createIncome(IncomeDTO nuevo) throws BussinesException;
 
     public String deleteByIdIncome(UUID id);
 

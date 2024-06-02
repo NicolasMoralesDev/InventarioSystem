@@ -34,16 +34,16 @@ import TextArea from "antd/es/input/TextArea";
       },
   },}
 
-  const ProductosModal = ({ form, categorias, subCategorias, productoEdit, visible, setVisible, onSend, edit }) => {
+  const ProductosModal = ({ form, categorias, subCategorias, productoEdit, visible, setVisible, onSend, edit, altaReg }) => {
 
     useEffect(() => {
         form.setFieldsValue({
-            id: edit ? productoEdit.id : "",
+            id: altaReg ? "" : edit ? productoEdit.id : "",
             codigo: edit ? productoEdit.codigo : "",
             nombre: edit ? productoEdit.nombre : "",
             descripcion: edit ? productoEdit.descripcion : "",
             img: edit ? productoEdit.img : "",
-            categoria: edit ? productoEdit.categoria.id : "",
+            categoria: edit ? productoEdit.categoria?.id : "",
             subCategoria: edit ? productoEdit.subCategoria : [],
             marca: edit ? productoEdit.marca : "",
             precio: edit ? productoEdit.precio : "",
@@ -71,7 +71,9 @@ import TextArea from "antd/es/input/TextArea";
             borrado: values.borrado
         }
         onSend(data)
+        setVisible(false)
     };
+
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
@@ -131,7 +133,7 @@ import TextArea from "antd/es/input/TextArea";
                                             },
                                         ]}
                                     >
-                                        <Input maxLength={ 30 }/>
+                                        <Input showCount maxLength={ 30 }/>
                                     </Form.Item>
                                 </Col>
                             </Row>
@@ -142,7 +144,7 @@ import TextArea from "antd/es/input/TextArea";
                                 label="Descripcion:"
                                 name="descripcion"
                             >
-                                <TextArea maxLength={ 100 }/>
+                                <TextArea showCount maxLength={ 100 }/>
                             </Form.Item>
                         </Col>
                     </Row>

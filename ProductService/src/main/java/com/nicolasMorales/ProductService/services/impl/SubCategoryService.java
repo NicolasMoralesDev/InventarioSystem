@@ -1,7 +1,7 @@
 package com.nicolasMorales.ProductService.services.impl;
 
 
-import com.nicolasMorales.ProductService.exepciones.BussinesException;
+import com.nicolasMorales.ProductService.exceptions.BussinesException;
 import com.nicolasMorales.ProductService.models.SubCategory;
 import com.nicolasMorales.ProductService.repository.ISubCategoryRepository;
 import com.nicolasMorales.ProductService.services.ISubCategoryService;

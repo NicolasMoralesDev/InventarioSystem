@@ -23,10 +23,9 @@ public class Income {
     private UUID id;
     private String description;
     private LocalDateTime dateIncome = LocalDateTime.now();
-    @ElementCollection
-    private List <String> suppliers;
-//    private estado;
+    private String supplier;
     @ElementCollection
     private List <Long> products;
+    private boolean settled = false;
 
 }

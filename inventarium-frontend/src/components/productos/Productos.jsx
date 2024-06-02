@@ -77,7 +77,7 @@ const Productos = () => {
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Listado Productos</title>
+        <title>Listado productos</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       <FormBusqueda
@@ -117,6 +117,7 @@ const Productos = () => {
         dataSourse={ Object.keys(productoCode).length != 0 ? productoCode :  productos }
         onBorrado={ onBorrado }
         loading={ loading }
+        isList={ true }
       />
     </>
   )

@@ -1,7 +1,7 @@
 package com.nicolasMorales.ProductService.services.impl;
 
 import com.nicolasMorales.ProductService.dto.ProductDTO;
-import com.nicolasMorales.ProductService.exepciones.BussinesException;
+import com.nicolasMorales.ProductService.exceptions.BussinesException;
 import com.nicolasMorales.ProductService.mapper.ProductMapper;
 import com.nicolasMorales.ProductService.models.Product;
 import com.nicolasMorales.ProductService.repository.IProductRepository;
@@ -42,6 +42,7 @@ public class ProductService implements IProductService {
                 productRepo.save(nuevo);
             } else if (producto.getCodigo() == nuevo.getCodigo()){
                 producto.setCant(nuevo.getCant()+producto.getCant());
+                productRepo.save(producto);
             }
         } catch ( Exception  e) {
             throw new BussinesException("Error, No se pudo cargar el producto: " + nuevo.getNombre());

@@ -1,6 +1,7 @@
 package com.nicolasMorales.IncomeService.dtos;
 
 import com.nicolasMorales.IncomeService.models.Product;
+import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,9 +17,10 @@ import java.util.List;
 @NoArgsConstructor
 public class IncomeDTO {
 
-    private String description;
-    private List <String> suppliers;
-    private List <Product> products;
+    private String observacion;
+    private SupplierDTO provedor;
+    private List <ProductDTO> productos;
+    @Nullable
     private String fechaIngreso;
 
 }

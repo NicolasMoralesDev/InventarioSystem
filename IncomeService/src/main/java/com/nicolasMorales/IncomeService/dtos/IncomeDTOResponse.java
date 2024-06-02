@@ -18,9 +18,10 @@ import java.util.UUID;
 public class IncomeDTOResponse {
 
     private UUID id;
-    private String descripcion;
-    private List<String> provedores;
+    private String observacion;
+    private String provedor;
     private List<ProductDTO> productos;
     private LocalDateTime fechaIngreso;
+    private boolean saldado;
 
 }

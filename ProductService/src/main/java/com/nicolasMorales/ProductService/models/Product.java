@@ -2,6 +2,7 @@ package com.nicolasMorales.ProductService.models;
 
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.UUID;
         @UniqueConstraint(columnNames={"codigo"})
 )
 @NoArgsConstructor
+@AllArgsConstructor
 public class Product {
 
     @Id
@@ -38,18 +40,6 @@ public class Product {
     private String marca;
     private double precio;
     private int cant;
-    private boolean borrado;
+    private boolean borrado = false;
 
-    public Product (UUID id, long codigo, String nombre, String img, List <SubCategory> subCategoria, String marca, double precio, int cant, boolean borrado, String descripcion) {
-        this.id = id;
-        this.codigo = codigo;
-        this.nombre = nombre;
-        this.img = img;
-        this.subCategoria = subCategoria;
-        this.marca = marca;
-        this.precio = precio;
-        this.cant = cant;
-        this.borrado = false;
-        this.descripcion = descripcion;
-    }
 }

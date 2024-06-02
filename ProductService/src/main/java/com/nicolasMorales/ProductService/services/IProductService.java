@@ -2,7 +2,7 @@ package com.nicolasMorales.ProductService.services;
 
 
 import com.nicolasMorales.ProductService.dto.ProductDTO;
-import com.nicolasMorales.ProductService.exepciones.BussinesException;
+import com.nicolasMorales.ProductService.exceptions.BussinesException;
 import com.nicolasMorales.ProductService.models.Product;
 
 import java.util.List;

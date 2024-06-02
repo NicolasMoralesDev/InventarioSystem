@@ -3,7 +3,7 @@ package com.nicolasMorales.IncomeService.services.impl;
 import com.nicolasMorales.IncomeService.dtos.IncomeDTO;
 import com.nicolasMorales.IncomeService.dtos.IncomeDTOResponse;
 import com.nicolasMorales.IncomeService.dtos.IncomeEditDTO;
-import com.nicolasMorales.IncomeService.excepciones.BussinesException;
+import com.nicolasMorales.IncomeService.exceptions.BussinesException;
 import com.nicolasMorales.IncomeService.mapper.IncomeMapper;
 import com.nicolasMorales.IncomeService.models.Income;
 import com.nicolasMorales.IncomeService.repository.IIncomeRepository;
@@ -53,22 +53,23 @@ public class IncomeService implements com.nicolasMorales.IncomeService.services.
     }
 
     @Override
-    @CircuitBreaker(name = "product-service", fallbackMethod = "incomeError")
     @Transactional
     @Retry(name = "product-service")
-    public String createIncome(IncomeDTO nuevo) {
+    public void createIncome(IncomeDTO nuevo) throws BussinesException {
         try {
 
             Income register = new Income();
-            List<Long> listProducts = productClient.addProducts(nuevo.getProducts());
-            register.setDescription(nuevo.getDescription());
+            List<Long> listProducts = productClient.addProducts(nuevo.getProductos());
+            if (listProducts == null) {
+                throw new BussinesException("Se ha producido un error al intentar registrar el ingreso!");
+            }
+            register.setDescription(nuevo.getObservacion());
             register.setProducts(listProducts);
-            register.setSuppliers(nuevo.getSuppliers());
+            register.setSupplier(nuevo.getProvedor().getNombre());
             incomeRepo.save(register);
-            return "Ingreso registrado!";
 
-        } catch (Exception e){
-            return "Error "+ e.getMessage();
+        } catch (BussinesException e){
+            throw new BussinesException("Error "+ e.getMessage()) ;
         }
     }
 
@@ -91,7 +92,7 @@ public class IncomeService implements com.nicolasMorales.IncomeService.services.
         try {
             Income ingreso = this.getIncomeById(edit.getId());
             ingreso.setId(edit.getId());
-            ingreso.setDescription(edit.getDescripcion());
+            ingreso.setDescription(edit.getObservacion());
 
         } catch (BussinesException e){
             throw new BussinesException("Error "+ e.getMessage());

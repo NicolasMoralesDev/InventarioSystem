@@ -7,13 +7,13 @@ const urlBase = "http://localhost:9003/api/v1/income"
  * Registro de Ingresos.
  * @returns Devuelve un mensaje con el resultado de la operacion.
  */
-export const registrarIngresos = async (ingreso)  => {
+export const registrarIngresos = async (ingreso) => {
 
      try {
           const request = await useAxiosConf.post(`${urlBase}/register`, ingreso)
           return request;
      } catch (error) {
-          errorPop("error al intentar conectarse con el servidor."+ error);
+          errorPop("error al intentar conectarse con el servidor." + error);
      }
 }
 
@@ -21,10 +21,11 @@ export const registrarIngresos = async (ingreso)  => {
  * Obtiene todos los registros de ingresos
  * @returns Devuelve un listado de registros de ingresos.
  */
-export const obtenerIngresos = async ()  => {
+export const obtenerIngresos = async () => {
 
      try {
           const request = await useAxiosConf.get(`${urlBase}/getAll`)
+          console.log(request);
           return request;
      } catch (error) {
           errorPop("error al intentar conectarse con el servidor.");
@@ -35,11 +36,11 @@ export const obtenerIngresos = async ()  => {
  * Edita registros de ingresos
  * @returns Devuelve un mensaje con el resultado de la operacion.
  */
-export const modificarIngresos = async (ingreso)  => {
+export const modificarIngresos = async (ingreso) => {
 
      try {
-           const request = await useAxiosConf.put(`${urlBase}/modify`, ingreso)
-           return request;   
+          const request = await useAxiosConf.put(`${urlBase}/modify`, ingreso)
+          return request;
      } catch (error) {
           errorPop(error);
      }

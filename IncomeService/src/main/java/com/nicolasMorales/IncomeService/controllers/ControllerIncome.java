@@ -3,7 +3,7 @@ package com.nicolasMorales.IncomeService.controllers;
 
 import com.nicolasMorales.IncomeService.dtos.IncomeDTO;
 import com.nicolasMorales.IncomeService.dtos.IncomeEditDTO;
-import com.nicolasMorales.IncomeService.excepciones.BussinesException;
+import com.nicolasMorales.IncomeService.exceptions.BussinesException;
 import com.nicolasMorales.IncomeService.services.IncomeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,23 +31,12 @@ public class ControllerIncome {
      */
     @PostMapping(value = "/register")
     public ResponseEntity<?> registerIncome(@RequestBody IncomeDTO income){
-
         HashMap<String, String> response = new HashMap<>();
+
         try {
-
-            String status = incomeService.createIncome(income);
-
-            if (status == "Ingreso registrado!") {
-
-                response.put("msg", status );
-
-                return ResponseEntity.ok().body(response);
-
-            } else {
-
-                response.put("error", status);
-                return  ResponseEntity.badRequest().body(response);
-            }
+            incomeService.createIncome(income);
+            response.put("msg", "Ingreso registrado correctamente!");
+            return ResponseEntity.ok().body(response);
 
         } catch (Exception e){
             response.put("error", e.getMessage());

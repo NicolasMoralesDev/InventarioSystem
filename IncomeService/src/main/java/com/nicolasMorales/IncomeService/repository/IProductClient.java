@@ -24,7 +24,7 @@ public interface IProductClient {
      * @return Devuelve un mensaje con el estado de la operacion.
      */
     @PostMapping("/bulk")
-    public List<Long> addProducts (@RequestBody List<Product> productos);
+    public List<Long> addProducts (@RequestBody List<ProductDTO> productos);
 
     /**
      * Metodo para obtener un prodycto por su codigo de barras mediante el servidor de Productos.

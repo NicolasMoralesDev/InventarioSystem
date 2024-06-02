@@ -21,7 +21,7 @@ const Ingresos = () => {
   }
 
   useEffect(() => { onFetch() }, [ visibleEdit ])
-  useEffect(() => { loadingPop("Obteniendo Registros...") }, [obtenerIngresos])
+  useEffect(() => { loadingPop("Obteniendo Registros....") }, [obtenerIngresos])
   useEffect(() => { if (statusEdit) { successPop(statusEdit) } }, [statusEdit])
 
   const onEdit = async (ingreso) => {
@@ -34,7 +34,7 @@ const Ingresos = () => {
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Listado de Ingresos</title>
+        <title>Listado de ingresos</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       {visibleEdit &&

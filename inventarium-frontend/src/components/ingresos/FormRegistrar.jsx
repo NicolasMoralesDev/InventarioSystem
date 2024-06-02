@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react'
-import { Button, Card, Col, Input, InputNumber, Row, Select } from 'antd'
+import { Button, Card, Col, Input, InputNumber, Row, Select, Space } from 'antd'
 import Form from 'antd/es/form/Form'
 import TextArea from 'antd/es/input/TextArea'
 import useForm  from "antd/lib/form/hooks/useForm"
+import { UploadOutlined } from "@ant-design/icons";
 import './estilos/formIngresos.css'
+import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.registros';
 
  const formItemLayout = {
   labelCol: {
@@ -36,31 +37,35 @@ import './estilos/formIngresos.css'
     },
  },}
 
- const ModalRegistrar = ({ ingresoRegistrar, onSend, categorias }) => {
+ const FormRegistrar = ({ onSend, provedores, categorias, onRegister }) => {
 
   const [form] = useForm()
 
   const onFinish = (values) => {
+
     const data = {
-      code: values.code,
+      codigo: values.codigo,
       nombre: values.nombre,
       marca: values.marca,
       precio: values.precio,
       cant: values.cant,
-      descripcion: values.descripcion,
-      categoria: values.categoria
+      observacion: values.observacion,
+      provedor: values.provedor,
+      categoria: {id:values.categoria},
+      descripcion: values.descripcion
     }
+
     onSend(data)
     console.log('Success');  
 
     form.setFieldsValue({
-      code: "",
+      codigo: "",
       nombre: "",
       marca: "",
       precio: "",
       cant: "",
-      descripcion: "",
-      categoria: ""
+      categoria: "",
+      descripcion: ""
     })
   };
 
@@ -74,22 +79,21 @@ import './estilos/formIngresos.css'
       <Card className='w-full bg-slate-200'>
         <Form
           className='w-full'
-          form={form}
+          form={ form }
           name="basic"
           initialValues={{
             remember: true,
           }}
-          onFinish={onFinish}
-          onFinishFailed={onFinishFailed}
+          onFinish={ onFinish }
+          onFinishFailed={ onFinishFailed }
           autoComplete="off"
         >
           <Card className='w-full'>
-            <Row>
-              <Col span={ 50 }>
+            <Row gutter={[40,30]}>
+              <Col span={ 25 }>
                 <Form.Item
-                  className="w-full"
                   label="Observación del Ingreso"
-                  name="descripcion"
+                  name="observacion"
                   rules={[
                     {
                       required: true,
@@ -97,17 +101,44 @@ import './estilos/formIngresos.css'
                     },
                   ]}
                 >
-                  <TextArea />
+                  <TextArea 
+                      maxLength={ 200 }
+                      showCount
+                  />
+                </Form.Item>
+              </Col>
+              <Col span={ 15 }>
+                <Form.Item
+                  label="Provedor"
+                  name="provedor"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Ingrese una observacion!',
+                    },
+                  ]}
+                >
+                  <Select> 
+                     {
+                        provedores.map(provedor =>
+                          <Select.Option key={provedor.id} value={provedor.nombre}>{provedor.nombre}</Select.Option>
+                        )
+                      }
+                  </Select>
                 </Form.Item>
               </Col>
             </Row>
           </Card>
           <>
             <Card>
-              <Row gutter={[20, 25]} className='gap-5'>
+              <div className='m-5'>
+                <h2>Agregar Productos:</h2>
+              </div>
+              <Row gutter={ [30,15] }>
+                <Col span={ 5 }>
                 <Form.Item
                   label="Codigo de Barras"
-                  name="code"
+                  name="codigo"
                   rules={[
                     {
                       required: true,
@@ -116,11 +147,12 @@ import './estilos/formIngresos.css'
                   ]}
                 >
                   <InputNumber
-                    className='1/4'
-                    min={0}
+                    className='w-full'
+                    min={ 0 }
                   />
                 </Form.Item>
-
+                </Col>
+                <Col>
                 <Form.Item
                   label="Nombre"
                   name="nombre"
@@ -133,7 +165,8 @@ import './estilos/formIngresos.css'
                 >
                   <Input />
                 </Form.Item>
-
+                </Col>
+                <Col>
                 <Form.Item
                   label="Marca"
                   name="marca"
@@ -146,7 +179,8 @@ import './estilos/formIngresos.css'
                 >
                   <Input />
                 </Form.Item>
-
+                </Col>
+                <Col>
                 <Form.Item
                   label="Precio $"
                   name="precio"
@@ -159,6 +193,8 @@ import './estilos/formIngresos.css'
                 >
                   <InputNumber />
                 </Form.Item>
+                </Col>
+                <Col>
                 <Form.Item
                   label="Cantidad"
                   name="cant"
@@ -171,15 +207,33 @@ import './estilos/formIngresos.css'
                 >
                   <InputNumber />
                 </Form.Item>
+                </Col>
               </Row>
-              <Row>
-                <Col span={4}>
+              <Row gutter={ [15,1] }>
+              <Col span={ 5 }>
+                <Form.Item
+                  label="Descripcion"
+                  name="descripcion"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Ingrese una descripcion!',
+                    },
+                  ]}
+                >
+                  <TextArea
+                      showCount
+                      maxLength={ 200 }
+                  />
+                </Form.Item>
+              </Col>
+                <Col span={ 5 }>
                   <Form.Item
                     label="Categoria"
                     name="categoria"
                     rules={[
                       {
-                        required: true,
+                        required: false,
                         message: 'Ingrese la categoria!',
                       },
                     ]}
@@ -196,15 +250,20 @@ import './estilos/formIngresos.css'
               </Row>
             </Card>
           </>
+          <Space>
           <Form.Item className="m-3">
-            <Button type="primary" htmlType="submit">
+            <Button type="default" htmlType="submit" icon={ <UploadOutlined/> }>
               Cargar producto
             </Button>
           </Form.Item>
+            <Button type="default" disabled={ obtenerProductosStorage() != null ? false : true } onClick={ ()=> onRegister() } icon={ <UploadOutlined/> }>
+              Registrar ingreso
+            </Button>
+          </Space>
         </Form>
       </Card>
     </>
   )
 }
 
-export default ModalRegistrar
+export default FormRegistrar

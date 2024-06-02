@@ -23,5 +23,6 @@ public class Category {
     private String titulo;
     @Nullable
     private String descripcion;
+    private boolean borrado;
 
 }
