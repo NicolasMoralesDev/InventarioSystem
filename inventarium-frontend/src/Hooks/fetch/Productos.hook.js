@@ -1,7 +1,8 @@
 import { errorPop } from "../util/messages/alerts";
 import useAxiosConf from "../util/fetch.hook";
+import fileDownload from "js-file-download"
 
-const urlBase = "http://localhost:9002/api/v1/product"
+const urlBase = "product-service/api/v1/product"
 
 /**
  * Obtiene todos los productos.
@@ -17,7 +18,7 @@ export const obtenerProductos = async () => {
 }
 
 /**
- * Busca producto por codigo de barras.
+ * Busca productos por su codigo de barras.
  * @returns Devuelve el producto relacionado con el codigo.
  */
 export const obtenerProductoByCodigo = async (code) => {
@@ -30,7 +31,7 @@ export const obtenerProductoByCodigo = async (code) => {
 }
 
 /**
- * Realiza Borrado multiple de productos.
+ * Realiza borrado multiple de productos.
  * @returns Devuelve un listado de productos.
  */
 export const borradoMultipleProductos = async (productosIds) => {
@@ -43,7 +44,7 @@ export const borradoMultipleProductos = async (productosIds) => {
 }
 
 /**
- * Realiza Editado de productos.
+ * Realiza editado de productos.
  * @returns Devuelve un mensaje con el estado de la operacion.
  */
 export const editarProducto = async (producto) => {
@@ -63,6 +64,22 @@ export const crearProducto = async (producto) => {
      try {
        const request = await useAxiosConf.post(`${urlBase}/post`, producto)
        return request;   
+     } catch (error) {
+          errorPop(`Error ${error}`);
+     } 
+}
+
+/**
+ * Genera un reporte PDF con los productos selccionados.
+ * @returns Devuelve un mensaje con el estado de la operacion y el reporte PDF.
+ */
+export const genearReportePDFproductos = async (productosIds) => {
+     try {
+       const request = await useAxiosConf.post(`${urlBase}/generate/pdf`, productosIds)
+       console.log(request);
+     fileDownload(request.data, "hola.pdf")
+
+       return request  
      } catch (error) {
           errorPop(`Error ${error}`);
      } 

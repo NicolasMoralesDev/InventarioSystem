@@ -40,7 +40,7 @@ public class PdfService implements IPdfService {
      Document document = new Document(pdfDocument, PageSize.A4.rotate());
 
      document.setMargins(20, 20, 20, 20);
-     Table table = new Table(new float[]{4, 1, 3, 4, 3, 3, 3, 3});
+     Table table = new Table(new float[]{4, 1, 3, 4, 3, 3, 3});
      table.setWidth(UnitValue.createPercentValue(100));
      PdfFont font = PdfFontFactory.createFont(FontConstants.HELVETICA_BOLD);
      Paragraph titulo = new Paragraph("Reporte de Mercaderia").setTextAlignment(TextAlignment.CENTER).setFont(font);
@@ -49,7 +49,6 @@ public class PdfService implements IPdfService {
      table.addCell(new Paragraph("Nombre").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
      table.addCell(new Paragraph("Descripcion").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
      table.addCell(new Paragraph("Categoria").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
-     table.addCell(new Paragraph("Sub categoria").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
      table.addCell(new Paragraph("Marca").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
      table.addCell(new Paragraph("Precio").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
      table.addCell(new Paragraph("Stock").setTextAlignment(TextAlignment.CENTER).setBackgroundColor(Color.LIGHT_GRAY));
@@ -60,7 +59,6 @@ public class PdfService implements IPdfService {
          table.addCell(String.valueOf(producto.getNombre())); // Nombre
          table.addCell(String.valueOf(producto.getDescripcion())); // Descripcion
          table.addCell(String.valueOf(producto.getCategoria())); // Categoria
-         table.addCell(String.valueOf(producto.getSubCategoria())); // Sub Categoria
          table.addCell(String.valueOf(producto.getMarca())); // Marca
          table.addCell( new Paragraph(String.valueOf(" $ "+producto.getPrecio())).setTextAlignment(TextAlignment.CENTER)); // Precio
          table.addCell( new Paragraph(String.valueOf(producto.getCant())).setTextAlignment(TextAlignment.CENTER)); // Stock

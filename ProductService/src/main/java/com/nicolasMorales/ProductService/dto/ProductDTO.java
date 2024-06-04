@@ -11,8 +11,8 @@ import java.util.UUID;
 
 
 /**
- *  @author Nicolas Morales
- *  DTO para la Entidad Productos
+ *  @author Nicolas Morales.
+ *  DTO para la Entidad Productos.
  */
 @Data
 @AllArgsConstructor

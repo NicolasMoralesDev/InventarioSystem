@@ -8,14 +8,22 @@ import "./estilos/tablaProductos.css"
 
 const TablaProductos = (props) => {
 
-    const { setVisibleAdd, setVisibleEdit, setProductoEdit,  categorias, dataSourse, onBorrado, loading, isList } = props
+    const { setVisibleAdd, setVisibleEdit, setProductoEdit,  categorias, dataSourse, onBorrado, onGeneratePdf, loading, isList } = props
     const cateFilter = []
     categorias?.length > 0 ? categorias.map(cate => {cateFilter.push({text: cate.titulo, value: cate.titulo})}) : ""
     const [productosSeleccionados, setProductosSeleccionados] = useState([])
 
+    const isDisabled = () => {
+        if (productosSeleccionados.length > 0) {
+           return true 
+        } else {
+            return false
+        }
+    }
+
     const onSelectProductos = (productsSelected) => {
-        console.log(productsSelected);
         setProductosSeleccionados(productsSelected)
+        console.log(productosSeleccionados);
     }
 
     const onAdd = () => {
@@ -29,6 +37,10 @@ const TablaProductos = (props) => {
 
     const onDelete = () => {
         alertPop("¿Esta seguro que desea borrar los Productos seleccionados?", "question", () => onBorrado(productosSeleccionados))
+    }
+
+    const onDownloadPdf = () => {
+        onGeneratePdf(productosSeleccionados)
     }
 
     const columns = [
@@ -115,21 +127,17 @@ const TablaProductos = (props) => {
                     <Button className="bg-blue-950 btn-cyan-custom text-white" onClick={ onAdd }> <ProductFilled/> Cargar Producto</Button>
                  </Tooltip>  
                  <Tooltip title="Generar PDF"> 
-                 <Button title="Generar PDF" className="bg-red-700 btn-rojo-custom text-white"><FilePdfFilled />PDF</Button>
+                    <Button title="Generar PDF" disabled={ isDisabled() ? false : true } className="bg-red-700 btn-rojo-custom text-white" onClick={ ()=> onDownloadPdf() }><FilePdfFilled />PDF</Button>
                  </Tooltip> 
                  <Tooltip title="Generar EXCEL"> 
-                 <Button title="Generar EXCEL" className="bg-green-700 btn-verde-custom text-white"><FileExcelFilled />EXCEL</Button>
+                    <Button title="Generar EXCEL" disabled={ isDisabled() ? false : true } className="bg-green-700 btn-verde-custom text-white"><FileExcelFilled />EXCEL</Button>
                  </Tooltip>
                 </>
                 : 
                 <></>
                 }
                 <Tooltip title="Borrado Multiple">
-                    { productosSeleccionados.length > 0 ?
-                        <Button className="bg-red-800 btn-bordo-custom text-white" onClick={ () => onDelete() }> <DeleteFilled/> Borrado Multiple</Button> 
-                        :
-                        <Button disabled><DeleteFilled/>Borrado Multiple</Button>
-                    }
+                    <Button disabled={ isDisabled() ? false : true } className="bg-red-800 btn-bordo-custom text-white" onClick={ () => onDelete() }> <DeleteFilled/> Borrado Multiple</Button> 
                 </Tooltip>
             </Space>
             <Table

@@ -1,7 +1,6 @@
 
 package com.nicolasMorales.IncomeService.repository;
 import com.nicolasMorales.IncomeService.dtos.ProductDTO;
-import com.nicolasMorales.IncomeService.models.Product;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,9 +9,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
-
 /**
- * @author Nico Morales.
+ * @author Nicolas Morales.
  * Interfaz cliente para consumir el servicio de Productos.
  */
 @FeignClient(name = "product-service/api/v1/product")

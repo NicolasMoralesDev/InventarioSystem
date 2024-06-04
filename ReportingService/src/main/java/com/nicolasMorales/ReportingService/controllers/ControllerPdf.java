@@ -23,24 +23,12 @@ public class ControllerPdf {
     private PdfService pdfServ;
 
     /**
-     * Genera un informe PDF con los productos enviados.
-     * @param response Retorna el PDF
+     * Genera informe PDF con los productos recibidos.
      * @param productos Recibe un listado de productos que se desean incluir en el informe.
      * @throws IOException Excepcion para manejar errores de la generacion del PDF.
      */
-    @PostMapping( value = "/productos/generate")
-    public void generatePDF(HttpServletResponse response, @RequestBody List<ProductDTO> productos) throws IOException {
-        byte[] pdfBytes = pdfServ.generatePdfIngresos(productos).toByteArray();
-
-        // Set response headers
-        response.setContentType("application/pdf");
-        response.setContentLength(pdfBytes.length);
-        response.setHeader("Content-Disposition", "attachment; filename=product_table.pdf");
-
-        // Escribe el PDF con la informacion a retornar
-        OutputStream outputStream = response.getOutputStream();
-        outputStream.write(pdfBytes);
-        outputStream.flush();
-        outputStream.close();
+    @PostMapping(value = "/products/generate")
+    public byte[] generatePDF(@RequestBody List<ProductDTO> productos) throws IOException {
+        return pdfServ.generatePdfIngresos(productos).toByteArray();
     }
 }

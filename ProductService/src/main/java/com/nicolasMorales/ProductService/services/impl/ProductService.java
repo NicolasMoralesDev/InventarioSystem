@@ -1,11 +1,14 @@
 package com.nicolasMorales.ProductService.services.impl;
 
 import com.nicolasMorales.ProductService.dto.ProductDTO;
+import com.nicolasMorales.ProductService.dto.ProductDowndloadPdfDTO;
 import com.nicolasMorales.ProductService.exceptions.BussinesException;
 import com.nicolasMorales.ProductService.mapper.ProductMapper;
 import com.nicolasMorales.ProductService.models.Product;
 import com.nicolasMorales.ProductService.repository.IProductRepository;
+import com.nicolasMorales.ProductService.repository.IReportingClient;
 import com.nicolasMorales.ProductService.services.IProductService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
@@ -28,6 +31,9 @@ public class ProductService implements IProductService {
 
     @Autowired
     private ProductMapper productMapper;
+
+    @Autowired
+    private IReportingClient repoClient;
 
     /**
      * Metodo para crear un Producto.
@@ -74,12 +80,17 @@ public class ProductService implements IProductService {
      */
     @Override
     @Transactional
-    public String deleteProduct(UUID id) {
+    public void deleteProduct(UUID id) throws BussinesException{
         try {
             productRepo.deleteById(id);
-            return "Producto Borrado Correctamente!!";
+            Product producto = this.getProductsById(id);
+
+            if (producto == null) {
+                throw new BussinesException("Error");
+            }
+            producto.setBorrado(true);
         } catch (Exception e){
-            return  "Error "+ e;
+            throw new BussinesException(e.getMessage());
         }
     }
 
@@ -126,9 +137,17 @@ public class ProductService implements IProductService {
      * @param id Recibe el id del producto.
      */
     @Override
-    public Product getProductsById(UUID id) {
+    public Product getProductsById(UUID id) throws BussinesException {
+        try {
+            Product producto = productRepo.findById(id).orElse(null);
+            if (producto == null) {
+                throw new BussinesException("El ID: "+ id + "es invalido.");
+            }
 
-        return productRepo.findById(id).orElse(null);
+            return producto;
+        } catch (BussinesException e) {
+            throw new BussinesException(e.getMessage());
+        }
     }
 
     /**
@@ -161,6 +180,19 @@ public class ProductService implements IProductService {
             }
         } catch (BussinesException e) {
             throw new BussinesException("Error " + e.getMessage());
+        }
+    }
+
+    @Override
+    public byte[] downloadPDF(List<UUID> productosIds) throws BussinesException {
+        try {
+            List<ProductDowndloadPdfDTO> productList = new ArrayList<>();
+            for(UUID productID : productosIds) {
+                productList.add(productMapper.productToProductDowndloadPdfDTO(this.getProductsById(productID)));
+            }
+          return repoClient.generatePDF(productList);
+        } catch (BussinesException e) {
+            throw new BussinesException(e.getMessage());
         }
     }
 }

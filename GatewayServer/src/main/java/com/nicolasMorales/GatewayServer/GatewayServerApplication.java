@@ -9,7 +9,6 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  * Clase Main del servidor.
  */
 @SpringBootApplication
-@EnableDiscoveryClient
 public class GatewayServerApplication {
 
 	public static void main(String[] args) {

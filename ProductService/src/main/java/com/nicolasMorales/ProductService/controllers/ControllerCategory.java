@@ -65,7 +65,7 @@ public class ControllerCategory {
     }
 
     /**
-     * Controllador para obtener una categoria.
+     * Controllador para obtener una categoria por ID.
      * @param id Recibe el id de la categoria a obtener.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y la categoria (si es que existe).
      */

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { Helmet } from "react-helmet"
 import { obtenerCategorias } from "../../Hooks/fetch/Categorias.hook"
 import { obtenerSubCategorias } from "../../Hooks/fetch/SubCategorias.hook"
-import { borradoMultipleProductos, crearProducto, editarProducto, obtenerProductoByCodigo, obtenerProductos } from "../../Hooks/fetch/Productos.hook"
+import { borradoMultipleProductos, crearProducto, editarProducto, genearReportePDFproductos, obtenerProductoByCodigo, obtenerProductos } from "../../Hooks/fetch/Productos.hook"
 import TablaProductos from "./TablaProductos"
 import { errorPop, loadingPop, successPop } from "../../Hooks/util/messages/alerts"
 import useForm  from "antd/lib/form/hooks/useForm"
@@ -44,6 +44,10 @@ const Productos = () => {
      const request = await borradoMultipleProductos(productosIds)
      setLoading(true)
      setStatusBorrado({error: request.error, msg: request.data.msg, status: request.status})
+  }
+
+  const onGeneratePdf = async (productosIds) => {
+     const request = await genearReportePDFproductos(productosIds)
   }
 
   const onEdit = async (productoEdit) => {
@@ -116,6 +120,7 @@ const Productos = () => {
         categorias={ categorias }
         dataSourse={ Object.keys(productoCode).length != 0 ? productoCode :  productos }
         onBorrado={ onBorrado }
+        onGeneratePdf={ onGeneratePdf }
         loading={ loading }
         isList={ true }
       />

@@ -5,10 +5,14 @@ import com.nicolasMorales.ProductService.dto.ProductIncomeResponseDTO;
 import com.nicolasMorales.ProductService.exceptions.BussinesException;
 import com.nicolasMorales.ProductService.models.Product;
 import com.nicolasMorales.ProductService.services.impl.ProductService;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.Produces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -135,19 +139,12 @@ public class ControllerProduct {
     public ResponseEntity<?> deleteById(@PathVariable UUID id){
         HashMap<String, String> response = new HashMap<>();
         try {
-            String status = productServ.deleteProduct(id);
-
-            if (status == "Producto Borrado Correctamente!!") {
-
-                response.put("msg", status );
-
-                return  ResponseEntity.ok().body(response);
-            } else {
-                response.put("error", status);
-                return  ResponseEntity.badRequest().body(response);
-            }
+            productServ.deleteProduct(id);
+            response.put("msg", "Producto borrado Correctamente!!");
+            return  ResponseEntity.ok().body(response);
         } catch (Exception e){
-            return  ResponseEntity.badRequest().body("Error "+e.getMessage());
+            response.put("Error ", e.getMessage());
+            return  ResponseEntity.badRequest().body(response);
         }
     }
 
@@ -161,7 +158,7 @@ public class ControllerProduct {
         HashMap<String, String> response = new HashMap<>();
         try {
             productServ.deleteProducts(ids);
-            response.put("msg", "Productos Borrados Correctamente!!");
+            response.put("msg", "Productos borrados Correctamente!!");
             return  ResponseEntity.ok().body(response);
         } catch (BussinesException e){
             return  ResponseEntity.badRequest().body("Error "+e.getMessage());
@@ -174,13 +171,13 @@ public class ControllerProduct {
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensage de la operacion.
      */
     @PutMapping(value = "/put")
-    public  ResponseEntity<?> editProduct(@RequestBody Product edit){
+    public ResponseEntity<?> editProduct(@RequestBody Product edit){
         HashMap<String, String> response = new HashMap<>();
 
         try {
             String status = productServ.modifyProduct(edit);
 
-            if (status == "Producto Modificado!") {
+            if (status == "Producto modificado!") {
 
                 response.put("msg", status);
                 return ResponseEntity.ok().body(response);
@@ -192,6 +189,34 @@ public class ControllerProduct {
         } catch (Exception e){
             response.put("error", e.getMessage());
             return  ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    /**
+     * Controllador para generar PDF.
+     * @param productosIds Recibe un Array de ids.
+     * @return ResponseEntity Devuelve esta entidad con el codigo de estado, un mensaje y el PDF generado.
+     */
+    @PostMapping(value = "/generate/pdf")
+    public ResponseEntity<byte[]> downloadPDF(HttpServletResponse response, @RequestBody List <UUID> productosIds) throws BussinesException, IOException {
+        HashMap<String, String> status = new HashMap<>();
+//        status.put("msg", "Reporte generado correctamente");
+        try {
+            byte[] pdfBytes = productServ.downloadPDF(productosIds);
+
+            response.setContentType("application/pdf");
+            response.setContentLength(pdfBytes.length);
+            response.setHeader("Content-Disposition", "attachment; filename=product_table.pdf");
+
+            // Escribe el PDF con la informacion a retornar
+            OutputStream outputStream = response.getOutputStream();
+            outputStream.write(pdfBytes);
+            outputStream.flush();
+            outputStream.close();
+
+            return ResponseEntity.ok().body(pdfBytes);
+        } catch (BussinesException e){
+            throw new BussinesException("Error "+ e.getMessage());
         }
     }
 }
