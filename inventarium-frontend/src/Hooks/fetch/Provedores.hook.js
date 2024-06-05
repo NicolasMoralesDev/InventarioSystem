@@ -1,8 +1,7 @@
 import { errorPop } from "../util/messages/alerts";
 import useAxiosConf from "../util/fetch.hook";
 
-const urlBase = "http://localhost:9001/api/v1/supplier"
-
+const urlBase = "suppliers-service/api/v1/supplier"
 
 /**
  * Obtiene todos los provedores.

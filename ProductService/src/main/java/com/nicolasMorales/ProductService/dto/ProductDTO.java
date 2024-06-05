@@ -22,7 +22,6 @@ public class ProductDTO {
     private UUID id;
     private long codigo;
     private String nombre;
-    private String img;
     private String descripcion;
     private Category categoria;
     private List<SubCategory> subCategoria;

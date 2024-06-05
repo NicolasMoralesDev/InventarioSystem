@@ -1,17 +1,11 @@
 package com.nicolasMorales.ReportingService.dtos;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.List;
 
 /**
  * DTO para para manipular los datos de los productos.
  */
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 public class ProductDTO {
 
     private long codigo;

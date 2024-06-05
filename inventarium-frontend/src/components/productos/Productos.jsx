@@ -27,7 +27,8 @@ const Productos = () => {
   const [statusEdit, setStatusEdit] = useState("")
 
   const onFetch = async () => {
-     const resProdu = await obtenerProductos()
+     setLoading(true)
+     const resProdu = await obtenerProductos(setLoading)
      const resCate = await obtenerCategorias()
      const resSubCate = await obtenerSubCategorias()
      setSubCategorias(resSubCate.data)
@@ -69,13 +70,13 @@ const Productos = () => {
     } 
   }, [ statusBorrado ])
 
-  useEffect(() => { onFetch(), setLoading(false) }, [])
+  useEffect(() => { onFetch() }, [])
 /*   useEffect(() => { editarProducto ? loadingPop("Editando Producto...") : ""}, [editarProducto]) */
   useEffect(() => { if (statusEdit) { successPop(statusEdit),  onFetch(), setVisibleEdit(false) } }, [statusEdit])
   useEffect(() => { if (statusAdd) { successPop(statusAdd),  onFetch(), setVisibleAdd(false) } }, [statusAdd])
   useEffect(() => { statusBorrado ? loadingPop("Borrando Productos...")  : "" }, [ statusBorrado ])
   useEffect(() => { if (productos.length < 1 || statusBorrado || statusEdit || statusAdd) { loadingPop("Obteniendo Productos..."), setLoading(true) } }, [ productos ])
-  useEffect(() => { if (productos.length > 0 || productoCode.length > 0) { setLoading(false) } }, [ productos, productoCode ])
+/*   useEffect(() => { if (productos.length > 0 || productoCode.length > 0) { setLoading(false) } }, [ productos, productoCode ]) */
 
   return (
     <>

@@ -2,12 +2,10 @@ package com.nicolasMorales.ReportingService.controllers;
 
 import com.nicolasMorales.ReportingService.dtos.ProductDTO;
 import com.nicolasMorales.ReportingService.services.impl.PdfService;
-import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 
 /**

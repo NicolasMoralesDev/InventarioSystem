@@ -42,7 +42,6 @@ import TextArea from "antd/es/input/TextArea";
             codigo: edit ? productoEdit.codigo : "",
             nombre: edit ? productoEdit.nombre : "",
             descripcion: edit ? productoEdit.descripcion : "",
-            img: edit ? productoEdit.img : "",
             categoria: edit ? productoEdit.categoria?.id : "",
             subCategoria: edit ? productoEdit.subCategoria : [],
             marca: edit ? productoEdit.marca : "",
@@ -62,7 +61,6 @@ import TextArea from "antd/es/input/TextArea";
             codigo: values.codigo,
             nombre: values.nombre,
             descripcion: values.descripcion,
-            img: values.img,
             categoria: {id:values.categoria},
             subCategoria: values.subCategoria,
             marca: values.marca,
@@ -104,7 +102,6 @@ import TextArea from "antd/es/input/TextArea";
                 >
                     <Form.Item name="id" hidden><Input/></Form.Item>
                     <Form.Item name="borrado" hidden><Input/></Form.Item>
-                    <Form.Item name="img" hidden><Input/></Form.Item>
                     <Card className="w-full">
                     <Row gutter={ [2, 2]} >
                             <Row gutter={ [5, 1] } className="w-full">

@@ -59,13 +59,6 @@ const TablaProductos = (props) => {
             render: (nombre) => <h2 className="text-center">{ nombre }</h2>
         },
         {
-            title: 'Imagen',
-            dataIndex: 'img',
-            width: "10%",
-            key: 'img',
-            render: (img) => img ? <img src={ img } alt={ img }/> : "-"
-        },
-        {
             title: 'Descripcion',
             dataIndex: 'descripcion',
             width: "13%",

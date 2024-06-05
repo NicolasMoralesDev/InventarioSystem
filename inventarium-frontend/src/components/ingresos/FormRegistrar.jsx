@@ -76,9 +76,8 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
   return (
     <>
     <p>Registro de Ingresos:</p>
-      <Card className='w-full bg-slate-200'>
+      <Card className=' bg-slate-200'>
         <Form
-          className='w-full'
           form={ form }
           name="basic"
           initialValues={{
@@ -88,7 +87,7 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
           onFinishFailed={ onFinishFailed }
           autoComplete="off"
         >
-          <Card className='w-full'>
+          <Card>
             <Row gutter={[40,30]}>
               <Col span={ 25 }>
                 <Form.Item

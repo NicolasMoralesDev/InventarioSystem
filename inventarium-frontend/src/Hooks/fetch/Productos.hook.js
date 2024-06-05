@@ -1,19 +1,23 @@
 import { errorPop } from "../util/messages/alerts";
 import useAxiosConf from "../util/fetch.hook";
 import fileDownload from "js-file-download"
+import FileSaver from "file-saver"
 
-const urlBase = "product-service/api/v1/product"
+
+const urlBase = "http://localhost:9002/api/v1/product"
 
 /**
  * Obtiene todos los productos.
  * @returns Devuelve un listado de productos.
  */
-export const obtenerProductos = async () => {
+export const obtenerProductos = async (setLoading) => {
      try {
           const request = await useAxiosConf.get(`${urlBase}/getAll`)
           return request;
      } catch (error) {
           errorPop("error al intentar conectarse con el servidor.");
+     } finally {
+          setLoading(false)
      }
 }
 
@@ -76,10 +80,10 @@ export const crearProducto = async (producto) => {
 export const genearReportePDFproductos = async (productosIds) => {
      try {
        const request = await useAxiosConf.post(`${urlBase}/generate/pdf`, productosIds)
-       console.log(request);
-     fileDownload(request.data, "hola.pdf")
-
-       return request  
+/*        fileDownload(request.data, "reporte-productos.pdf") */
+       const blob = new Blob([request.data], { type: 'application/pdf' });
+       const fileName = 'archivo.pdf'; // Nombre del archivo para descargar
+       FileSaver.saveAs(blob, fileName);
      } catch (error) {
           errorPop(`Error ${error}`);
      } 

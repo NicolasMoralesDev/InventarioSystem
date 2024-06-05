@@ -31,8 +31,6 @@ public class Product {
     private String nombre;
     @Nullable
     private String descripcion;
-    @Nullable
-    private String img;
     @ManyToOne(fetch = FetchType.EAGER)
     private Category categoria;
     @ManyToMany

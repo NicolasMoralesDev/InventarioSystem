@@ -15,7 +15,6 @@ public class ProductMapper {
     public ProductDTO productToProductDTO (Product product){
         ProductDTO nuevo = new ProductDTO();
         nuevo.setId(product.getId());
-        nuevo.setImg(product.getImg());
         nuevo.setNombre(product.getNombre());
         nuevo.setMarca(product.getMarca());
         nuevo.setCant(product.getCant());
@@ -30,7 +29,6 @@ public class ProductMapper {
 
     public ProductDowndloadPdfDTO productToProductDowndloadPdfDTO (Product product){
         ProductDowndloadPdfDTO nuevo = new ProductDowndloadPdfDTO();
-        nuevo.setImg(product.getImg());
         nuevo.setNombre(product.getNombre());
         nuevo.setMarca(product.getMarca());
         nuevo.setCant(product.getCant());
