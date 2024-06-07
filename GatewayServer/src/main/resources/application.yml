@@ -1,0 +1,21 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: "GATEWAY-SERVER"
+  cloud:
+    gateway:
+      discovery:
+        locator: "true"
+        lowe-case-service-id: "true"
+      routes:
+            cors:
+              allowedOrigins: '*'
+              allowedMethods:
+                - GET
+                - POST
+                - PUT
+                - DELETE
+              allowedHeaders: '*'
+              maxAge: 30

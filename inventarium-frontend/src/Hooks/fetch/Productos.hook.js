@@ -4,7 +4,7 @@ import fileDownload from "js-file-download"
 import FileSaver from "file-saver"
 
 
-const urlBase = "http://localhost:9002/api/v1/product"
+const urlBase = "product-service/api/v1/product"
 
 /**
  * Obtiene todos los productos.

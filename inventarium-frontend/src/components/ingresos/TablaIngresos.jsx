@@ -28,7 +28,7 @@ const TablaIngresos = (props) => {
       render: (fechaIngreso) => <p>{ dayjs(fechaIngreso).format('DD/MM/YYYY HH:mm') }</p>
     },
      {
-      title: 'Provedor',
+      title: 'Proveedor',
       dataIndex: 'provedor',
       width: "10%",
       key: 'provedor',
@@ -41,7 +41,7 @@ const TablaIngresos = (props) => {
       key: 'descripciones',
     },
     {
-      title: 'Productos Registrados',
+      title: 'Codigo y producto registrado',
       dataIndex: 'productos',
       width: "15%",
       key: 'productos',
