@@ -3,19 +3,44 @@ server:
 
 spring:
   application:
-    name: "GATEWAY-SERVER"
+    name: "API-GATEWAY"
   cloud:
     gateway:
       discovery:
-        locator: "true"
-        lowe-case-service-id: "true"
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowed-origins: "*"
+            allowed-methods: "*"
+            allowed-headers: "*"
+            allow-credentials: false
       routes:
-            cors:
-              allowedOrigins: '*'
-              allowedMethods:
-                - GET
-                - POST
-                - PUT
-                - DELETE
-              allowedHeaders: '*'
-              maxAge: 30
+        - id: product-service
+          uri: http://localhost:9002
+          predicates:
+            - Path=/product/**
+          filters:
+            - RewritePath=/product/?(?<segment>.*), /${segment}
+        - id: reporting-service
+          uri: http://localhost:9005
+          predicates:
+            - Path=/reporting/**
+          filters:
+            - RewritePath=/reporting/?(?<segment>.*), /${segment}
+        - id: income-service
+          uri: http://localhost:9003
+          predicates:
+            - Path=/income/**
+          filters:
+            - RewritePath=/income/?(?<segment>.*), /${segment}
+        - id: supplier-service
+          uri: http://localhost:9001
+          predicates:
+            - Path=/supplier/**
+          filters:
+            - RewritePath=/supplier/?(?<segment>.*), /${segment}
+      default-filters:
+          - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Methods Access-Control-Allow-Headers RETAIN_FIRST

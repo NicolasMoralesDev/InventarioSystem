@@ -1,10 +1,6 @@
 package com.nicolasMorales.ProductService.repository;
 
-import com.nicolasMorales.ProductService.dto.ProductDTO;
 import com.nicolasMorales.ProductService.dto.ProductDowndloadPdfDTO;
-import com.nicolasMorales.ProductService.models.Product;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.ws.rs.Produces;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
