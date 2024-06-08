@@ -1,10 +1,7 @@
 import { errorPop } from "../util/messages/alerts";
 import useAxiosConf from "../util/fetch.hook";
-import fileDownload from "js-file-download"
-import FileSaver from "file-saver"
 
-
-const urlBase = "product-service/api/v1/product"
+const urlBase = "http://localhost:9002/api/v1/product"
 
 /**
  * Obtiene todos los productos.
@@ -25,12 +22,14 @@ export const obtenerProductos = async (setLoading) => {
  * Busca productos por su codigo de barras.
  * @returns Devuelve el producto relacionado con el codigo.
  */
-export const obtenerProductoByCodigo = async (code) => {
+export const obtenerProductoByCodigo = async (code, setLoading) => {
      try {
           const request = await useAxiosConf.get(`${urlBase}/get/code/${code}`)
           return request;
      } catch (error) {
           errorPop(error.response.data);
+     } finally {
+          setLoading(false)
      }
 }
 
@@ -80,10 +79,7 @@ export const crearProducto = async (producto) => {
 export const genearReportePDFproductos = async (productosIds) => {
      try {
        const request = await useAxiosConf.post(`${urlBase}/generate/pdf`, productosIds)
-/*        fileDownload(request.data, "reporte-productos.pdf") */
-       const blob = new Blob([request.data], { type: 'application/pdf' });
-       const fileName = 'archivo.pdf'; // Nombre del archivo para descargar
-       FileSaver.saveAs(blob, fileName);
+       location.replace(request.data.url)
      } catch (error) {
           errorPop(`Error ${error}`);
      } 

@@ -25,7 +25,6 @@ export const obtenerIngresos = async () => {
 
      try {
           const request = await useAxiosConf.get(`${urlBase}/getAll`)
-          console.log(request);
           return request;
      } catch (error) {
           errorPop("error al intentar conectarse con el servidor.");

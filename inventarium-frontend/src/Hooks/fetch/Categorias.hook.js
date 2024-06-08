@@ -1,7 +1,7 @@
 import { errorPop } from "../util/messages/alerts";
 import useAxiosConf from "../util/fetch.hook";
 
-const urlBase = "product-service/api/v1/category"
+const urlBase = "http://localhost:9002/api/v1/category"
 
 /**
  * Obtiene todas las categorias.

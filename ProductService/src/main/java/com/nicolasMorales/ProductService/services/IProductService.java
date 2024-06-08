@@ -6,6 +6,7 @@ import com.nicolasMorales.ProductService.exceptions.BussinesException;
 import com.nicolasMorales.ProductService.models.Product;
 import jakarta.servlet.http.HttpServletResponse;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,5 +32,5 @@ public interface IProductService{
 
       ProductDTO getProductsByCode(long code) throws BussinesException;
 
-      byte[] downloadPDF(List<UUID> productosIds) throws BussinesException;
+      HashMap<String, String> downloadPDF(List<UUID> productosIds) throws BussinesException;
 }

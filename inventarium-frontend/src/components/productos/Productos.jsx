@@ -37,7 +37,8 @@ const Productos = () => {
   }
 
   const onGetByCode = async (code) => {
-     const request = await obtenerProductoByCodigo(code)
+     setLoading(true)
+     const request = await obtenerProductoByCodigo(code, setLoading)
      setProductoCode([request.data])
   }
 

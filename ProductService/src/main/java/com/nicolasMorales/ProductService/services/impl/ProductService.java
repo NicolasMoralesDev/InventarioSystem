@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -184,7 +185,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public byte[] downloadPDF(List<UUID> productosIds) throws BussinesException {
+    public HashMap<String, String> downloadPDF(List<UUID> productosIds) throws BussinesException {
         try {
             List<ProductDowndloadPdfDTO> productList = new ArrayList<>();
             for(UUID productID : productosIds) {

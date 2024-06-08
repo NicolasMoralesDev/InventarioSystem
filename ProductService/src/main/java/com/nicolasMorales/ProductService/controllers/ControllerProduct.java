@@ -198,23 +198,11 @@ public class ControllerProduct {
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado, un mensaje y el PDF generado.
      */
     @PostMapping(value = "/generate/pdf")
-    public ResponseEntity<byte[]> downloadPDF(HttpServletResponse response, @RequestBody List <UUID> productosIds) throws BussinesException, IOException {
-        HashMap<String, String> status = new HashMap<>();
-//        status.put("msg", "Reporte generado correctamente");
+    public ResponseEntity<?> downloadPDF(@RequestBody List <UUID> productosIds) throws BussinesException, IOException {
         try {
-            byte[] pdfBytes = productServ.downloadPDF(productosIds);
-
-            response.setContentType("application/pdf");
-            response.setContentLength(pdfBytes.length);
-            response.setHeader("Content-Disposition", "attachment; filename=product_table.pdf");
-
-            // Escribe el PDF con la informacion a retornar
-            OutputStream outputStream = response.getOutputStream();
-            outputStream.write(pdfBytes);
-            outputStream.flush();
-            outputStream.close();
-
-            return ResponseEntity.ok().body(pdfBytes);
+            HashMap<String, String> response =  productServ.downloadPDF(productosIds);
+            System.out.println(response.get("url"));
+            return ResponseEntity.ok().body(response);
         } catch (BussinesException e){
             throw new BussinesException("Error "+ e.getMessage());
         }

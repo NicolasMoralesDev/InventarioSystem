@@ -23,7 +23,6 @@ const TablaProductos = (props) => {
 
     const onSelectProductos = (productsSelected) => {
         setProductosSeleccionados(productsSelected)
-        console.log(productosSeleccionados);
     }
 
     const onAdd = () => {

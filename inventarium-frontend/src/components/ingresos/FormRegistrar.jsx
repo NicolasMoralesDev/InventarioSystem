@@ -87,8 +87,8 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
           onFinishFailed={ onFinishFailed }
           autoComplete="off"
         >
-          <Card>
-            <Row gutter={[40,30]}>
+          <Card className="w-full">
+            <Row gutter={ [40,30] }>
               <Col span={ 25 }>
                 <Form.Item
                   label="Observación del Ingreso"
@@ -106,7 +106,7 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
                   />
                 </Form.Item>
               </Col>
-              <Col span={ 15 }>
+              <Col span={ 24 } sm={ 6 }>
                 <Form.Item
                   label="Provedor"
                   name="provedor"
@@ -133,8 +133,8 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
               <div className='m-5'>
                 <h2>Agregar Productos:</h2>
               </div>
-              <Row gutter={ [30,15] }>
-                <Col span={ 5 }>
+              <Row gutter={ [15,15] }>
+                <Col>
                 <Form.Item
                   label="Codigo de Barras"
                   name="codigo"
@@ -208,8 +208,8 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
                 </Form.Item>
                 </Col>
               </Row>
-              <Row gutter={ [15,1] }>
-              <Col span={ 5 }>
+              <Row gutter={ [15,15] }>
+              <Col sm={ 5 } span={20}>
                 <Form.Item
                   label="Descripcion"
                   name="descripcion"
@@ -226,7 +226,7 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
                   />
                 </Form.Item>
               </Col>
-                <Col span={ 5 }>
+                <Col sm={ 5 } span={ 15 }>
                   <Form.Item
                     label="Categoria"
                     name="categoria"

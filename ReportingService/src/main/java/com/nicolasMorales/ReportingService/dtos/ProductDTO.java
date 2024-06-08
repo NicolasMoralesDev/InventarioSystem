@@ -11,7 +11,6 @@ public class ProductDTO {
     private long codigo;
     private String nombre;
     private String descripcion;
-    private String img;
     private String categoria;
     private String marca;
     private double precio;

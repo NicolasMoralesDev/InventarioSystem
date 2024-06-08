@@ -9,6 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.HashMap;
 import java.util.List;
 
 @FeignClient(name = "reporting-service/api/v1/pdf")
@@ -20,5 +21,5 @@ public interface IReportingClient {
      * @return Devuelve el estado de la operacion y el PDF generado.
      */
     @PostMapping("/products/generate")
-    public byte[] generatePDF(@RequestBody List<ProductDowndloadPdfDTO> productos);
+    public HashMap<String, String> generatePDF(@RequestBody List<ProductDowndloadPdfDTO> productos);
 }
