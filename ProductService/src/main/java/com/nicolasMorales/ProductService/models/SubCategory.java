@@ -20,4 +20,5 @@ public class SubCategory {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String titulo;
+    private boolean borrado;
 }

@@ -1,20 +1,25 @@
 package com.nicolasMorales.ProductService.controllers;
 
-import com.nicolasMorales.ProductService.exepciones.BussinesException;
+import com.nicolasMorales.ProductService.dto.ProductDTO;
+import com.nicolasMorales.ProductService.dto.ProductIncomeResponseDTO;
+import com.nicolasMorales.ProductService.exceptions.BussinesException;
 import com.nicolasMorales.ProductService.models.Product;
 import com.nicolasMorales.ProductService.services.impl.ProductService;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.ws.rs.Produces;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
 /**
- *  Controller de Productos.
  *  @author Nicolas Morales.
+ *  Controller de Productos.
  */
 @RestController
 @RequestMapping("/api/v1/product")
@@ -105,6 +110,27 @@ public class ControllerProduct {
     }
 
     /**
+     * Controllador para ser consumido por IncomeService para obtener un producto por su codigo de Barras.
+     * @param code Recibe un UUID del producto solicitado.
+     * @return ResponseEntity Devuelve esta entidad con el codigo de estado y el producto (si es que se encuenta).
+     */
+    @GetMapping(value = "/get/income/code/{code}")
+    public ResponseEntity<?> getProductByCodeForIncome(@PathVariable Long code){
+        HashMap<String, String> response = new HashMap<>();
+        ProductIncomeResponseDTO productResponse = new ProductIncomeResponseDTO();
+
+        try {
+            ProductDTO producto = productServ.getProductsByCode(code);
+            productResponse.setNombre(producto.getNombre());
+            productResponse.setCodigo(producto.getCodigo());
+            return  ResponseEntity.ok().body(productResponse);
+        } catch (BussinesException e){
+            response.put("error",e.getMessage());
+            return  ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
+    /**
      * Controllador para borrar un producto por su id.
      * @param id Recibe un UUID del producto a borrar.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensage de la operacion.
@@ -113,19 +139,12 @@ public class ControllerProduct {
     public ResponseEntity<?> deleteById(@PathVariable UUID id){
         HashMap<String, String> response = new HashMap<>();
         try {
-            String status = productServ.deleteProduct(id);
-
-            if (status == "Producto Borrado Correctamente!!") {
-
-                response.put("msg", status );
-
-                return  ResponseEntity.ok().body(response);
-            } else {
-                response.put("error", status);
-                return  ResponseEntity.badRequest().body(response);
-            }
+            productServ.deleteProduct(id);
+            response.put("msg", "Producto borrado Correctamente!!");
+            return  ResponseEntity.ok().body(response);
         } catch (Exception e){
-            return  ResponseEntity.badRequest().body("Error "+e.getMessage());
+            response.put("Error ", e.getMessage());
+            return  ResponseEntity.badRequest().body(response);
         }
     }
 
@@ -139,7 +158,7 @@ public class ControllerProduct {
         HashMap<String, String> response = new HashMap<>();
         try {
             productServ.deleteProducts(ids);
-            response.put("msg", "Productos Borrados Correctamente!!");
+            response.put("msg", "Productos borrados Correctamente!!");
             return  ResponseEntity.ok().body(response);
         } catch (BussinesException e){
             return  ResponseEntity.badRequest().body("Error "+e.getMessage());
@@ -152,13 +171,13 @@ public class ControllerProduct {
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensage de la operacion.
      */
     @PutMapping(value = "/put")
-    public  ResponseEntity<?> editProduct(@RequestBody Product edit){
+    public ResponseEntity<?> editProduct(@RequestBody Product edit){
         HashMap<String, String> response = new HashMap<>();
 
         try {
             String status = productServ.modifyProduct(edit);
 
-            if (status == "Producto Modificado!") {
+            if (status == "Producto modificado!") {
 
                 response.put("msg", status);
                 return ResponseEntity.ok().body(response);
@@ -170,6 +189,22 @@ public class ControllerProduct {
         } catch (Exception e){
             response.put("error", e.getMessage());
             return  ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    /**
+     * Controllador para generar PDF.
+     * @param productosIds Recibe un Array de ids.
+     * @return ResponseEntity Devuelve esta entidad con el codigo de estado, un mensaje y el PDF generado.
+     */
+    @PostMapping(value = "/generate/pdf")
+    public ResponseEntity<?> downloadPDF(@RequestBody List <UUID> productosIds) throws BussinesException, IOException {
+        try {
+            HashMap<String, String> response =  productServ.downloadPDF(productosIds);
+            System.out.println(response.get("url"));
+            return ResponseEntity.ok().body(response);
+        } catch (BussinesException e){
+            throw new BussinesException("Error "+ e.getMessage());
         }
     }
 }

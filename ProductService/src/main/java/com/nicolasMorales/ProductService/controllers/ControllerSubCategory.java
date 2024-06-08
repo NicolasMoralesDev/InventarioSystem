@@ -1,6 +1,6 @@
 package com.nicolasMorales.ProductService.controllers;
 
-import com.nicolasMorales.ProductService.exepciones.BussinesException;
+import com.nicolasMorales.ProductService.exceptions.BussinesException;
 import com.nicolasMorales.ProductService.models.SubCategory;
 import com.nicolasMorales.ProductService.services.impl.SubCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;

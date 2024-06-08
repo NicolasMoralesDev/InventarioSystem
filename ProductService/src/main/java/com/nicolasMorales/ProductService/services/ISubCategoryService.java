@@ -1,6 +1,6 @@
 package com.nicolasMorales.ProductService.services;
 
-import com.nicolasMorales.ProductService.exepciones.BussinesException;
+import com.nicolasMorales.ProductService.exceptions.BussinesException;
 import com.nicolasMorales.ProductService.models.SubCategory;
 
 import java.util.List;

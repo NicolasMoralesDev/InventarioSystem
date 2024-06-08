@@ -6,7 +6,7 @@ const Foter = () => {
         <Footer
             className='bg-black text-white text-center mt-5'
         >
-            © Inventarium {new Date().getFullYear()} Desarrollado por Nicolas Morales
+            © Inventarium System {new Date().getFullYear()} Desarrollado por Nicolas Morales
         </Footer>
     )
 }

@@ -1,12 +1,12 @@
 
-import { useEffect, useState } from "react"
+import { useEffect, useState } from 'react'
 import { Helmet } from "react-helmet"
-import { borradoMultipleProductos, crearProducto, editarProducto, obtenerProductoByCodigo, obtenerProductos } from "../../Hooks/fetch/Productos.hook"
+import { obtenerCategorias } from "../../Hooks/fetch/Categorias.hook"
+import { obtenerSubCategorias } from "../../Hooks/fetch/SubCategorias.hook"
+import { borradoMultipleProductos, crearProducto, editarProducto, genearReportePDFproductos, obtenerProductoByCodigo, obtenerProductos } from "../../Hooks/fetch/Productos.hook"
 import TablaProductos from "./TablaProductos"
 import { errorPop, loadingPop, successPop } from "../../Hooks/util/messages/alerts"
-import { obtenerCategorias } from "../../Hooks/fetch/Categorias.hook"
 import useForm  from "antd/lib/form/hooks/useForm"
-import { obtenerSubCategorias } from "../../Hooks/fetch/SubCategorias.hook"
 import FormBusqueda from "./formBusqueda/FormBusqueda"
 import ProductosModal from "./ProductosModal"
 
@@ -18,14 +18,17 @@ const Productos = () => {
   const [productoEdit, setProductoEdit] = useState([])
   const [visibleAdd, setVisibleAdd] = useState(false)
   const [visibleEdit, setVisibleEdit] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [categorias, setCategorias] = useState([])
   const [subCategorias, setSubCategorias] = useState([])
+  
   const [statusBorrado, setStatusBorrado] = useState("")
   const [statusAdd, setStatusAdd] = useState("")
   const [statusEdit, setStatusEdit] = useState("")
 
   const onFetch = async () => {
-     const resProdu = await obtenerProductos()
+     setLoading(true)
+     const resProdu = await obtenerProductos(setLoading)
      const resCate = await obtenerCategorias()
      const resSubCate = await obtenerSubCategorias()
      setSubCategorias(resSubCate.data)
@@ -34,13 +37,19 @@ const Productos = () => {
   }
 
   const onGetByCode = async (code) => {
-     const request = await obtenerProductoByCodigo(code)
+     setLoading(true)
+     const request = await obtenerProductoByCodigo(code, setLoading)
      setProductoCode([request.data])
   }
 
   const onBorrado = async (productosIds) => {
      const request = await borradoMultipleProductos(productosIds)
+     setLoading(true)
      setStatusBorrado({error: request.error, msg: request.data.msg, status: request.status})
+  }
+
+  const onGeneratePdf = async (productosIds) => {
+     const request = await genearReportePDFproductos(productosIds)
   }
 
   const onEdit = async (productoEdit) => {
@@ -67,13 +76,14 @@ const Productos = () => {
   useEffect(() => { if (statusEdit) { successPop(statusEdit),  onFetch(), setVisibleEdit(false) } }, [statusEdit])
   useEffect(() => { if (statusAdd) { successPop(statusAdd),  onFetch(), setVisibleAdd(false) } }, [statusAdd])
   useEffect(() => { statusBorrado ? loadingPop("Borrando Productos...")  : "" }, [ statusBorrado ])
-  useEffect(() => { productos.length < 1 || statusBorrado || statusEdit || statusAdd ? loadingPop("Obteniendo Productos...") : "" }, [ productos ])
+  useEffect(() => { if (productos.length < 1 || statusBorrado || statusEdit || statusAdd) { loadingPop("Obteniendo Productos..."), setLoading(true) } }, [ productos ])
+/*   useEffect(() => { if (productos.length > 0 || productoCode.length > 0) { setLoading(false) } }, [ productos, productoCode ]) */
 
   return (
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Listado Productos</title>
+        <title>Listado productos</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       <FormBusqueda
@@ -112,6 +122,9 @@ const Productos = () => {
         categorias={ categorias }
         dataSourse={ Object.keys(productoCode).length != 0 ? productoCode :  productos }
         onBorrado={ onBorrado }
+        onGeneratePdf={ onGeneratePdf }
+        loading={ loading }
+        isList={ true }
       />
     </>
   )

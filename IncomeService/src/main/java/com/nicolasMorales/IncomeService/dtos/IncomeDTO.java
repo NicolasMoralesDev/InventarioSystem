@@ -1,20 +1,26 @@
 package com.nicolasMorales.IncomeService.dtos;
 
 import com.nicolasMorales.IncomeService.models.Product;
+import jakarta.annotation.Nullable;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 /**
  * @author Nicolas Morales.
- * DTO para la entidad Ingresos.
+ * DTO para editar los registros de ingresos.
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class IncomeDTO {
 
-    private String description;
+    private String observacion;
+    private SupplierDTO provedor;
+    private List <ProductDTO> productos;
+    @Nullable
+    private String fechaIngreso;
 
-    private List <String> suppliers;
-
-    private List <Product> products;
 }
