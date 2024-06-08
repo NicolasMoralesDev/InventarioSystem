@@ -1,0 +1,3 @@
+textarea:where(.css-dev-only-do-not-override-j9bb5n).ant-input{
+    resize: none;
+}

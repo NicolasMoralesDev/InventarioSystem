@@ -6,8 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.UUID;
 
+/**
+ *  @author Nicolas Morales.
+ *  Interfaz con los metodos JPA para los Ingresos.
+ */
 @Repository
 public interface IIncomeRepository extends JpaRepository<Income, UUID> {
-
 
 }

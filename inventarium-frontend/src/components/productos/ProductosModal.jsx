@@ -4,7 +4,7 @@ import { Button, Card, Col, Form, Input, InputNumber, Row, Select } from "antd"
 import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
 import TextArea from "antd/es/input/TextArea";
 
-const formItemLayout = {
+  const formItemLayout = {
     labelCol: {
       xs: {
         span: 24,
@@ -32,18 +32,17 @@ const formItemLayout = {
         span: 20,
         offset: 4,
       },
-    },}
+  },}
 
-const ProductosModal = ({ form, categorias, subCategorias, productoEdit, visible, setVisible, onSend, edit }) => {
+  const ProductosModal = ({ form, categorias, subCategorias, productoEdit, visible, setVisible, onSend, edit, altaReg }) => {
 
     useEffect(() => {
         form.setFieldsValue({
-            id: edit ? productoEdit.id : "",
+            id: altaReg ? "" : edit ? productoEdit.id : "",
             codigo: edit ? productoEdit.codigo : "",
             nombre: edit ? productoEdit.nombre : "",
             descripcion: edit ? productoEdit.descripcion : "",
-            img: edit ? productoEdit.img : "",
-            categoria: edit ? productoEdit.categoria.id : "",
+            categoria: edit ? productoEdit.categoria?.id : "",
             subCategoria: edit ? productoEdit.subCategoria : [],
             marca: edit ? productoEdit.marca : "",
             precio: edit ? productoEdit.precio : "",
@@ -62,7 +61,6 @@ const ProductosModal = ({ form, categorias, subCategorias, productoEdit, visible
             codigo: values.codigo,
             nombre: values.nombre,
             descripcion: values.descripcion,
-            img: values.img,
             categoria: {id:values.categoria},
             subCategoria: values.subCategoria,
             marca: values.marca,
@@ -71,7 +69,9 @@ const ProductosModal = ({ form, categorias, subCategorias, productoEdit, visible
             borrado: values.borrado
         }
         onSend(data)
+        setVisible(false)
     };
+
     const onFinishFailed = (errorInfo) => {
         console.log('Failed:', errorInfo);
     };
@@ -81,8 +81,8 @@ const ProductosModal = ({ form, categorias, subCategorias, productoEdit, visible
             <ConfirmationModal
                 title={ edit ? "Editar Producto" : "Agregar Producto" }
                 open={ visible }
-                okText={ "Guardar" }
-                cancelText={ "Cancelar" }
+                okText="Guardar"
+                cancelText="Cancelar"
                 onCancel={ cancelModal }
                 onClose={ cancelModal }
                 onOk={ () => form.validateFields().then(() => onFinish(form.getFieldsValue())).catch(() => {}) }
@@ -100,9 +100,9 @@ const ProductosModal = ({ form, categorias, subCategorias, productoEdit, visible
                     onFinishFailed={ onFinishFailed }
                     autoComplete="off"
                 >
-                    <Form.Item name="id" hidden><Input /></Form.Item>
-                    <Form.Item name="borrado" hidden><Input /></Form.Item>
-                    <Form.Item name="img" hidden><Input /></Form.Item><Card className="w-full">
+                    <Form.Item name="id" hidden><Input/></Form.Item>
+                    <Form.Item name="borrado" hidden><Input/></Form.Item>
+                    <Card className="w-full">
                     <Row gutter={ [2, 2]} >
                             <Row gutter={ [5, 1] } className="w-full">
                                 <Col span={ 11 } >
@@ -130,7 +130,7 @@ const ProductosModal = ({ form, categorias, subCategorias, productoEdit, visible
                                             },
                                         ]}
                                     >
-                                        <Input maxLength={ 30 }/>
+                                        <Input showCount maxLength={ 30 }/>
                                     </Form.Item>
                                 </Col>
                             </Row>
@@ -141,7 +141,7 @@ const ProductosModal = ({ form, categorias, subCategorias, productoEdit, visible
                                 label="Descripcion:"
                                 name="descripcion"
                             >
-                                <TextArea maxLength={ 100 }/>
+                                <TextArea showCount maxLength={ 100 }/>
                             </Form.Item>
                         </Col>
                     </Row>
@@ -230,7 +230,7 @@ const ProductosModal = ({ form, categorias, subCategorias, productoEdit, visible
                                 </Col>
                             </Row>
                     </Row>
-                    <Row gutter={[8, 8]}>
+                    <Row gutter={ [8, 8] }>
                         <Col>
                             <Form.Item
                                 label="Marca:"
@@ -242,11 +242,11 @@ const ProductosModal = ({ form, categorias, subCategorias, productoEdit, visible
                                     },
                                 ]}
                             >
-                                <Input maxLength={25}/>
+                                <Input maxLength={ 25 }/>
                             </Form.Item>
                         </Col>
                     </Row>
-                    <Row gutter={[17,2]}>
+                    <Row gutter={ [17,2] }>
                         <Col>
                             <Form.Item
                                 label="Precio $"

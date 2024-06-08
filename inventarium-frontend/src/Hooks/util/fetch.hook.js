@@ -1,15 +1,13 @@
-// axios configuration
+// axios configuracion
 
 import axios from 'axios';
 
-/* const url = ["http://localhost:8761", "http://localhost:443/"] */
+const url = ["http://localhost:8080/"]
 
-/* 
-const baseUrl = import.meta.env.VITE_BACKEND_HOST || url[1];
- */
+const baseUrl = import.meta.env.VITE_BACKEND_HOST || url[0];
+ 
 const useAxiosConf = axios.create({
-/*   baseURL: baseUrl, */
-
+  baseURL: baseUrl, 
   headers: {
     'Content-Type': 'application/json'
   },

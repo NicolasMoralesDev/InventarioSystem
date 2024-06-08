@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { Button, Table } from "antd";
+import { Button, Table, Tooltip } from "antd";
 import { defaultPagination } from "../../Hooks/util/DefaultPagination";
-import { FileExcelFilled, FilePdfFilled } from "@ant-design/icons";
-import Menu from "../menu/Menu";
+import { EditOutlined, FileExcelFilled, FilePdfFilled } from "@ant-design/icons";
+import dayjs from "dayjs";
+import Menu from "../Menu/Menu";
 
 const TablaIngresos = (props) => {
 
   const { setIngresoEdit, dataSourse, setVisibleEdit } = props
   const [ingresosSeleccionados, setIngresosSeleccionados] = useState([])
-
   const onSelectIngresos = (ingresosSelected) => {
     setIngresosSeleccionados(ingresosSelected)
   }
@@ -20,50 +20,57 @@ const TablaIngresos = (props) => {
 
   const columns = [
     {
-      title: 'Fecha de Ingreso',
-      dataIndex: 'dateIncome',
+      title: 'Fecha y Hora de Ingreso',
+      dataIndex: 'fechaIngreso',
       width: "13%",
-      sorter: (a, b) => a.dateIncome - b.dateIncome,
-      key: 'dateIncome',
+      sorter: (a, b) => a.fechaIngreso + b.fechaIngreso,
+      key: 'fechaIngreso',
+      render: (fechaIngreso) => <p>{ dayjs(fechaIngreso).format('DD/MM/YYYY HH:mm') }</p>
     },
-    {
-      title: 'Provedores',
-      dataIndex: 'suppliers',
+     {
+      title: 'Proveedor',
+      dataIndex: 'provedor',
       width: "10%",
-      key: 'suppliers',
+      key: 'provedor',
+      render: (provedor) => provedor ? <p> { provedor } </p> : <p>-</p> 
     },
     {
       title: 'Usuario que Registro',
-      dataIndex: 'descripcion',
+      dataIndex: 'observacio',
       width: "15%",
-      key: 'descripcion',
+      key: 'descripciones',
+    },
+    {
+      title: 'Codigo y producto registrado',
+      dataIndex: 'productos',
+      width: "15%",
+      key: 'productos',
+      render: (productos) => productos ? productos.map((producto) => <p className="text-justify" key={ producto.codigo }>{ producto.codigo } - { producto.nombre }</p>) : ""
     },
     {
       title: 'Observacion',
-      dataIndex: 'description',
+      dataIndex: 'observacion',
       width: "13%",
-      key: 'description',
+      key: 'observacion',
     },
     {
       title: 'Generar Informe',
-      width: "14%",
+      width: "13%",
       key: 'generarInforme',
-      render: () =>
-        <div className="p-0 text-center">
-          <Button title="Generar PDF" className="bg-red-600 btn-rojo-custom text-white xl:w-1/2 sm:w-full "><FilePdfFilled />PDF</Button>
-          <Button title="Generar EXCEL" className="bg-green-600 btn-verde-custom text-white xl:w-1/2 sm:w-full  "><FileExcelFilled />EXCEL</Button>
-        </div>
-    },
-    {
+      render: () => 
+          <div className="p-0 text-center">
+              <Tooltip title="Generar PDF"> <Button title="Generar PDF" className="bg-red-700 btn-rojo-custom text-white xl:w-1/2 sm:w-full"><FilePdfFilled />PDF</Button></Tooltip> 
+              <Tooltip title="Generar EXCEL"> <Button title="Generar EXCEL" className="bg-green-700 btn-verde-custom text-white xl:w-1/2 sm:w-full"><FileExcelFilled />EXCEL</Button></Tooltip>
+          </div>
+  },
+  {
       title: 'Acciones',
-      dataIndex: '',
       width: "10%",
-      key: 'Acciones',
-      render: (income) =>
-        <>
-          <Button title="Editar Registro" onClick={() => onEdit(income)} className="bg-slate-800 text-white">Editar</Button>
-        </>
-    },
+      key: 'acciones',
+      render: (ingreso) => <>
+          <Button title="Editar Registro"  onClick={ () => onEdit(ingreso) } className="bg-cyan-950 btn-cyan-custom text-white">Editar <EditOutlined/></Button>
+      </>
+  },
   ];
 
   return (
@@ -76,17 +83,17 @@ const TablaIngresos = (props) => {
       <Table
         scroll="small"
         className="overflow-x-scroll"
-        rowKey={(ingreso) => ingreso.id}
-        dataSource={dataSourse}
-        columns={columns}
-        pagination={defaultPagination(dataSourse, 10)}
-        rowSelection={{
+        rowKey={ (ingreso) => ingreso.id }
+        dataSource={ dataSourse }
+        columns={ columns }
+        pagination={ defaultPagination(dataSourse, 10) }
+        rowSelection={ {
           selectedRowKeys: ingresosSeleccionados,
           onChange: onSelectIngresos,
-        }}
-        locale={{
+        } }
+        locale={ {
           emptyText: "No se encontraron Registros"
-        }}
+        } }
       />
     </div>
   )

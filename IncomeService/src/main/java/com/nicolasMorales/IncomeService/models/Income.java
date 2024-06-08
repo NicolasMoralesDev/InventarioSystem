@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,11 +22,10 @@ public class Income {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String description;
-    private LocalDate dateIncome = LocalDate.now();
+    private LocalDateTime dateIncome = LocalDateTime.now();
+    private String supplier;
     @ElementCollection
-    private List <String> suppliers;
-//    private estado;
-    @ElementCollection
-    private List <String> products;
+    private List <Long> products;
+    private boolean settled = false;
 
 }
