@@ -2,7 +2,7 @@
 
 import axios from 'axios';
 
-const url = ["http://localhost:9002", "http://localhost:8080/"]
+const url = ["http://localhost:8080/"]
 
 const baseUrl = import.meta.env.VITE_BACKEND_HOST || url[0];
  
