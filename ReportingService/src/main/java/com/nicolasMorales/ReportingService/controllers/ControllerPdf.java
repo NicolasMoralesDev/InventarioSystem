@@ -49,12 +49,11 @@ public class ControllerPdf {
             String fileName = "products_report_" + UUID.randomUUID() + ".pdf";
             Path targetLocation = this.fileStorageLocation.resolve(fileName);
             Files.write(targetLocation, pdfContent.toByteArray());
-
             String fileDownloadUri = "http://localhost:9005" + "/api/v1/pdf/download/"+ fileName;
 
             Map<String, String> response = new HashMap<>();
             response.put("url", fileDownloadUri);
-
+            Files.delete(targetLocation);
             return ResponseEntity.ok(response);
         } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
