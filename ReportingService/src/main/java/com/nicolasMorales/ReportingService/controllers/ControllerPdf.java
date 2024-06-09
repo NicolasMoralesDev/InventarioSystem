@@ -53,7 +53,7 @@ public class ControllerPdf {
 
             Map<String, String> response = new HashMap<>();
             response.put("url", fileDownloadUri);
-            Files.delete(targetLocation);
+
             return ResponseEntity.ok(response);
         } catch (IOException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

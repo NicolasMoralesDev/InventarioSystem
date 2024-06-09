@@ -1,40 +1,9 @@
 import { useEffect } from "react";
 import ConfirmationModal from "../modal/ConfirmationModal"
-import { Button, Card, Col, Form, Input, InputNumber, Row, Select } from "antd"
-import { MinusCircleOutlined, PlusOutlined } from "@ant-design/icons";
+import { Card, Col, Form, Input, InputNumber, Row, Select } from "antd"
 import TextArea from "antd/es/input/TextArea";
 
-  const formItemLayout = {
-    labelCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 4,
-      },
-    },
-    wrapperCol: {
-      xs: {
-        span: 24,
-      },
-      sm: {
-        span: 20,
-      },
-    },
-  };
-  const formItemLayoutWithOutLabel = {
-    wrapperCol: {
-      xs: {
-        span: 24,
-        offset: 0,
-      },
-      sm: {
-        span: 20,
-        offset: 4,
-      },
-  },}
-
-  const ProductosModal = ({ form, categorias, subCategorias, productoEdit, visible, setVisible, onSend, edit, altaReg }) => {
+  const ProductosModal = ({ form, categorias, productoEdit, visible, setVisible, onSend, edit, altaReg }) => {
 
     useEffect(() => {
         form.setFieldsValue({
@@ -43,7 +12,6 @@ import TextArea from "antd/es/input/TextArea";
             nombre: edit ? productoEdit.nombre : "",
             descripcion: edit ? productoEdit.descripcion : "",
             categoria: edit ? productoEdit.categoria?.id : "",
-            subCategoria: edit ? productoEdit.subCategoria : [],
             marca: edit ? productoEdit.marca : "",
             precio: edit ? productoEdit.precio : "",
             cant: edit ? productoEdit.cant : "",
@@ -62,7 +30,6 @@ import TextArea from "antd/es/input/TextArea";
             nombre: values.nombre,
             descripcion: values.descripcion,
             categoria: {id:values.categoria},
-            subCategoria: values.subCategoria,
             marca: values.marca,
             precio: values.precio,
             cant: values.cant,
@@ -166,67 +133,6 @@ import TextArea from "antd/es/input/TextArea";
                                             }
                                         </Select>
                                     </Form.Item>
-                                </Col>
-                                <Col span={ 22 }>
-                                    <Form.List
-                                        name="subCategoria"
-                                    >
-                                        {(fields, { add, remove }, { errors }) => (
-                                            <>
-                                                {fields.map((field, index) => (
-                                                    <Form.Item
-                                                        {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
-                                                        required={false}
-                                                    >
-                                                        <Form.Item
-                                                            {...field}
-                                                            validateTrigger={['onChange', 'onBlur']}
-                                                            rules={[
-                                                                {
-                                                                    required: true,
-                                                                    whitespace: true,
-                                                                    message: "Selecione una sub categoria o elimine este campo.",
-                                                                },
-                                                            ]}
-                                                            noStyle
-                                                        >
-                                                            <Select
-                                                                placeholder="sub categorias"
-                                                                style={{
-                                                                    width: '60%',
-                                                                }}
-                                                            >
-                                                                {  subCategorias.length > 0 ?
-                                                                    subCategorias.map(subCate => 
-                                                                      <Select.Option key={subCate.id} value={subCate.id}>{subCate.titulo}</Select.Option>
-                                                                    ) : <></>
-                                                                }
-                                                            </Select>
-                                                        </Form.Item>
-                                                        {fields.length > 1 ? (
-                                                            <MinusCircleOutlined
-                                                                className="dynamic-delete-button"
-                                                                onClick={() => remove(field.name)}
-                                                            />
-                                                        ) : null}
-                                                    </Form.Item>
-                                                ))}
-                                                <Form.Item>
-                                                    <Button
-                                                        type="dashed"
-                                                        onClick={() => add()}
-                                                        style={{
-                                                            width: '60%',
-                                                        }}
-                                                        icon={<PlusOutlined />}
-                                                    >
-                                                        Agregar sub categorias
-                                                    </Button>
-                                                    <Form.ErrorList errors={errors} />
-                                                </Form.Item>
-                                            </>
-                                        )}
-                                    </Form.List>
                                 </Col>
                             </Row>
                     </Row>

@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Menu from "../Menu/Menu";
 import { defaultPagination } from "../../Hooks/util/DefaultPagination";
 import { Button, Space, Table, Tag, Tooltip } from "antd";
 import { DeleteFilled, EditOutlined, FileExcelFilled, FilePdfFilled, ProductFilled } from "@ant-design/icons"
 import { alertPop } from "../../Hooks/util/messages/alerts";
+import Menu from "../menu/Menu";
 import "./estilos/tablaProductos.css"
 
 const TablaProductos = (props) => {
@@ -51,6 +51,14 @@ const TablaProductos = (props) => {
             render: (codigo) => <h2 className="text-center">{ codigo }</h2>
         },
         {
+            title: 'Stock',
+            dataIndex: 'cant',
+            width: "5%",
+            sorter: (a, b) => a.cant - b.cant,
+            render: (cant) => <Tag color={ cant < 10 ? "volcano-inverse" : cant < 20 ? "yellow-inverse": "green-inverse" } title={ cant < 10 ? "Stock Minimo" : cant < 20 ? "Stock Bajo" : "Stock Normal" }>{ cant }</Tag>,
+            key: 'cant',
+        },
+        {
             title: 'Nombre',
             dataIndex: 'nombre',
             width: "13%",
@@ -88,14 +96,7 @@ const TablaProductos = (props) => {
             sorter: (a, b) => a.precio - b.precio,
             render: (precio) => <h2 className="text-center">{`$ ${precio}` }</h2>
         },
-        {
-            title: 'Stock',
-            dataIndex: 'cant',
-            width: "5%",
-            sorter: (a, b) => a.cant - b.cant,
-            render: (cant) => <Tag color={ cant < 10 ? "volcano-inverse" : cant < 20 ? "yellow-inverse": "green-inverse" } title={ cant < 10 ? "Stock Minimo" : cant < 20 ? "Stock Bajo" : "Stock Normal" }>{ cant }</Tag>,
-            key: 'cant',
-        },
+        
         {
             title: 'Acciones',
             width: "10%",
