@@ -24,7 +24,6 @@ public class ProductDTO {
     private String nombre;
     private String descripcion;
     private Category categoria;
-    private List<SubCategory> subCategoria;
     private String marca;
     private double precio;
     private int cant;

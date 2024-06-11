@@ -18,7 +18,6 @@ public class ProductMapper {
         nuevo.setNombre(product.getNombre());
         nuevo.setMarca(product.getMarca());
         nuevo.setCant(product.getCant());
-        nuevo.setSubCategoria(product.getSubCategoria());
         nuevo.setCategoria(product.getCategoria());
         nuevo.setCodigo(product.getCodigo());
         nuevo.setPrecio(product.getPrecio());

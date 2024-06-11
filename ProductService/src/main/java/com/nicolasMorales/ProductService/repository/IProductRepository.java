@@ -27,6 +27,7 @@ public interface IProductRepository  extends JpaRepository<Product, UUID> {
     @Override
     @Query("SELECT p FROM Product p WHERE p.borrado = false")
     List <Product> findAll();
+
     @Query("UPDATE Product p SET p.borrado = true WHERE p.id = :id ")
     void findDeleteSoft(@Param("id") UUID id);
 }
