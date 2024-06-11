@@ -2,7 +2,6 @@
 import { useEffect, useState } from 'react'
 import { Helmet } from "react-helmet"
 import { obtenerCategorias } from "../../Hooks/fetch/Categorias.hook"
-import { obtenerSubCategorias } from "../../Hooks/fetch/SubCategorias.hook"
 import { borradoMultipleProductos, crearProducto, editarProducto, genearReportePDFproductos, obtenerProductoByCodigo, obtenerProductos } from "../../Hooks/fetch/Productos.hook"
 import TablaProductos from "./TablaProductos"
 import { errorPop, loadingPop, successPop } from "../../Hooks/util/messages/alerts"
@@ -20,7 +19,6 @@ const Productos = () => {
   const [visibleEdit, setVisibleEdit] = useState(false)
   const [loading, setLoading] = useState(false)
   const [categorias, setCategorias] = useState([])
-  const [subCategorias, setSubCategorias] = useState([])
   
   const [statusBorrado, setStatusBorrado] = useState("")
   const [statusAdd, setStatusAdd] = useState("")
@@ -30,8 +28,6 @@ const Productos = () => {
      setLoading(true)
      const resProdu = await obtenerProductos(setLoading)
      const resCate = await obtenerCategorias()
-     const resSubCate = await obtenerSubCategorias()
-     setSubCategorias(resSubCate.data)
      setCategorias(resCate.data)
      setProductos(resProdu.data)
   }
@@ -94,7 +90,6 @@ const Productos = () => {
         <ProductosModal 
          form={ form }
          categorias={ categorias }
-         subCategorias={ subCategorias }
          productoEdit={ productoEdit }
          visible={ visibleEdit }
          setVisible={ setVisibleEdit }
@@ -107,7 +102,6 @@ const Productos = () => {
         <ProductosModal 
          form={ form }
          categorias={ categorias }
-         subCategorias={ subCategorias }
          productoEdit={ productoEdit }
          visible={ visibleAdd }
          setVisible={ setVisibleAdd }

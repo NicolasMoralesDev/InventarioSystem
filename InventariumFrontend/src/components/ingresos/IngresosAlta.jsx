@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { obtenerSubCategorias } from '../../Hooks/fetch/SubCategorias.hook';
 import { obtenerCategorias } from '../../Hooks/fetch/Categorias.hook';
 import { borrarProductosStorage, cargarProductosStorage, editarProductosStorage, obtenerProductosStorage } from "../../Hooks/util/localStorage/Abm.registros";
 import { Helmet } from 'react-helmet';
@@ -18,7 +17,6 @@ const IngresosAlta = () => {
     const [productos, setProductos] = useState([])
     const [provedores, setProvedores] = useState([])
     const [categorias, setCategorias] = useState([])
-    const [subCategorias, setSubCategorias] = useState([])
 
     const [visibleEdit, setVisibleEdit] = useState(false)
     const [productoEditar, setProductoEditar] = useState([])
@@ -32,10 +30,8 @@ const IngresosAlta = () => {
         const productosLocal = obtenerProductosStorage()
         const requestProve = await obtenerProvedores()
         const requestCate = await obtenerCategorias()
-        const requestSubCate = await obtenerSubCategorias()
         setProvedores(requestProve.data)
         setCategorias(requestCate.data)
-        setSubCategorias(requestSubCate.data)
         setProductos(productosLocal?.productos)
     }
 
@@ -85,7 +81,6 @@ const IngresosAlta = () => {
         <ProductosModal
           form={ form }
           categorias={ categorias }
-          subCategorias={ subCategorias }
           productoEdit={ productoEditar }
           visible={ visibleEdit }
           setVisible={ setVisibleEdit }

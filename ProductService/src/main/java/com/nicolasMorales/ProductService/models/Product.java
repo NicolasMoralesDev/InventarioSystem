@@ -33,8 +33,6 @@ public class Product {
     private String descripcion;
     @ManyToOne(fetch = FetchType.EAGER)
     private Category categoria;
-    @ManyToMany
-    private List<SubCategory> subCategoria;
     private String marca;
     private double precio;
     private int cant;

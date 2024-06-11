@@ -3,7 +3,7 @@ import { Button, Table, Tooltip } from "antd";
 import { defaultPagination } from "../../Hooks/util/DefaultPagination";
 import { EditOutlined, FileExcelFilled, FilePdfFilled } from "@ant-design/icons";
 import dayjs from "dayjs";
-import Menu from "../Menu/Menu";
+import Menu from "../menu/Menu"
 
 const TablaIngresos = (props) => {
 
@@ -20,7 +20,7 @@ const TablaIngresos = (props) => {
 
   const columns = [
     {
-      title: 'Fecha y Hora de Ingreso',
+      title: 'Fecha y Hora de ingreso',
       dataIndex: 'fechaIngreso',
       width: "13%",
       sorter: (a, b) => a.fechaIngreso + b.fechaIngreso,
@@ -35,7 +35,7 @@ const TablaIngresos = (props) => {
       render: (provedor) => provedor ? <p> { provedor } </p> : <p>-</p> 
     },
     {
-      title: 'Usuario que Registro',
+      title: 'Usuario que registro',
       dataIndex: 'observacio',
       width: "15%",
       key: 'descripciones',
