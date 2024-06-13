@@ -1,4 +1,7 @@
-const urlBase = "expense-service/api/v1/income"
+import useAxiosConf from "../util/fetch.hook";
+import { errorPop } from "../util/messages/alerts";
+
+const urlBase = "expenses-service/api/v1/expense"
 
 /**
  * Registro de egresos.
@@ -18,12 +21,15 @@ export const registrarEgreso = async (egreso) => {
  * Obtiene todos los registros de egresos
  * @returns Devuelve un listado de registros de egresos.
  */
-export const obtenerEgresos = async () => {
+export const obtenerEgresos = async (setLoading) => {
 
      try {
         const request = await useAxiosConf.get(`${urlBase}/getAll`)
+        console.log(request);
         return request;
      } catch (error) {
-        errorPop("error al intentar conectarse con el servidor.");
+        errorPop("Error "+ error);
+     } finally {
+        setLoading(false)
      }
 }

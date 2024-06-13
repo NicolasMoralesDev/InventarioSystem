@@ -33,6 +33,7 @@ const FormBusqueda = ({ onGetByCode }) => {
                       label="Busqueda por codigo de Barras"
                       name="codigo"
                       className='pl-10 w-full'
+                      
                       rules={[
                           {
                               required: true,
@@ -41,6 +42,7 @@ const FormBusqueda = ({ onGetByCode }) => {
                       ]}
                   >
                       <InputNumber
+                      allowClear={ true }
                           placeholder='Ingrese el codigo de barras...'
                           maxLength={ 25 }
                           minLength={ 5 }

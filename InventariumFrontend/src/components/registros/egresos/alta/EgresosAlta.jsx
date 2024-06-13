@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { obtenerProductosStorage, cargarProductosStorage, borrarProductosStorage } from '../../../../Hooks/util/localStorage/Abm.registros'
 import FormBusqueda from "../../../productos/formBusqueda/FormBusqueda"
 import { Helmet } from 'react-helmet'
-import TablaProductos from '../../../productos/TablaProductos'
+import TablaProductosEgresos from '../alta/TablaProductosEgresos'
 import { obtenerProductoByCodigo } from "../../../../Hooks/fetch/Productos.hook"
 import { obtenerCategorias } from '../../../../Hooks/fetch/Categorias.hook'
 
@@ -54,13 +54,11 @@ const EgresosAlta = () => {
      <FormBusqueda
         onGetByCode={ onGetByCode }
      />
-     <TablaProductos
+     <TablaProductosEgresos
         dataSourse={ productos }
         onBorrado={ onBorrado }
         categorias={ categorias }
         loading={ loading }
-        isList={ false }
-        isExpense={ true }
      />
     </>
   )

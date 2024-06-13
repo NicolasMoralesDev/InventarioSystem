@@ -2,7 +2,7 @@ import { Button, Card, Col, Input, InputNumber, Row, Select, Space } from 'antd'
 import Form from 'antd/es/form/Form'
 import TextArea from 'antd/es/input/TextArea'
 import useForm  from "antd/lib/form/hooks/useForm"
-import { UploadOutlined } from "@ant-design/icons";
+import { ProductOutlined, UploadOutlined } from "@ant-design/icons";
 import './estilos/formIngresos.css'
 import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.registros';
 
@@ -13,15 +13,15 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
   const onFinish = (values) => {
 
     const data = {
-      codigo: values.codigo,
-      nombre: values.nombre,
-      marca: values.marca,
-      precio: values.precio,
-      cant: values.cant,
-      observacion: values.observacion,
-      provedor: values.provedor,
-      categoria: {id:values.categoria},
-      descripcion: values.descripcion
+      codigo: values?.codigo,
+      nombre: values?.nombre,
+      marca: values?.marca,
+      precio: values?.precio,
+      cant: values?.cant,
+      observacion: values?.observacion,
+      provedor: values?.provedor,
+      categoria: {id:values?.categoria},
+      descripcion: values?.descripcion
     }
 
     onSend(data)
@@ -44,8 +44,7 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
 
   return (
     <>
-    <p>Registro de Ingresos:</p>
-      <Card className=' bg-slate-200'>
+      <Card className='bg-slate-200'>
         <Form
           form={ form }
           name="basic"
@@ -220,11 +219,11 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
           </>
           <Space>
           <Form.Item className="m-3">
-            <Button type="default" htmlType="submit" icon={ <UploadOutlined/> }>
+            <Button type="default" className='btn-cyan-custom bg-blue-950 text-white' htmlType="submit" icon={ <ProductOutlined/> }>
               Cargar producto
             </Button>
           </Form.Item>
-            <Button type="default" disabled={ obtenerProductosStorage() != null ? false : true } onClick={ ()=> onRegister() } icon={ <UploadOutlined/> }>
+            <Button type="text" className='bg-blue-950 text-white' disabled={ obtenerProductosStorage() != null ? false : true } onClick={ ()=> onRegister() } icon={ <UploadOutlined/> }>
               Registrar ingreso
             </Button>
           </Space>
