@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
-import { obtenerProductosStorage } from '../../../../Hooks/util/localStorage/Abm.registros'
-import { obtenerCategorias } from '../../../../Hooks/fetch/Categorias.hook'
-import useForm from "antd/lib/form/hooks/useForm"
+import React, { useEffect, useState } from 'react'
+import { obtenerProductosStorage, cargarProductosStorage, borrarProductosStorage } from '../../../../Hooks/util/localStorage/Abm.registros'
+import FormBusqueda from "../../../productos/formBusqueda/FormBusqueda"
 import { Helmet } from 'react-helmet'
 import TablaProductos from '../../../productos/TablaProductos'
+import { obtenerProductoByCodigo } from "../../../../Hooks/fetch/Productos.hook"
+import { obtenerCategorias } from '../../../../Hooks/fetch/Categorias.hook'
 
 const EgresosAlta = () => {
 
     const [productos, setProductos] = useState([])
+    const [categorias, setCategorias] = useState([])
 
-    const [visibleEdit, setVisibleEdit] = useState(false)
+    const [loading, setLoading] = useState(false)
     const [productoEditar, setProductoEditar] = useState([])
 
     const [statusReg, setStatusReg] = useState("")
@@ -19,6 +21,8 @@ const EgresosAlta = () => {
 
     const onFetch = async () => {
         const productosLocal = obtenerProductosStorage()
+        const requesyCate = await obtenerCategorias()
+        setCategorias(requesyCate?.data)
         setProductos(productosLocal?.productos)
     }
 
@@ -27,6 +31,19 @@ const EgresosAlta = () => {
         setProductCargado(true)
     }
 
+    const onBorrado = (productos) => {
+      borrarProductosStorage(productos)
+      setProductBorrado(true)
+  }
+
+    const onGetByCode = async (code) => {
+      setLoading(true)
+      const request = await obtenerProductoByCodigo(code, setLoading)
+      onLoadStorage(request.data)
+   }
+
+   useEffect(() => { onFetch() }, [productCargado, productBorrado])
+
   return (
     <>
      <Helmet>
@@ -34,7 +51,17 @@ const EgresosAlta = () => {
         <title>Alta de egresos</title>
         <link rel="canonical" href="http://mysite.com/example" />
      </Helmet>
-     <TablaProductos/>
+     <FormBusqueda
+        onGetByCode={ onGetByCode }
+     />
+     <TablaProductos
+        dataSourse={ productos }
+        onBorrado={ onBorrado }
+        categorias={ categorias }
+        loading={ loading }
+        isList={ false }
+        isExpense={ true }
+     />
     </>
   )
 }

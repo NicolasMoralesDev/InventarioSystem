@@ -30,18 +30,17 @@ import java.util.List;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain filterChain (HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(http -> {
-
-                    http.requestMatchers(HttpMethod.GET, "/holanoseg").permitAll();
-                    http.requestMatchers(HttpMethod.GET, "/holaseg").hasAuthority("READ");
-                    http.anyRequest().denyAll();
-
-                })
+                /*.authorizeHttpRequests(http -> {
+            // Endpoints públicos
+            http.requestMatchers(HttpMethod.GET, "/holanoseg").permitAll();
+            http.requestMatchers(HttpMethod.GET, "/holaseg").hasAuthority("READ");
+            http.anyRequest().denyAll();
+        })*/
                 .build();
     }
 

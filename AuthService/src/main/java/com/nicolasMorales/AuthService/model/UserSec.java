@@ -21,6 +21,7 @@ public class UserSec {
     @Column(unique = true)
     private String username;
     private String password;
+    private int dni;
     private boolean enabled;
     private boolean accountNotExpired;
     private boolean accountNotLocked;

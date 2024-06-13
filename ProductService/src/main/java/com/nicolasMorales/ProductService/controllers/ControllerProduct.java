@@ -172,20 +172,12 @@ public class ControllerProduct {
      */
     @PutMapping(value = "/put")
     public ResponseEntity<?> editProduct(@RequestBody Product edit){
-        HashMap<String, String> response = new HashMap<>();
+            HashMap<String, String> response = new HashMap<>();
 
         try {
-            String status = productServ.modifyProduct(edit);
-
-            if (status == "Producto modificado!") {
-
-                response.put("msg", status);
-                return ResponseEntity.ok().body(response);
-            } else {
-
-                response.put("error", status);
-                return ResponseEntity.ok().body(response);
-            }
+            productServ.modifyProduct(edit);
+            response.put("msg", "Producto modificado con exito!");
+            return ResponseEntity.ok().body(response);
         } catch (Exception e){
             response.put("error", e.getMessage());
             return  ResponseEntity.badRequest().body(response);

@@ -1,5 +1,6 @@
 package com.nicolasMorales.ExpensesService.controlers;
 
+import com.nicolasMorales.ExpensesService.exceptions.BussinesException;
 import com.nicolasMorales.ExpensesService.models.Expense;
 import com.nicolasMorales.ExpensesService.services.impl.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author Nicolas Morales.
@@ -48,8 +50,9 @@ public class ControllerExpense {
     @GetMapping(value = "/getAll")
     public ResponseEntity<?> getExpense(){
         try {
-            return  ResponseEntity.ok().body(expenseService.getAllExpense());
-        } catch (Exception e){
+            List<Expense> expenseList = expenseService.getAllExpense();
+            return  ResponseEntity.ok().body(expenseList);
+        } catch (BussinesException e){
             return  ResponseEntity.badRequest().body("Error "+ e.getMessage());
         }
     }

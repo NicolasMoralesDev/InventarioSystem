@@ -28,7 +28,7 @@ public interface IProductService{
 
       Product getProductsById(UUID id) throws BussinesException;
 
-      String modifyProduct(Product nuevo);
+      void modifyProduct(Product nuevo) throws BussinesException;
 
       ProductDTO getProductsByCode(long code) throws BussinesException;
 
