@@ -34,6 +34,14 @@ button {
   transition: border-color 0.25s;
 }
 
+:where(.css-dev-only-do-not-override-j9bb5n).ant-form-item .ant-form-item-label >label::after {
+  content: "";
+}
+
+.ant-table-tbody {
+  background-color:rgb(248 250 252);
+}
+
 .table-selection-column, .ant-table-cell{
   max-width: 3% !important;
 }

@@ -20,19 +20,19 @@ const EgresosAlta = () => {
     const [productBorrado, setProductBorrado] = useState(false)
 
     const onFetch = async () => {
-        const productosLocal = obtenerProductosStorage()
+        const productosLocal = obtenerProductosStorage("productosEgresos")
         const requesyCate = await obtenerCategorias()
         setCategorias(requesyCate?.data)
         setProductos(productosLocal?.productos)
     }
 
     const onLoadStorage = (productos) => {
-        cargarProductosStorage(productos)
+        cargarProductosStorage(productos, "productosEgresos")
         setProductCargado(true)
     }
 
     const onBorrado = (productos) => {
-      borrarProductosStorage(productos)
+      borrarProductosStorage(productos, "productosEgresos")
       setProductBorrado(true)
   }
 

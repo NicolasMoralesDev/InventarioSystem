@@ -108,14 +108,15 @@ const TablaProductosEgresos = (props) => {
     ];
 
     return (
+        <>
+        <Menu/>
         <div className="p-5 pt-0 bg-slate-200" 
         style={{
             marginBottom: "5%",
         }}> 
-           <Menu/>
             <Space className="w-full flex p-3 justify-end tabla_botonera" size="middle" >
                 <>
-                 <Tooltip title="Cargar Producto">
+                 <Tooltip title="Registrar Egreso">
                     <Button className="bg-blue-950 btn-cyan-custom text-white" onClick={ onAdd }> <ProductFilled/> Registrar Egreso</Button>
                  </Tooltip>  
                  <Tooltip title="Generar PDF"> 
@@ -147,6 +148,7 @@ const TablaProductosEgresos = (props) => {
                 loading={ loading }
             />
         </div>
+        </>
     )
 }
 

@@ -1,10 +1,11 @@
 
 /**
  * Carga el LocalStorage con productos.
- * @param {*} productos 
+ * @param {*} productos datos de los productos a cargar.
+ * @param {*} itemNombre nombre del item a cargar. 
  */
-export const cargarProductosStorage = (productos) => {
-    const produPrev = obtenerProductosStorage()
+export const cargarProductosStorage = (productos, itemNombre) => {
+    const produPrev = obtenerProductosStorage(itemNombre)
     if (produPrev != null) {
 
         if (produPrev.observacion != productos.observacion) {
@@ -16,29 +17,31 @@ export const cargarProductosStorage = (productos) => {
         }
 
         produPrev.productos.push(productos)
-        localStorage.setItem("productos", JSON.stringify(produPrev))
+        localStorage.setItem(itemNombre, JSON.stringify(produPrev))
     } else {
         const observacion = productos.observacion
         const provedor = productos.provedor
         delete productos.observacion
-        localStorage.setItem("productos", JSON.stringify({observacion:observacion, provedor:provedor, productos:[productos]}))
+        localStorage.setItem(itemNombre, JSON.stringify({observacion:observacion, provedor:provedor, productos:[productos]}))
     }
 }
 
 /**
  * Obtiene los productos del LocalStorage.
+ * @param {*} itemNombre nombre del item de datos a obtener.
  * @returns un Array de productos.
  */
-export const obtenerProductosStorage = () => {
-    const productos = JSON.parse(localStorage.getItem("productos"))
+export const obtenerProductosStorage = (itemNombre) => {
+    const productos = JSON.parse(localStorage.getItem(itemNombre))
     return productos 
 }
 
 /**
  * Edita los productos del LocalStorage.
+ * @param {*} itemNombre nombre del item de datos a editar.
  */
-export const editarProductosStorage = (producto) => {
-    let storage = obtenerProductosStorage()
+export const editarProductosStorage = (producto, itemNombre) => {
+    let storage = obtenerProductosStorage(itemNombre)
     
     storage.productos.forEach((produt, index) => {
         if (produt.codigo == producto.codigo) {
@@ -46,16 +49,17 @@ export const editarProductosStorage = (producto) => {
         }
     });
 
-    localStorage.removeItem("productos")
+    localStorage.removeItem(itemNombre)
     storage.productos.push(producto)
-    localStorage.setItem("productos", JSON.stringify(storage))
+    localStorage.setItem(itemNombre, JSON.stringify(storage))
 }
 
 /**
  * Borra los productos del LocalStorage.
+ * @param {*} itemNombre nombre del item de datos a borrar.
  */
-export const borrarProductosStorage = (productos) => {
-    let storage = obtenerProductosStorage()
+export const borrarProductosStorage = (productos, itemNombre) => {
+    let storage = obtenerProductosStorage(itemNombre)
     
     productos.forEach(function(elemento) {
     
@@ -66,6 +70,6 @@ export const borrarProductosStorage = (productos) => {
         }
     })})
 
-    localStorage.removeItem("productos")
-    localStorage.setItem("productos", JSON.stringify(storage))
+    localStorage.removeItem(itemNombre)
+    localStorage.setItem(itemNombre, JSON.stringify(storage))
 }

@@ -223,7 +223,7 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
               Cargar producto
             </Button>
           </Form.Item>
-            <Button type="text" className='bg-blue-950 text-white' disabled={ obtenerProductosStorage() != null ? false : true } onClick={ ()=> onRegister() } icon={ <UploadOutlined/> }>
+            <Button type="primary" className='bg-blue-950 text-white' disabled={ obtenerProductosStorage("productos") != null ? false : true } onClick={ ()=> onRegister() } icon={ <UploadOutlined/> }>
               Registrar ingreso
             </Button>
           </Space>
