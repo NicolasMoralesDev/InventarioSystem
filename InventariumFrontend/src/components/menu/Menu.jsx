@@ -6,12 +6,12 @@ const Menu = () => {
 
     const navigate = useNavigate()
       const items = [
-        { key: 'productos', label: "Productos", children: 'Registro de Productos', icon: <PieChartOutlined/>  },
-        { key: 'ingresos', label: "Historial de ingresos" , children: 'Registro de Ingresos', icon: <FullscreenExitOutlined/> },
-        { key: 'ingresosAlta', label: "Alta ingresos" , children: 'Alta de Ingresos', icon: <SnippetsOutlined /> },
-        { key: 'egresos', label: "Historial de egresos" , children: 'Registro de Egresos', icon: <FullscreenOutlined/> },
-        { key: 'categorias', label: "Configurar ABM" , children: 'Gestion de Categorias', icon: <ReconciliationOutlined/>},
-        { key: 'usuarios', label: "Gestion de usuarios" , children: 'Gestion de Usuarios', icon: <UsergroupAddOutlined/> },
+        { key: 'productos', label: "Productos", children: '', icon: <PieChartOutlined/>  },
+        { key: 'ingresos', label: "Historial de ingresos" , children: '', icon: <FullscreenExitOutlined/> },
+        { key: 'ingresosAlta', label: "Alta ingresos" , children: '', icon: <SnippetsOutlined /> },
+        { key: 'egresos', label: "Historial de egresos" , children: '', icon: <FullscreenOutlined/> },
+        { key: 'egresosAlta', label: "Alta egresos" , children: '', icon: <SnippetsOutlined /> },
+        { key: 'usuarios', label: "Gestion de usuarios" , children: '', icon: <UsergroupAddOutlined/> },
       ];
 
   return (
@@ -19,6 +19,7 @@ const Menu = () => {
     <Tabs
       activeKey={ location.pathname.slice(1) }
       items={ items }
+      className='bg-slate-100	p-3'
       onChange={ (page) => {navigate(`/${page}`)} }
       indicator={ { size: (origin) => origin + 20, align: "center" } }
     />

@@ -14,7 +14,7 @@ import java.util.UUID;
 
 /**
  * @author Nicolas Morales.
- * Clase controller para los Ingresos.
+ * Clase controller para los egresos.
  */
 @RestController
 @RequestMapping("/api/v1/income")

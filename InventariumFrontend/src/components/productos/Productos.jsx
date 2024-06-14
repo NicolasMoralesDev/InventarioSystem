@@ -13,29 +13,32 @@ const Productos = () => {
 
   const [form] = useForm()
   const [productos, setProductos] = useState([])
+  const [categorias, setCategorias] = useState([])
   const [productoCode, setProductoCode] = useState([])
   const [productoEdit, setProductoEdit] = useState([])
   const [visibleAdd, setVisibleAdd] = useState(false)
   const [visibleEdit, setVisibleEdit] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [categorias, setCategorias] = useState([])
   
   const [statusBorrado, setStatusBorrado] = useState("")
   const [statusAdd, setStatusAdd] = useState("")
   const [statusEdit, setStatusEdit] = useState("")
 
+  const [borrando, setBorrando] = useState(false)
+  const [add, setAdd] = useState(false)
+  const [editando, setEditando] = useState(false)
+
   const onFetch = async () => {
-     setLoading(true)
      const resProdu = await obtenerProductos(setLoading)
      const resCate = await obtenerCategorias()
-     setCategorias(resCate.data)
-     setProductos(resProdu.data)
+     setCategorias(resCate?.data)
+     setProductos(resProdu?.data)
   }
 
   const onGetByCode = async (code) => {
      setLoading(true)
      const request = await obtenerProductoByCodigo(code, setLoading)
-     setProductoCode([request.data])
+     setProductoCode([request?.data])
   }
 
   const onBorrado = async (productosIds) => {
@@ -45,17 +48,18 @@ const Productos = () => {
   }
 
   const onGeneratePdf = async (productosIds) => {
-     const request = await genearReportePDFproductos(productosIds)
+     await genearReportePDFproductos(productosIds)
   }
 
   const onEdit = async (productoEdit) => {
-     const request = await editarProducto(productoEdit)
-     setStatusEdit(request.data.msg)
+     setEditando(true)
+     const request = await editarProducto(productoEdit, setLoading)
+     setStatusEdit(request?.data.msg)
   }
 
   const onAdd = async (productoAdd) => {
      const request = await crearProducto(productoAdd)
-     setStatusAdd(request.data.msg)
+     setStatusAdd(request?.data.msg)
   }
 
   useEffect(() => {
@@ -67,13 +71,28 @@ const Productos = () => {
     } 
   }, [ statusBorrado ])
 
-  useEffect(() => { onFetch() }, [])
+  useEffect(() => { onFetch(), loadingPop("Obteniendo Productos...", "productosLoad") }, [])
 /*   useEffect(() => { editarProducto ? loadingPop("Editando Producto...") : ""}, [editarProducto]) */
-  useEffect(() => { if (statusEdit) { successPop(statusEdit),  onFetch(), setVisibleEdit(false) } }, [statusEdit])
-  useEffect(() => { if (statusAdd) { successPop(statusAdd),  onFetch(), setVisibleAdd(false) } }, [statusAdd])
-  useEffect(() => { statusBorrado ? loadingPop("Borrando Productos...")  : "" }, [ statusBorrado ])
-  useEffect(() => { if (productos.length < 1 || statusBorrado || statusEdit || statusAdd) { loadingPop("Obteniendo Productos..."), setLoading(true) } }, [ productos ])
-/*   useEffect(() => { if (productos.length > 0 || productoCode.length > 0) { setLoading(false) } }, [ productos, productoCode ]) */
+  useEffect(() => { 
+    if (statusEdit) { 
+      successPop(statusEdit, "statusEdit")
+      onFetch()
+      setVisibleEdit(false)
+      setEditando(false)
+    } }, [statusEdit])
+
+  useEffect(() => { if (statusAdd) { successPop(statusAdd, "statusAdd"),  onFetch(), setVisibleAdd(false) } }, [statusAdd])
+  useEffect(() => { if (statusBorrado) { loadingPop("Borrando Productos...", "borrando") } }, [ statusBorrado ])
+  
+    useEffect(() => { 
+    if (statusBorrado || statusEdit || statusAdd) { 
+      loadingPop("Obteniendo Productos...", "productosLoad") 
+      setStatusAdd("")
+      setBorrando("")
+      setStatusEdit("")
+  } }, [ productos ])
+
+  useEffect(() => { if (add || editando || borrando) { setLoading(true)  } }, [add, borrando, editando])
 
   return (
     <>

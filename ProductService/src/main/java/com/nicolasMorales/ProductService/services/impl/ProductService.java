@@ -155,14 +155,12 @@ public class ProductService implements IProductService {
      * Metodo para editar un producto.
      * @param edit Recibe el producto a editar.
      */
-    @Transactional
     @Override
-    public String modifyProduct(Product edit) {
+    public void modifyProduct(Product edit) throws BussinesException {
         try {
             productRepo.save(edit);
-            return "Producto Modificado!";
         } catch (Exception e){
-            return "Error "+ e.getMessage();
+            throw new BussinesException("Se ha producido un error");
         }
     }
 

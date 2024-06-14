@@ -27,7 +27,7 @@ const IngresosAlta = () => {
     const [productBorrado, setProductBorrado] = useState(false)
 
     const onFetch = async () => {
-        const productosLocal = obtenerProductosStorage()
+        const productosLocal = obtenerProductosStorage("productos")
         const requestProve = await obtenerProvedores()
         const requestCate = await obtenerCategorias()
         setProvedores(requestProve.data)
@@ -36,22 +36,22 @@ const IngresosAlta = () => {
     }
 
     const onLoadStorage = (productos) => {
-        cargarProductosStorage(productos)
+        cargarProductosStorage(productos, "productos")
         setProductCargado(true)
     }
 
     const onEditar = (producto) => {
-        editarProductosStorage(producto)
+        editarProductosStorage(producto, "productos")
         setProductEditado(true)
     }
 
     const onBorrado = (productos) => {
-        borrarProductosStorage(productos)
+        borrarProductosStorage(productos, "productos")
         setProductBorrado(true)
     }
 
     const onRegistrar = async () => {
-        const registro = obtenerProductosStorage()
+        const registro = obtenerProductosStorage("productos")
         const request = await registrarIngresos(registro)
         setStatusReg(request.data.msg)
     }
