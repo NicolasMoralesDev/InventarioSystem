@@ -24,6 +24,7 @@ public class SupplierController {
 
     @Autowired
     private SupplierService supplierServ;
+
     @GetMapping(value = "/getAll")
     @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> getAllSuppliers(){

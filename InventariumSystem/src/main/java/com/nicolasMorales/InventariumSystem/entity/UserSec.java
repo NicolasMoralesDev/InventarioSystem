@@ -22,6 +22,7 @@ public class UserSec {
     private Long id;
     @Column(unique = true)
     private String username;
+    private String nombreCompleto;
     private String password;
     private int dni;
     private boolean enabled;
