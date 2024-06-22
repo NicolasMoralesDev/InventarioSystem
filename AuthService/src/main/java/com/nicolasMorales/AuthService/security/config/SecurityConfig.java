@@ -43,6 +43,7 @@ public class SecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(new JwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
+
                 /*.authorizeHttpRequests(http -> {
             // Endpoints públicos
             http.requestMatchers(HttpMethod.GET, "/holanoseg").permitAll();

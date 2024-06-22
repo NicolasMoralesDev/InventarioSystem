@@ -12,11 +12,12 @@ import EgresosAlta from "../components/registros/egresos/alta/EgresosAlta";
 import Login from "../components/login/Login";
 import ProtectedAuth from "../routes/rutasProtegidas/ProtectedAuth"
 
+
 const Routing = () => {
     return (
         <BrowserRouter>
             <Routes>
-{/*                 <Route element={ <ProtectedAuth/> } > */}
+         <Route element={ <ProtectedAuth/> } >
                 <Route path="/productos" element={ <Productos/> } exact />
                 <Route path="/categorias" element={ <TablaProductos/> } exact />
                 <Route path="/ingresos" element={ <Ingresos/> } exact />
@@ -24,7 +25,7 @@ const Routing = () => {
                 <Route path="/egresos" element={ <Egresos/> } exact />
                 <Route path="/egresosAlta" element={ <EgresosAlta/> } exact />
                 <Route path="/usuarios" element={ <Ingresos/> } exact />
-{/*                 </Route> */}
+         </Route>
                 <Route path="/login" element={ <Login/> } exact />
             </Routes>
         </BrowserRouter>
