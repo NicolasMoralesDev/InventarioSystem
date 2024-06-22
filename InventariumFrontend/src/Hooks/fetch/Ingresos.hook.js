@@ -1,7 +1,7 @@
 import { errorPop } from "../util/messages/alerts";
 import useAxiosConf from "../util/fetch.hook";
 
-const urlBase = "income-service/api/v1/income"
+const urlBase = "api/v1/income"
 
 /**
  * Registro de Ingresos.

@@ -1,5 +1,8 @@
 package com.nicolasMorales.AuthService.security.config;
 
+import com.nicolasMorales.AuthService.security.config.filter.JwtTokenValidator;
+import com.nicolasMorales.AuthService.utils.JwtUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -14,10 +17,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import javax.swing.text.html.HTML;
 import java.util.ArrayList;
@@ -28,19 +33,22 @@ import java.util.List;
 @EnableMethodSecurity
 public class SecurityConfig {
 
+    @Autowired
+    private JwtUtils jwtUtils;
+
     @Bean
-    public SecurityFilterChain filterChain (HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .httpBasic(Customizer.withDefaults())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(http -> {
-
-                    http.requestMatchers(HttpMethod.GET, "/holanoseg").permitAll();
-                    http.requestMatchers(HttpMethod.GET, "/holaseg").hasAuthority("READ");
-                    http.anyRequest().denyAll();
-
-                })
+                .addFilterBefore(new JwtTokenValidator(jwtUtils), BasicAuthenticationFilter.class)
+                /*.authorizeHttpRequests(http -> {
+            // Endpoints públicos
+            http.requestMatchers(HttpMethod.GET, "/holanoseg").permitAll();
+            http.requestMatchers(HttpMethod.GET, "/holaseg").hasAuthority("READ");
+            http.anyRequest().denyAll();
+        })*/
                 .build();
     }
 
@@ -51,31 +59,18 @@ public class SecurityConfig {
 
 
     @Bean
-    public AuthenticationProvider authenticationProvider(){
+    public AuthenticationProvider authenticationProvider(UserDetailsService userDetailsService){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
         provider.setPasswordEncoder(passwordEncoder());
-        provider.setUserDetailsService(userDetailsService());
+        provider.setUserDetailsService(userDetailsService);
         return provider;
     }
 
-
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return NoOpPasswordEncoder.getInstance();
+        return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public UserDetailsService userDetailsService() {
-        List userDetailsList = new ArrayList<>();
-
-        userDetailsList.add(User.withUsername("nico")
-                .password("123")
-                .roles("ADMIN")
-                .authorities("UPDATE", "READ", "DELETE", "CREATE")
-                .build());
-
-        return new InMemoryUserDetailsManager(userDetailsList);
-    }
 
 }
 

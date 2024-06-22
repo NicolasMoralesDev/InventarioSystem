@@ -27,7 +27,7 @@ const IngresosAlta = () => {
     const [productBorrado, setProductBorrado] = useState(false)
 
     const onFetch = async () => {
-        const productosLocal = obtenerProductosStorage()
+        const productosLocal = obtenerProductosStorage("productos")
         const requestProve = await obtenerProvedores()
         const requestCate = await obtenerCategorias()
         setProvedores(requestProve.data)
@@ -36,32 +36,32 @@ const IngresosAlta = () => {
     }
 
     const onLoadStorage = (productos) => {
-        cargarProductosStorage(productos)
+        cargarProductosStorage(productos, "productos")
         setProductCargado(true)
     }
 
     const onEditar = (producto) => {
-        editarProductosStorage(producto)
+        editarProductosStorage(producto, "productos")
         setProductEditado(true)
     }
 
     const onBorrado = (productos) => {
-        borrarProductosStorage(productos)
+        borrarProductosStorage(productos, "productos")
         setProductBorrado(true)
     }
 
     const onRegistrar = async () => {
-        const registro = obtenerProductosStorage()
+        const registro = obtenerProductosStorage("productos")
         const request = await registrarIngresos(registro)
         setStatusReg(request.data.msg)
     }
 
-    useEffect(() => { onFetch(), loadingPop("Cargando productos...") }, [obtenerProductosStorage])
+    useEffect(() => { onFetch(), loadingPop("Cargando productos...", "cargandoProductos") }, [obtenerProductosStorage])
 
-    useEffect(() => { if (productCargado) { successPop("Producto Cargado!"),  onFetch(), setProductCargado(false)} }, [productCargado])
-    useEffect(() => { if (productBorrado) { successPop("Producto Borrado!"),  onFetch(), setProductBorrado(false)} }, [productBorrado])
-    useEffect(() => { if (productEditado) { successPop("Producto Editado!"),  onFetch(), setProductEditado(false)} }, [productEditado])
-    useEffect(() => { if (statusReg) { successPop(statusReg), localStorage.removeItem("productos"), onFetch() } }, [statusReg])
+    useEffect(() => { if (productCargado) { successPop("Producto Cargado!", "productoAdd"),  onFetch(), setProductCargado(false)} }, [productCargado])
+    useEffect(() => { if (productBorrado) { successPop("Producto Borrado!", "productoDelete"),  onFetch(), setProductBorrado(false)} }, [productBorrado])
+    useEffect(() => { if (productEditado) { successPop("Producto Editado!", "productoEdit"),  onFetch(), setProductEditado(false)} }, [productEditado])
+    useEffect(() => { if (statusReg) { successPop(statusReg, "productoReg"), localStorage.removeItem("productos"), onFetch() } }, [statusReg])
 
   return (
       <>

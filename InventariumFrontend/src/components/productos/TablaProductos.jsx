@@ -8,7 +8,7 @@ import "./estilos/tablaProductos.css"
 
 const TablaProductos = (props) => {
 
-    const { setVisibleAdd, setVisibleEdit, setProductoEdit,  categorias, dataSourse, onBorrado, onGeneratePdf, loading, isList } = props
+    const { setVisibleAdd, setVisibleEdit, setProductoEdit,  categorias, dataSourse, onBorrado, onGeneratePdf, loading, isList, isExpense } = props
     const cateFilter = []
     categorias?.length > 0 ? categorias.map(cate => {cateFilter.push({text: cate.titulo, value: cate.titulo})}) : ""
     const [productosSeleccionados, setProductosSeleccionados] = useState([])
@@ -78,7 +78,7 @@ const TablaProductos = (props) => {
             key: 'marca',
             render: (marca) => <h2 className="text-center">{ marca }</h2>
         },
-        isList ?
+        isList || isExpense ?
         {
             title: 'Categoria',
             dataIndex: 'categoria',
@@ -89,7 +89,7 @@ const TablaProductos = (props) => {
             onFilter: (value, record) => record?.categoria?.titulo === value,
         } : <></> ,
         {
-            title: 'Precio',
+            title: 'Precio unitario',
             dataIndex: 'precio',
             width: "15%",
             key: 'precio',
@@ -108,11 +108,12 @@ const TablaProductos = (props) => {
     ];
 
     return (
+        <>
+        <Menu/>
         <div className="p-5 pt-0 bg-slate-200" 
         style={{
             marginBottom: "5%",
         }}> 
-           <Menu/>
             <Space className="w-full flex p-3 justify-end tabla_botonera" size="middle" >
                 { isList ?
                 <>
@@ -120,17 +121,17 @@ const TablaProductos = (props) => {
                     <Button className="bg-blue-950 btn-cyan-custom text-white" onClick={ onAdd }> <ProductFilled/> Cargar Producto</Button>
                  </Tooltip>  
                  <Tooltip title="Generar PDF"> 
-                    <Button title="Generar PDF" disabled={ isDisabled() ? false : true } className="bg-red-700 btn-rojo-custom text-white" onClick={ ()=> onDownloadPdf() }><FilePdfFilled />PDF</Button>
+                    <Button title="Generar PDF" disabled={ isDisabled() ? false : true } className="bg-red-700 text-white" type="primary" onClick={ ()=> onDownloadPdf() }><FilePdfFilled />PDF</Button>
                  </Tooltip> 
                  <Tooltip title="Generar EXCEL"> 
-                    <Button title="Generar EXCEL" disabled={ isDisabled() ? false : true } className="bg-green-700 btn-verde-custom text-white"><FileExcelFilled />EXCEL</Button>
+                    <Button title="Generar EXCEL" disabled={ isDisabled() ? false : true } className="bg-green-700 text-white" type="primary" ><FileExcelFilled />EXCEL</Button>
                  </Tooltip>
                 </>
                 : 
                 <></>
                 }
                 <Tooltip title="Borrado Multiple">
-                    <Button disabled={ isDisabled() ? false : true } className="bg-red-800 btn-bordo-custom text-white" onClick={ () => onDelete() }> <DeleteFilled/> Borrado Multiple</Button> 
+                    <Button disabled={ isDisabled() ? false : true } className="bg-red-800 text-white" type="primary" onClick={ () => onDelete() }> <DeleteFilled/> Borrado Multiple</Button> 
                 </Tooltip>
             </Space>
             <Table
@@ -151,6 +152,7 @@ const TablaProductos = (props) => {
                 loading={ loading }
             />
         </div>
+        </>
     )
 }
 

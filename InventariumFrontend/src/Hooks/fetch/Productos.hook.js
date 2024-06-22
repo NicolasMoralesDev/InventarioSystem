@@ -1,7 +1,7 @@
 import { errorPop } from "../util/messages/alerts";
 import useAxiosConf from "../util/fetch.hook";
 
-const urlBase = "product-service/api/v1/product"
+const urlBase = "api/v1/product"
 
 /**
  * Obtiene todos los productos.
@@ -50,13 +50,16 @@ export const borradoMultipleProductos = async (productosIds) => {
  * Realiza editado de productos.
  * @returns Devuelve un mensaje con el estado de la operacion.
  */
-export const editarProducto = async (producto) => {
+export const editarProducto = async (producto, setLoading) => {
      try {
        const request = await useAxiosConf.put(`${urlBase}/put`, producto)
+       console.log(request);
        return request;   
      } catch (error) {
           errorPop("error al intentar editar el Producto.");
-     } 
+     } finally {
+       setLoading(false)
+     }
 }
 
 /**
