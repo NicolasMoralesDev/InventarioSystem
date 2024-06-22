@@ -85,7 +85,7 @@ const TablaProductosEgresos = (props) => {
             dataIndex: 'cant',
             width: "5%",
             sorter: (a, b) => a.cant - b.cant,
-            render: (cant) => <Tag color={ "green-inverse" } title={ "Cantidad a egresar" }>{ cant }</Tag>,
+            render: (cant) => <Tag color={ "green" } title={ "Cantidad a egresar" }>{ cant }</Tag>,
             key: 'cant',
         },
         {
@@ -112,9 +112,9 @@ const TablaProductosEgresos = (props) => {
         <Menu/>
         <div className="p-5 pt-0 bg-slate-200" 
         style={{
-            marginBottom: "5%",
+            marginBottom: "5%"
         }}> 
-            <Space className="w-full flex p-3 justify-end tabla_botonera" size="middle" >
+            <Space className="w-full flex p-3 justify-end tabla_botonera" size="middle">
                 <>
                  <Tooltip title="Registrar Egreso">
                     <Button className="bg-blue-950 btn-cyan-custom text-white" onClick={ onAdd }> <ProductFilled/> Registrar Egreso</Button>

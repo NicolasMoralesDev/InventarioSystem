@@ -42,7 +42,6 @@ const FormBusqueda = ({ onGetByCode }) => {
                       ]}
                   >
                       <InputNumber
-                      allowClear={ true }
                           placeholder='Ingrese el codigo de barras...'
                           maxLength={ 25 }
                           minLength={ 5 }

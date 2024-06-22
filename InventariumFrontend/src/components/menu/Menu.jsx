@@ -19,7 +19,7 @@ const Menu = () => {
     <Tabs
       activeKey={ location.pathname.slice(1) }
       items={ items }
-      className='bg-slate-100	p-3'
+      className='bg-slate-100	p-5'
       onChange={ (page) => {navigate(`/${page}`)} }
       indicator={ { size: (origin) => origin + 20, align: "center" } }
     />

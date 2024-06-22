@@ -108,11 +108,12 @@ const TablaProductos = (props) => {
     ];
 
     return (
+        <>
+        <Menu/>
         <div className="p-5 pt-0 bg-slate-200" 
         style={{
             marginBottom: "5%",
         }}> 
-           <Menu/>
             <Space className="w-full flex p-3 justify-end tabla_botonera" size="middle" >
                 { isList ?
                 <>
@@ -151,6 +152,7 @@ const TablaProductos = (props) => {
                 loading={ loading }
             />
         </div>
+        </>
     )
 }
 
