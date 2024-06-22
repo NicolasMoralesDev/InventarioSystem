@@ -6,13 +6,13 @@ const Menu = () => {
 
     const navigate = useNavigate()
       const items = [
-        { key: 'productos', label: "Productos", children: '', icon: <PieChartOutlined/>  },
+        { key: '', label: "Productos", children: '', icon: <PieChartOutlined/>  },
         { key: 'ingresos', label: "Historial de ingresos" , children: '', icon: <FullscreenExitOutlined/> },
         { key: 'ingresosAlta', label: "Alta ingresos" , children: '', icon: <SnippetsOutlined /> },
         { key: 'egresos', label: "Historial de egresos" , children: '', icon: <FullscreenOutlined/> },
         { key: 'egresosAlta', label: "Alta egresos" , children: '', icon: <SnippetsOutlined /> },
         { key: 'usuarios', label: "Gestion de usuarios" , children: '', icon: <UsergroupAddOutlined/> },
-      ];
+      ]
 
   return (
     <>

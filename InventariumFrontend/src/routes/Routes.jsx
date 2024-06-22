@@ -16,15 +16,25 @@ const Routing = () => {
     return (
         <BrowserRouter>
             <Routes>
-{/*                 <Route element={ <ProtectedAuth/> } > */}
-                <Route path="/productos" element={ <Productos/> } exact />
+             <Route element={ <ProtectedAuth/> } >
+                <Route path="/" element={ <Productos/> } />
                 <Route path="/categorias" element={ <TablaProductos/> } exact />
                 <Route path="/ingresos" element={ <Ingresos/> } exact />
                 <Route path="/ingresosAlta" element={ <IngresosAlta/> } exact />
                 <Route path="/egresos" element={ <Egresos/> } exact />
                 <Route path="/egresosAlta" element={ <EgresosAlta/> } exact />
                 <Route path="/usuarios" element={ <Ingresos/> } exact />
-{/*                 </Route> */}
+              </Route>
+              <Route path="/login" element={ <Login/> } exact />
+            </Routes>
+        </BrowserRouter>
+    )
+}
+
+export const RoutingLogIn = () => {
+    return (
+        <BrowserRouter>
+            <Routes>
                 <Route path="/login" element={ <Login/> } exact />
             </Routes>
         </BrowserRouter>

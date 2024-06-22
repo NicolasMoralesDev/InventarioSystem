@@ -53,7 +53,6 @@ export const borradoMultipleProductos = async (productosIds) => {
 export const editarProducto = async (producto, setLoading) => {
      try {
        const request = await useAxiosConf.put(`${urlBase}/put`, producto)
-       console.log(request);
        return request;   
      } catch (error) {
           errorPop("error al intentar editar el Producto.");

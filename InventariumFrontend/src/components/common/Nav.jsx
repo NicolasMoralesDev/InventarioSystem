@@ -1,10 +1,16 @@
+import { Button } from "antd"
 import logo from "../../assets/Inventarium-SystemP.png"
+import { LogoutOutlined } from "@ant-design/icons"
+import { onLogOut } from "../../Hooks/util/auth.hook"
 
 const Nav = () => {
   return (
-    <div className="h-1/4 flex justify-center">
+    <section className="p-5 flex justify-between items-center">
+      <nav className="h-1/4" style={{ margin: "auto" }}>
         <img src={ logo } alt="logo" width="290rem" />
-    </div>
+      </nav>
+        <Button icon={ <LogoutOutlined/> } type="text" onClick={ () => onLogOut() }>Salir</Button>
+    </section>
   )
 }
 

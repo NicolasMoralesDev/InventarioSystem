@@ -25,7 +25,6 @@ export const obtenerEgresos = async (setLoading) => {
 
      try {
         const request = await useAxiosConf.get(`${urlBase}/getAll`)
-        console.log(request);
         return request;
      } catch (error) {
         errorPop("Error "+ error);

@@ -51,7 +51,7 @@ const LoginForm = ({onLogin}) => {
           <Input.Password placeholder="Ingrese su contraseña" />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">Iniciar sesión</Button>
+          <Button type="primary" htmlType="submit">Iniciar sesi&#972;n</Button>
         </Form.Item>
       </Form>
       </div>

@@ -1,17 +1,25 @@
 import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { useUser } from '../../Hooks/util/auth.hook';
 
+/**
+ * Configuracion de rutas protegidas, verifica si el usuario esta logueado.
+ * @param {*} param0 
+ * @returns conjunto de rutas.
+ */
 const ProtectedAuth = ({children}) => {
-/*     const { loading, isAuthenticated } = useUser(); */
+
+    const { isAuthenticated } = useUser()
     const navigate = useNavigate();
-  
+
     useEffect(() => {
-  
-     /*    navigate("/login"); */
-      
+        if (!isAuthenticated) {
+            navigate("/login")
+        }
+
     }, [navigate]);
   
-    return (children);
+    return (children ? children : <Outlet/>);
 }
 
 export default ProtectedAuth
