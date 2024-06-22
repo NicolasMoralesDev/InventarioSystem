@@ -65,6 +65,6 @@ export const popUp = (msg, icon, funcion) => {
     icon: icon,
     title: msg,
     showConfirmButton: false,
-    timer: 1500,
+    timer: 1800,
   });
 };
