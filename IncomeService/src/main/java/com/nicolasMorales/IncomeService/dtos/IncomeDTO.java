@@ -18,7 +18,7 @@ import java.util.List;
 public class IncomeDTO {
 
     private String observacion;
-    private SupplierDTO provedor;
+    private String provedor;
     private List <ProductDTO> productos;
     @Nullable
     private String fechaIngreso;

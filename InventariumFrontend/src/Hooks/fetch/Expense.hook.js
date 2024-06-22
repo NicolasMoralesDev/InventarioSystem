@@ -1,7 +1,7 @@
 import useAxiosConf from "../util/fetch.hook";
 import { errorPop } from "../util/messages/alerts";
 
-const urlBase = "expenses-service/api/v1/expense"
+const urlBase = "api/v1/expense"
 
 /**
  * Registro de egresos.

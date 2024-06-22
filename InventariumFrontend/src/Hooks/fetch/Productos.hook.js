@@ -1,7 +1,7 @@
 import { errorPop } from "../util/messages/alerts";
 import useAxiosConf from "../util/fetch.hook";
 
-const urlBase = "product-service/api/v1/product"
+const urlBase = "api/v1/product"
 
 /**
  * Obtiene todos los productos.

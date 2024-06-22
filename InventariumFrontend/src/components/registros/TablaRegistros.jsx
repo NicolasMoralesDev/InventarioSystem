@@ -62,8 +62,8 @@ const TablaRegistros = (props) => {
               <Tooltip title="Generar PDF"> <Button title="Generar PDF" className="bg-red-700 btn-rojo-custom text-white xl:w-1/2 sm:w-full"><FilePdfFilled />PDF</Button></Tooltip> 
               <Tooltip title="Generar EXCEL"> <Button title="Generar EXCEL" className="bg-green-700 btn-verde-custom text-white xl:w-1/2 sm:w-full"><FileExcelFilled />EXCEL</Button></Tooltip>
           </div>
-  },
-  {
+    },
+    {
       title: 'Acciones',
       width: "10%",
       key: 'acciones',

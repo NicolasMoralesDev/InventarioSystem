@@ -56,12 +56,12 @@ const IngresosAlta = () => {
         setStatusReg(request.data.msg)
     }
 
-    useEffect(() => { onFetch(), loadingPop("Cargando productos...") }, [obtenerProductosStorage])
+    useEffect(() => { onFetch(), loadingPop("Cargando productos...", "cargandoProductos") }, [obtenerProductosStorage])
 
-    useEffect(() => { if (productCargado) { successPop("Producto Cargado!"),  onFetch(), setProductCargado(false)} }, [productCargado])
-    useEffect(() => { if (productBorrado) { successPop("Producto Borrado!"),  onFetch(), setProductBorrado(false)} }, [productBorrado])
-    useEffect(() => { if (productEditado) { successPop("Producto Editado!"),  onFetch(), setProductEditado(false)} }, [productEditado])
-    useEffect(() => { if (statusReg) { successPop(statusReg), localStorage.removeItem("productos"), onFetch() } }, [statusReg])
+    useEffect(() => { if (productCargado) { successPop("Producto Cargado!", "productoAdd"),  onFetch(), setProductCargado(false)} }, [productCargado])
+    useEffect(() => { if (productBorrado) { successPop("Producto Borrado!", "productoDelete"),  onFetch(), setProductBorrado(false)} }, [productBorrado])
+    useEffect(() => { if (productEditado) { successPop("Producto Editado!", "productoEdit"),  onFetch(), setProductEditado(false)} }, [productEditado])
+    useEffect(() => { if (statusReg) { successPop(statusReg, "productoReg"), localStorage.removeItem("productos"), onFetch() } }, [statusReg])
 
   return (
       <>

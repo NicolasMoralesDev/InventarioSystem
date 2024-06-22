@@ -1,8 +1,9 @@
 // axios configuracion
-
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 
 const url = ["http://localhost:8080/"]
+const cookies = new Cookies();
 
 const baseUrl = import.meta.env.VITE_BACKEND_HOST || url[0];
  
@@ -13,9 +14,7 @@ const useAxiosConf = axios.create({
   },
 });
 
-
-
-/* axiosConf.interceptors.request.use(
+ useAxiosConf.interceptors.request.use(
   (config) => {
     const token = cookies.get('token');
     if (token) {
@@ -26,6 +25,6 @@ const useAxiosConf = axios.create({
   (error) => {
     return Promise.reject(error);
   }
-); */
+);
 
 export default useAxiosConf;
