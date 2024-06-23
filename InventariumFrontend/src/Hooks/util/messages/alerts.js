@@ -57,11 +57,10 @@ export const alertPop = (msg, icon, funcion) => {
  * PopUp con mensage de informacion.
  * @params Recibe el mensaje a mostrar.
  * @params Recibe el tipo de icono a mostrar.
- * @params Recime la funcion a ejecutar si se confirme la accion.
  */
-export const popUp = (msg, icon, funcion) => {
+export const popUp = (msg, icon) => {
   Swal.fire({
-    position: "center",
+    position: "top",
     icon: icon,
     title: msg,
     showConfirmButton: false,

@@ -32,7 +32,7 @@ const App = ({children}) => {
           </Header>
           <Content
             style={ {
-              margin: '1%'
+              margin: '1%',
             } }
           >
         { children }

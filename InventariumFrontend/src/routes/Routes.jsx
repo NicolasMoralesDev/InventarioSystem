@@ -11,6 +11,7 @@ import Egresos from "../components/registros/egresos/historico/Egresos";
 import EgresosAlta from "../components/registros/egresos/alta/EgresosAlta";
 import ProtectedAuth from "../routes/rutasProtegidas/ProtectedAuth"
 import App from "../App";
+import '../index.css'
 
 const Routing = () => {
     return (

@@ -18,7 +18,7 @@ const LoginForm = ( { onLogin } ) => {
     return (
     <div className='w-full mt-16 flex justify-center items-center'>
     <div className="sm:w-1/2 md:w-1/4 p-3 bg-slate-200">
-      <h2 className="text-center p-3 font-sans text-black">Inicio de Sesi&#972;n</h2>
+      <h1 className="text-center p-3 font-sans text-black">Inicio de Sesi&#972;n</h1>
       <Form 
         form={ form } 
         name='basic'

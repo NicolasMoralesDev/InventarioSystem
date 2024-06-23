@@ -78,7 +78,7 @@ const TablaRegistros = (props) => {
       marginBottom: "5%",
     }}>  
      <Menu/>
-      <div className="w-full flex justify-end tabla_botonera">
+      <div className="w-full flex justify-end">
       </div>
       <Table
         scroll="small"
