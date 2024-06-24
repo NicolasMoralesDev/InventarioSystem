@@ -16,7 +16,7 @@ const App = ({children}) => {
       <Layout
         style={ {
           minHeight: '100vh',
-        } }
+        }}
       >
         <Layout
         >
