@@ -1,5 +1,6 @@
 package com.nicolasMorales.InventariumSystem.repository;
 
+import com.nicolasMorales.InventariumSystem.dto.ProductDTO;
 import com.nicolasMorales.InventariumSystem.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,10 +21,14 @@ public interface IProductRepository  extends JpaRepository<Product, UUID> {
     @Query("SELECT p FROM Product p WHERE p.codigo = :codigo and p.borrado = false")
     Product findByCodigo(@Param("codigo") long codigo);
 
+    @Query("SELECT p FROM Product p WHERE p.codigo = :codigo")
+    Product getProductoByCodeReg(long codigo);
+
     @Override
     @Query("SELECT p FROM Product p WHERE p.borrado = false")
     List<Product> findAll();
 
     @Query("UPDATE Product p SET p.borrado = true WHERE p.id = :id ")
     void findDeleteSoft(@Param("id") UUID id);
+
 }

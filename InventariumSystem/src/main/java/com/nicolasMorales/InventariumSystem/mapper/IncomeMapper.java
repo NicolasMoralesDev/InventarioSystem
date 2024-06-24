@@ -4,6 +4,7 @@ import com.nicolasMorales.InventariumSystem.dto.IncomeDTOResponse;
 import com.nicolasMorales.InventariumSystem.dto.ProductDTO;
 import com.nicolasMorales.InventariumSystem.entity.Income;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
+import com.nicolasMorales.InventariumSystem.repository.IProductRepository;
 import com.nicolasMorales.InventariumSystem.services.impl.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class IncomeMapper {
         incomeDTOResponse.setUsuario(income.getUserRegister());
 
         for (long codigo : income.getProducts()) {
-            productos.add( productService.getProductsByCode(codigo) );
+            productos.add( productService.getProductByCodeReg(codigo) );
         }
         incomeDTOResponse.setProductos(productos);
         return incomeDTOResponse;
