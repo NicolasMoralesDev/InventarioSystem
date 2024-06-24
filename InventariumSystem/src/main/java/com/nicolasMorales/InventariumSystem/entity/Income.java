@@ -9,7 +9,7 @@ import java.util.UUID;
 
 /**
  * @author Nicolas Morales.
- * Clase Entidad Ingresos.
+ * Clase entidad ingreso.
  */
 @Entity
 @Data

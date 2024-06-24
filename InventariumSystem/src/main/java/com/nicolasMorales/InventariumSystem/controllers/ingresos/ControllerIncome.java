@@ -15,7 +15,7 @@ import java.util.UUID;
 
 /**
  * @author Nicolas Morales.
- * Clase controller para los egresos.
+ * Controladores para los ingresos.
  */
 @RestController
 @RequestMapping("/api/v1/income")
@@ -56,9 +56,9 @@ public class ControllerIncome {
     @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> getIncome(){
         try {
-            return  ResponseEntity.ok().body(incomeService.getAllIncome());
+            return ResponseEntity.ok().body(incomeService.getAllIncome());
         } catch (Exception e){
-            return  ResponseEntity.badRequest().body("Error "+ e.getMessage());
+            return ResponseEntity.badRequest().body("Error "+ e.getMessage());
         }
     }
 
@@ -70,16 +70,11 @@ public class ControllerIncome {
     @GetMapping(value = "/get/{id}")
     @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> getIncomeById(@PathVariable UUID id){
-
         try {
-
-            return  ResponseEntity.ok().body(incomeService.getIncomeById(id));
-
+            return ResponseEntity.ok().body(incomeService.getIncomeById(id));
         } catch (Exception e){
-
-            return  ResponseEntity.badRequest().body("Error "+ e.getMessage());
+            return ResponseEntity.badRequest().body("Error "+ e.getMessage());
         }
-
     }
 
     /**
@@ -90,32 +85,22 @@ public class ControllerIncome {
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasAuthority('MODIFICACION')")
     public ResponseEntity<?> deleteById(@PathVariable UUID id){
-
         HashMap<String, String> response = new HashMap<>();
         try {
 
             String status = incomeService.deleteByIdIncome(id);
 
             if (status == "Registro Borrado Correctamente!") {
-
                 response.put("msg", status );
-
-                return  ResponseEntity.ok().body(response);
-
-
+                return ResponseEntity.ok().body(response);
             } else {
-
                 response.put("error", status);
-                return  ResponseEntity.badRequest().body(response);
-
+                return ResponseEntity.badRequest().body(response);
             }
-
         } catch (Exception e){
             response.put("error", e.getMessage());
             return  ResponseEntity.badRequest().body("Error "+response);
-
         }
-
     }
 
     /**

@@ -118,12 +118,6 @@ const TablaProductosEgresos = (props) => {
                 <>
                  <Tooltip title="Registrar Egreso">
                     <Button className="bg-blue-950 btn-cyan-custom text-white" onClick={ onAdd }> <ProductFilled/> Registrar Egreso</Button>
-                 </Tooltip>  
-                 <Tooltip title="Generar PDF"> 
-                    <Button title="Generar PDF" disabled={ isDisabled() ? false : true } className="bg-red-700 text-white" type="primary" onClick={ ()=> onDownloadPdf() }><FilePdfFilled />PDF</Button>
-                 </Tooltip> 
-                 <Tooltip title="Generar EXCEL"> 
-                    <Button title="Generar EXCEL" disabled={ isDisabled() ? false : true } className="bg-green-700 text-white" type="primary" ><FileExcelFilled />EXCEL</Button>
                  </Tooltip>
                 </>
                 <Tooltip title="Borrado Multiple">

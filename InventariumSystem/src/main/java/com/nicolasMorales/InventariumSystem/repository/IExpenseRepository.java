@@ -8,7 +8,8 @@ import java.util.UUID;
 
 /**
  *  @author Nicolas Morales.
- *  Interfaz con los metodos JPA para los egresos.
+ *  Interfaz del Repository de la entidad Expense.
+ *  Posee sus metodos JPQL.
  */
 @Repository
 public interface IExpenseRepository extends JpaRepository<Expense, UUID> {

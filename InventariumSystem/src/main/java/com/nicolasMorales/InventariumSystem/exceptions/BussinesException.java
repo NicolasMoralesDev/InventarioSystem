@@ -6,7 +6,7 @@ import lombok.Data;
 
 /**
  * @author Nicolas Morales.
- * Modelado de Excepcion custom para el manejo de errores.
+ * Modelado de excepcion custom para el manejo de errores.
  */
 @AllArgsConstructor
 @Data

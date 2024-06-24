@@ -30,14 +30,13 @@ const FormBusqueda = ({ onGetByCode }) => {
           <Row gutter={ [1, 1] } className='w-full' justify={ 'center' }>
               <Col span={ 30 } className='xl:w-1/3 lg:w-1/3'>
                   <Form.Item
-                      label="Busqueda por codigo de Barras"
+                      label="Busqueda por codigo de barras"
                       name="codigo"
                       className='pl-10 w-full'
-                      
                       rules={[
                           {
                               required: true,
-                              message: 'El codigo es obligatorio!',
+                              message:'El codigo es obligatorio!',
                           },
                       ]}
                   >

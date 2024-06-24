@@ -61,33 +61,43 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
     }
 
-    public AuthResponseDTO loginUser(AuthLoginRequestDTO userRequest) {
-        String username = userRequest.username();
-        String password = userRequest.password();
+    public AuthResponseDTO loginUser(AuthLoginRequestDTO userRequest) throws BadCredentialsException {
+        try {
+            String username = userRequest.username();
+            String password = userRequest.password();
 
-        Authentication authentication = this.authenticate(username, password);
+            Authentication authentication = this.authenticate(username, password);
 
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String accessToken = jwtUtils.createToken(authentication);
+            String accessToken = jwtUtils.createToken(authentication);
 
-        AuthResponseDTO authResponseDTO = new AuthResponseDTO(username, "Longin correcto!", accessToken, true);
+            AuthResponseDTO authResponseDTO = new AuthResponseDTO(username, "Longin correcto!", accessToken, true);
 
-        return authResponseDTO;
+            return authResponseDTO;
+        } catch (BadCredentialsException e) {
+            throw new BadCredentialsException (e.getMessage());
+        }
+
     }
 
-    public Authentication authenticate (String username, String password) {
-        //con esto debo buscar el usuario
-        UserDetails userDetails = this.loadUserByUsername(username);
+    public Authentication authenticate (String username, String password) throws BadCredentialsException {
 
-        if (userDetails == null) {
-            throw new BadCredentialsException("Invalid username or password");
+        try {
+            //con esto debo buscar el usuario
+            UserDetails userDetails = this.loadUserByUsername(username);
+
+            if (userDetails == null) {
+                throw new BadCredentialsException("Invalid username or password");
+            }
+            // si no es igual
+            if (!passwordEncoder.matches(password, userDetails.getPassword())) {
+                throw new BadCredentialsException("Invalid password");
+            }
+            return new UsernamePasswordAuthenticationToken(username, userDetails.getPassword(), userDetails.getAuthorities());
+        } catch (BadCredentialsException e) {
+            throw new BadCredentialsException(e.getMessage());
         }
-        // si no es igual
-        if (!passwordEncoder.matches(password, userDetails.getPassword())) {
-            throw new BadCredentialsException("Invalid password");
-        }
-        return new UsernamePasswordAuthenticationToken(username, userDetails.getPassword(), userDetails.getAuthorities());
     }
 
 }

@@ -12,7 +12,7 @@ import java.util.UUID;
 
 /**
  *  @author Nicolas Morales.
- *  Controller de Categorias.
+ *  Controladores de categorias.
  */
 @RestController
 @RequestMapping("/api/v1/category")
@@ -115,7 +115,7 @@ public class ControllerCategory {
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensaje de la operacion.
      */
     @PutMapping(value = "/put")
-    public  ResponseEntity<?> editCategory(@RequestBody Category edit){
+    public ResponseEntity<?> editCategory(@RequestBody Category edit){
         HashMap<String, String> response = new HashMap<>();
 
         try {
