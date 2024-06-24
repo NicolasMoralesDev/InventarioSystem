@@ -5,14 +5,18 @@ import useForm  from "antd/lib/form/hooks/useForm"
 import { ProductOutlined, UploadOutlined } from "@ant-design/icons";
 import './estilos/formIngresos.css'
 import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.registros';
+import { useGetNombreUsuario } from '../../Hooks/util/localStorage/Auth';
 
  const FormRegistrar = ({ onSend, provedores, categorias, onRegister }) => {
 
   const [form] = useForm()
 
+  const nombreUsuario = useGetNombreUsuario()
+
   const onFinish = (values) => {
 
     const data = {
+      usuario: nombreUsuario,
       codigo: values?.codigo,
       nombre: values?.nombre,
       marca: values?.marca,
@@ -28,6 +32,7 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
     console.log('Success');  
 
     form.setFieldsValue({
+      usuario:"",
       codigo: "",
       nombre: "",
       marca: "",

@@ -20,6 +20,7 @@ public class IncomeDTOResponse {
     private UUID id;
     private String observacion;
     private String provedor;
+    private String usuario;
     private List<ProductDTO> productos;
     private LocalDateTime fechaIngreso;
     private boolean saldado;

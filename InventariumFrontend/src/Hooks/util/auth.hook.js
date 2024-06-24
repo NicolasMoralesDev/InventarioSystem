@@ -1,6 +1,7 @@
 import { jwtDecode } from "jwt-decode";
 import Cookies from "universal-cookie";
 import { popUp } from "./messages/alerts";
+import { useLoadLocal } from "./localStorage/Auth";
 
 const cookies = new Cookies()
 
@@ -12,6 +13,7 @@ export const onAuth = (token) => {
     const date = new Date()
     date.setTime(date.getTime() + (1000 * 60 * 60 * 10))
     const user = jwtDecode(token) 
+    useLoadLocal(user.nombreCompleto, user.authorities)
 
     cookies.set("token", token, { path: '/', expires: date })
     popUp("¡Bienvenido "+ user.nombreCompleto + "!", "success")
@@ -36,11 +38,13 @@ export const useUser = () => {
 }
 
 /**
- * Funcion de logOut, quita la cookie y el token.
+ * Funcion de logOut, quta los datos de session y el token.
  */
 export const onLogOut = () => {
 
     popUp("Gracias por visitarnos!", "success")
     location.replace("/login")
+    localStorage.removeItem("usuario")
+    localStorage.removeItem("permisos")
     cookies.remove("token")
 }

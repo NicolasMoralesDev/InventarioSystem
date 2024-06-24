@@ -74,6 +74,7 @@ public class IncomeService implements IIncomeService {
                 throw new BussinesException("Se ha producido un error al intentar registrar el ingreso!");
             } else {
                 register.setDescription(nuevo.getObservacion());
+                register.setUserRegister(nuevo.getUsuario());
                 register.setProducts(listProducts);
                 register.setSupplier(supplier);
                 incomeRepo.save(register);

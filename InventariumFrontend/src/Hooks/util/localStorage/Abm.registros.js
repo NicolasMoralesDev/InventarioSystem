@@ -19,10 +19,11 @@ export const cargarProductosStorage = (productos, itemNombre) => {
         produPrev.productos.push(productos)
         localStorage.setItem(itemNombre, JSON.stringify(produPrev))
     } else {
+        const usuario = productos.usuario
         const observacion = productos.observacion
         const provedor = productos.provedor
         delete productos.observacion
-        localStorage.setItem(itemNombre, JSON.stringify({observacion:observacion, provedor:provedor, productos:[productos]}))
+        localStorage.setItem(itemNombre, JSON.stringify({observacion:observacion, provedor:provedor, usuario:usuario, productos:[productos]}))
     }
 }
 
