@@ -114,7 +114,7 @@ const TablaProductosEgresos = (props) => {
         style={{
             marginBottom: "5%"
         }}> 
-            <Space className="w-full flex p-3 justify-end tabla_botonera" size="middle">
+            <Space className="w-full flex p-3 justify-end" size="middle">
                 <>
                  <Tooltip title="Registrar Egreso">
                     <Button className="bg-blue-950 btn-cyan-custom text-white" onClick={ onAdd }> <ProductFilled/> Registrar Egreso</Button>

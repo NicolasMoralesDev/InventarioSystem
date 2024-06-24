@@ -1,12 +1,12 @@
 import { message } from "antd";
-import Swal from "sweetalert2"
+import Swal from "sweetalert2";
 
 /**
  * PopUp con mensage de info.
  * @params Recime el mensaje a mostrar.
  */
 export const infoPop = (msg) => {
-    message.info(msg);
+  message.info(msg);
 };
 
 /**
@@ -14,7 +14,7 @@ export const infoPop = (msg) => {
  * @params Recime el mensaje a mostrar.
  */
 export const errorPop = (msg) => {
-    message.error(msg);
+  message.error(msg);
 };
 
 /**
@@ -22,7 +22,7 @@ export const errorPop = (msg) => {
  * @params Recime el mensaje a mostrar.
  */
 export const loadingPop = (msgCargando, key) => {
-    message.loading({ content: msgCargando, key });
+  message.loading({ content: msgCargando, key });
 };
 
 /**
@@ -30,7 +30,7 @@ export const loadingPop = (msgCargando, key) => {
  * @params Recibe el mensaje a mostrar.
  */
 export const successPop = (msg, key) => {
-      message.success({ content: msg, key, duration: 2 });
+  message.success({ content: msg, key, duration: 2 });
 };
 
 /**
@@ -40,15 +40,30 @@ export const successPop = (msg, key) => {
  * @params Recime la funcion a ejecutar si se confirme la accion.
  */
 export const alertPop = (msg, icon, funcion) => {
-    Swal.fire({
-        text: msg,
-        icon: icon,
-        showDenyButton: true,
-        confirmButtonText: "Confirmar",
-        denyButtonText: `Cancelar`
-      }).then((result) => {
-        if (result.isConfirmed) {
-          funcion()
-        }
-      });
-}
+  Swal.fire({
+    text: msg,
+    icon: icon,
+    showDenyButton: true,
+    confirmButtonText: "Confirmar",
+    denyButtonText: `Cancelar`,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      funcion();
+    }
+  });
+};
+
+/**
+ * PopUp con mensage de informacion.
+ * @params Recibe el mensaje a mostrar.
+ * @params Recibe el tipo de icono a mostrar.
+ */
+export const popUp = (msg, icon) => {
+  Swal.fire({
+    position: "top",
+    icon: icon,
+    title: msg,
+    showConfirmButton: false,
+    timer: 1800,
+  });
+};
