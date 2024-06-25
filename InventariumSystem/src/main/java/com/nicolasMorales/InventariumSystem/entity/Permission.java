@@ -6,6 +6,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ *  @author Nicolas Morales.
+ *  Modelado de la entidad permiso.
+ */
 @Entity
 @Getter
 @Setter

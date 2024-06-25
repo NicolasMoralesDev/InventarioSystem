@@ -10,7 +10,8 @@ import java.util.UUID;
 
 /**
  *  @author Nicolas Morales.
- *  Interfaz con los metodos JPA para los ingresos.
+ *  Interfaz del Repository de la entidad Income.
+ *  Posee sus metodos JPQL.
  */
 @Repository
 public interface IIncomeRepository extends JpaRepository<Income, UUID> {

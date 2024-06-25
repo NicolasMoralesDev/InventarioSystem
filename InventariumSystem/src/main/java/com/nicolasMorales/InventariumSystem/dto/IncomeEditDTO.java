@@ -8,7 +8,7 @@ import java.util.UUID;
 
 /**
  * @author Nicolas Morales.
- * DTO para Retornar Registros Ingresos.
+ * DTO para editar registros ingresos.
  */
 @Data
 @AllArgsConstructor

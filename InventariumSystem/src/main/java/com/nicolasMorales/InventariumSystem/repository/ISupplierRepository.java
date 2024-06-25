@@ -10,7 +10,7 @@ import java.util.UUID;
 
 /**
  *  @author Nicolas Morales.
- *  Interfaz del Repository de la entidad SUPPLIER.
+ *  Interfaz del Repository de la entidad Supplier.
  *  Posee sus metodos JPQL.
  */
 @Repository

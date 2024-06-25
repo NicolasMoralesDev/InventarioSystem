@@ -15,7 +15,7 @@ import java.util.UUID;
 
 /**
  *  @author Nicolas Morales.
- *  Controller de Productos.
+ *  Controladores de productos.
  */
 @RestController
 @RequestMapping("/api/v1/product")
@@ -26,13 +26,9 @@ public class ControllerProduct {
     @Autowired
     private ProductService productServ;
 
-//    @Value("${server.port}")
-//    private int serverPort;
-
     /**
-     * Controllador para crear masivaente productos.
-     *
-     * @param product Recibe una lista con los nuevos  productos.
+     * Controllador para registrar masivaente productos.
+     * @param product Recibe una lista con los nuevos productos.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensaje.
      */
     @PostMapping(value = "/bulk")
@@ -48,8 +44,7 @@ public class ControllerProduct {
     }
 
     /**
-     * Controllador para crear productos individualmente.
-     *
+     * Controllador para registrar productos individualmente.
      * @param product Recibe el nuevo producto.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensaje.
      */
@@ -67,14 +62,12 @@ public class ControllerProduct {
     }
 
     /**
-     * Controllador para obtener productos paginados.
-     *
+     * Controllador para obtener todos los productos registrados.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y una lista de productos.
      */
     @GetMapping(value = "/getAll")
     @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> getProduct() {
-//        System.out.println("serverPort = " + serverPort);
         try {
             return ResponseEntity.ok().body(productServ.getProducts());
         } catch (BussinesException e) {
@@ -100,7 +93,6 @@ public class ControllerProduct {
 
     /**
      * Controllador para obtener un producto por su codigo de Barras.
-     *
      * @param code Recibe un UUID del producto solicitado.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y el producto (si es que se encuenta).
      */
@@ -118,7 +110,6 @@ public class ControllerProduct {
 
     /**
      * Controllador para ser consumido por IncomeService para obtener un producto por su codigo de Barras.
-     *
      * @param code Recibe un UUID del producto solicitado.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y el producto (si es que se encuenta).
      */
@@ -140,7 +131,6 @@ public class ControllerProduct {
 
     /**
      * Controllador para borrar un producto por su id.
-     *
      * @param id Recibe un UUID del producto a borrar.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensage de la operacion.
      */
@@ -160,7 +150,6 @@ public class ControllerProduct {
 
     /**
      * Controllador para borrado masivo de productos por su id.
-     *
      * @param ids Recibe una Lista de UUID con los ids de los  producto solicitado.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensage de la operacion.
      */
@@ -179,8 +168,7 @@ public class ControllerProduct {
 
     /**
      * Controllador para editar un producto.
-     *
-     * @param edit Recibe el Producto a editar.
+     * @param edit Recibe el producto a editar.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensage de la operacion.
      */
     @PutMapping(value = "/put")
@@ -200,7 +188,6 @@ public class ControllerProduct {
 
     /**
      * Controllador para generar PDF.
-     *
      * @param productosIds Recibe un Array de ids.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado, un mensaje y el PDF generado.
      */

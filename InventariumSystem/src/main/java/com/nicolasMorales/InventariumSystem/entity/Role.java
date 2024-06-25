@@ -9,6 +9,10 @@ import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ *  @author Nicolas Morales.
+ *  Modelado de la entidad rol.
+ */
 @Entity
 @Getter
 @Setter

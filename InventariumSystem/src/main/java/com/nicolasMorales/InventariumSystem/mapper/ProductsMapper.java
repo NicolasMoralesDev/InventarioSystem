@@ -5,6 +5,10 @@ import com.nicolasMorales.InventariumSystem.entity.Product;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
+/**
+ * @author Nicolas Morales.
+ * Metodos Mapper para mapear produtos.
+ */
 @Component
 public class ProductsMapper {
 

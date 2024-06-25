@@ -6,6 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ *  @author Nicolas Morales.
+ *  Interfaz del Repository de la entidad UserSec.
+ *  Posee sus metodos JPQL.
+ */
 @Repository
 public interface IUserRepository extends JpaRepository<UserSec, Long> {
 
