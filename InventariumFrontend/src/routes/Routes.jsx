@@ -13,6 +13,7 @@ import ProtectedAuth from "../routes/rutasProtegidas/ProtectedAuth"
 import App from "../App";
 import '../index.css'
 
+
 const Routing = () => {
     return (
         <>

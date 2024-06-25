@@ -1,6 +1,5 @@
 package com.nicolasMorales.AuthService.service.impl;
 
-
 import com.nicolasMorales.AuthService.dto.AuthLoginRequestDTO;
 import com.nicolasMorales.AuthService.dto.AuthResponseDTO;
 import com.nicolasMorales.AuthService.model.UserSec;
@@ -17,7 +16,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
