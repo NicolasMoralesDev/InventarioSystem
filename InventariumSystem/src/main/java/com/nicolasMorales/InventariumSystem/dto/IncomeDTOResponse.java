@@ -10,7 +10,7 @@ import java.util.UUID;
 
 /**
  * @author Nicolas Morales.
- * DTO para Retornar Registros Ingresos.
+ * DTO para retornar registros de ingresos.
  */
 @Data
 @AllArgsConstructor
@@ -20,6 +20,7 @@ public class IncomeDTOResponse {
     private UUID id;
     private String observacion;
     private String provedor;
+    private String usuario;
     private List<ProductDTO> productos;
     private LocalDateTime fechaIngreso;
     private boolean saldado;

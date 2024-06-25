@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 import java.util.UUID;
 
 /**
- *  @author Nicolas Morales
- *  Modelado de la Entidad Producto
+ *  @author Nicolas Morales.
+ *  Modelado de la entidad producto.
  */
 @Entity
 @Data

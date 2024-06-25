@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * @author Nicolas Morales.
- * Clase controller para los egresos.
+ * Controladores para los egresos.
  */
 @RestController
 @RequestMapping("/api/v1/expense")

@@ -9,7 +9,7 @@ import java.util.UUID;
 
 /**
  *  @author Nicolas Morales.
- *  DTO para la Entidad Productos.
+ *  DTO para la entidad productos.
  */
 @Data
 @AllArgsConstructor

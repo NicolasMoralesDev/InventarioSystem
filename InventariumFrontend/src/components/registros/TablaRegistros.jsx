@@ -36,9 +36,9 @@ const TablaRegistros = (props) => {
     },
     {
       title: 'Usuario que registro',
-      dataIndex: 'observacio',
+      dataIndex: 'usuario',
       width: "15%",
-      key: 'descripciones',
+      key: 'usuario',
     },
     {
       title: 'Codigo y producto registrado',

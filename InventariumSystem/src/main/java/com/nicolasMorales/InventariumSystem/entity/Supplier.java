@@ -10,7 +10,7 @@ import java.util.UUID;
 
 /**
  * @author Nicolas Morales
- * Clase Entidad Provedor.
+ * Clase entidad provedor.
  */
 @Entity
 @Data

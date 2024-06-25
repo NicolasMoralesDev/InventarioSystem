@@ -9,7 +9,7 @@ import java.util.UUID;
 
 /**
  * @author Nicolas Morales.
- * Clase Entidad Ingresos.
+ * Clase entidad ingreso.
  */
 @Entity
 @Data
@@ -19,6 +19,7 @@ public class Income {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String description;
+    private String userRegister;
     private LocalDateTime dateIncome = LocalDateTime.now();
     @ManyToOne(fetch = FetchType.EAGER)
     private Supplier supplier;

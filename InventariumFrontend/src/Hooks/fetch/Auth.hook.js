@@ -11,8 +11,8 @@ export const loginUsuarios = async (data)  => {
 
      try {
            const request = await useAxiosConf.post(`${urlBase}/login`, data)
-           return request;   
+           return request;  
      } catch (error) {
-           errorPop(error);
+           errorPop("La contraseña o el usuario son invalidos");
      }
 }

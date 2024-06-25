@@ -9,12 +9,16 @@ import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ *  @author Nicolas Morales.
+ *  Modelado de la entidad usuario.
+ */
 @Entity
-@Table(name="users")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name="users")
 public class UserSec {
 
     @Id

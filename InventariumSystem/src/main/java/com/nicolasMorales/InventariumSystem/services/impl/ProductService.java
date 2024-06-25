@@ -181,6 +181,23 @@ public class ProductService implements IProductService {
         }
     }
 
+    /**
+     * Metodo para obtener un producto por su codigo de barras para eorna registros.
+     * @param code Recibe el codigo de barras del producto.
+     */
+    public ProductDTO getProductByCodeReg(long code) throws BussinesException {
+        try {
+            Product product = productRepo.getProductoByCodeReg(code);
+            if (product != null) {
+                return productMapper.productaProductDTO(product);
+            } else {
+                throw new BussinesException("No se encontro ningun producto asociado al codigo: " + code);
+            }
+        } catch (BussinesException e) {
+            throw new BussinesException("Error " + e.getMessage());
+        }
+    }
+
     @Override
     public HashMap<String, String> downloadPDF(List<UUID> productosIds) throws BussinesException {
         return null;

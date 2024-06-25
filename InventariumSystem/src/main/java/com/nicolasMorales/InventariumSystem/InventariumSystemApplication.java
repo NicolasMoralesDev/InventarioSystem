@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * @author Nicolas Morales
- * Clase Main del servidor.
+ * Clase main del servidor.
  */
 @SpringBootApplication
 public class InventariumSystemApplication {

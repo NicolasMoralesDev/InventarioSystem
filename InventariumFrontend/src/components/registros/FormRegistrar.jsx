@@ -5,14 +5,37 @@ import useForm  from "antd/lib/form/hooks/useForm"
 import { ProductOutlined, UploadOutlined } from "@ant-design/icons";
 import './estilos/formIngresos.css'
 import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.registros';
+import { useGetNombreUsuario } from '../../Hooks/util/localStorage/Auth';
+import { useEffect, useState } from 'react';
+import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
 
  const FormRegistrar = ({ onSend, provedores, categorias, onRegister }) => {
 
   const [form] = useForm()
 
+  const [producto, setProducto] = useState([])
+
+  const handleChange = async (codigo) => {
+    const request = await obtenerProductoByCodigo(codigo)
+    setProducto(request?.data)
+  }
+
+  useEffect(() => { form.setFieldsValue({
+      codigo: producto?.codigo ? producto?.codigo : "" ,
+      nombre: producto?.nombre ? producto?.nombre : "",
+      marca: producto?.marca ? producto?.marca : "",
+      precio: producto?.precio ? producto?.precio : "",
+      categoria: producto?.categoria ? producto?.categoria : "",
+      descripcion: producto?.descripcion ? producto?.descripcion : ""
+
+  })}, [ producto ])
+    
+  const nombreUsuario = useGetNombreUsuario()
+
   const onFinish = (values) => {
 
     const data = {
+      usuario: nombreUsuario,
       codigo: values?.codigo,
       nombre: values?.nombre,
       marca: values?.marca,
@@ -20,7 +43,7 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
       cant: values?.cant,
       observacion: values?.observacion,
       provedor: values?.provedor,
-      categoria: {id:values?.categoria},
+      categoria: producto.categoria ? values?.categoria : {id:values?.categoria},
       descripcion: values?.descripcion
     }
 
@@ -28,6 +51,7 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
     console.log('Success');  
 
     form.setFieldsValue({
+      usuario:"",
       codigo: "",
       nombre: "",
       marca: "",
@@ -87,7 +111,7 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
                 >
                   <Select> 
                      {
-                        provedores.map(provedor =>
+                        provedores?.map(provedor =>
                           <Select.Option key={provedor.id} value={provedor.nombre}>{provedor.nombre}</Select.Option>
                         )
                       }
@@ -116,6 +140,7 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
                   <InputNumber
                     className='w-full'
                     min={ 0 }
+                    onChange={ handleChange }
                   />
                 </Form.Item>
                 </Col>
@@ -130,7 +155,9 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
                     },
                   ]}
                 >
-                  <Input />
+                  <Input 
+                    disabled={ producto?.nombre ? true : false }
+                  />
                 </Form.Item>
                 </Col>
                 <Col>
@@ -144,7 +171,9 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
                     },
                   ]}
                 >
-                  <Input />
+                  <Input 
+                    disabled={ producto?.marca ? true : false }
+                  />
                 </Form.Item>
                 </Col>
                 <Col>
@@ -158,7 +187,9 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
                     },
                   ]}
                 >
-                  <InputNumber />
+                  <InputNumber 
+                    disabled={ producto?.precio ? true : false }
+                  />
                 </Form.Item>
                 </Col>
                 <Col>
@@ -172,12 +203,12 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
                     },
                   ]}
                 >
-                  <InputNumber />
+                  <InputNumber/>
                 </Form.Item>
                 </Col>
               </Row>
               <Row gutter={ [15,15] }>
-              <Col sm={ 5 } span={20}>
+              <Col sm={ 5 } span={ 20 }>
                 <Form.Item
                   label="Descripcion"
                   name="descripcion"
@@ -189,6 +220,7 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
                   ]}
                 >
                   <TextArea
+                      disabled={ producto?.descripcion ? true : false }
                       showCount
                       maxLength={ 200 }
                   />
@@ -205,7 +237,9 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
                       },
                     ]}
                   >
-                    <Select>
+                    <Select
+                        disabled={ producto?.categoria ? true : false }
+                    >
                       {
                         categorias?.map(categoria =>
                           <Select.Option key={categoria.id} value={categoria.id}>{categoria.titulo}</Select.Option>
