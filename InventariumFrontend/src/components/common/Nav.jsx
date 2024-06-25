@@ -1,4 +1,4 @@
-import { Button, Tooltip } from "antd"
+import { Button, Popconfirm, Tooltip } from "antd"
 import logo from "../../assets/Inventarium-SystemP.png"
 import { LogoutOutlined } from "@ant-design/icons"
 import { onLogOut } from "../../Hooks/util/auth.hook"
@@ -14,8 +14,16 @@ const Nav = () => {
         <img src={ logo } alt="logo" width="290rem" loading="lazy" />
       </nav>
       <h2>{ nombreUsuario }</h2>
-      <Tooltip title="cerrar sesi&#972;n">
-        <Button icon={ <LogoutOutlined/> } className="h-2/3" type="text" onClick={ () => onLogOut() }>Salir</Button>
+      <Tooltip title="Cerrar sesi&#972;n">
+        <Popconfirm
+           title="Cerrar sesi&#972;n"
+           description="¿Esta seguro que desea salir?"
+           onConfirm={ onLogOut }
+           okText="confirmar"
+           cancelText="cancelar"
+        >
+          <Button icon={ <LogoutOutlined/> } className="h-2/3" type="text">Salir</Button>  
+        </Popconfirm>
       </Tooltip>
     </section>
   )

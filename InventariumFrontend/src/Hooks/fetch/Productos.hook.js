@@ -22,14 +22,12 @@ export const obtenerProductos = async (setLoading) => {
  * Busca productos por su codigo de barras.
  * @returns Devuelve el producto relacionado con el codigo.
  */
-export const obtenerProductoByCodigo = async (code, setLoading) => {
+export const obtenerProductoByCodigo = async (code) => {
      try {
           const request = await useAxiosConf.get(`${urlBase}/get/code/${code}`)
           return request;
      } catch (error) {
           errorPop(error.response.data);
-     } finally {
-          setLoading(false)
      }
 }
 

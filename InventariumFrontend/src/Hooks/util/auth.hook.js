@@ -11,7 +11,7 @@ const cookies = new Cookies()
  */
 export const onAuth = (token) => {
     const date = new Date()
-    date.setTime(date.getTime() + (1000 * 60 * 60 * 10))
+    date.setTime(new Date(new Date().getTime() + 1800000))
     const user = jwtDecode(token) 
     useLoadLocal(user.nombreCompleto, user.authorities)
 
