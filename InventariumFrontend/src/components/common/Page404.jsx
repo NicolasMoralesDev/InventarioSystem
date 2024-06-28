@@ -18,7 +18,7 @@ const Page404 = () => {
       </Helmet>
     <Menu/>
     <section className='text-center flex gap-3 justify-center items-center flex-col'>
-      <img src={ error404 } alt="error404 icono" srcset="" width="15%"/>
+      <img src={ error404 } alt="error404 icono" srcset="" width="20%"/>
       <h1 className='font-mono'>ERROR 404</h1>
       <h3 className='font-mono'>Pagina no encontrada</h3>
       <Button type='text' className='bg-cyan-950 text-white' onClick={ () => navigate("/") }>volver a inicio</Button>
