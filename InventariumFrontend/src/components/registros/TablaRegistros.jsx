@@ -8,6 +8,7 @@ import Menu from "../menu/Menu"
 const TablaRegistros = (props) => {
 
   const { setIngresoEdit, dataSourse, setVisibleEdit } = props
+
   const [ingresosSeleccionados, setIngresosSeleccionados] = useState([])
   const onSelectIngresos = (ingresosSelected) => {
     setIngresosSeleccionados(ingresosSelected)
