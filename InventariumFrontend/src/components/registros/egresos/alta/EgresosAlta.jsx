@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { obtenerProductosStorage, cargarProductosStorage, borrarProductosStorage } from '../../../../Hooks/util/localStorage/Abm.registros'
-import FormBusqueda from "../../../productos/formBusqueda/FormBusqueda"
+import { obtenerProductosStorage, borrarProductosStorage, cargarProductosEgresoStorage } from '../../../../Hooks/util/localStorage/Abm.registros'
 import { Helmet } from 'react-helmet'
 import TablaProductosEgresos from '../alta/TablaProductosEgresos'
 import { obtenerProductoByCodigo } from "../../../../Hooks/fetch/Productos.hook"
 import { obtenerCategorias } from '../../../../Hooks/fetch/Categorias.hook'
+import FormRegistrar from '../../FormRegistrar'
 
 const EgresosAlta = () => {
 
@@ -20,15 +20,15 @@ const EgresosAlta = () => {
     const [productBorrado, setProductBorrado] = useState(false)
 
     const onFetch = async () => {
-        const productosLocal = obtenerProductosStorage("productosEgresos")
-        const requesyCate = await obtenerCategorias()
-        setCategorias(requesyCate?.data)
-        setProductos(productosLocal?.productos)
+      const productosLocal = obtenerProductosStorage("productosEgresos")
+      const requesyCate = await obtenerCategorias()
+      setCategorias(requesyCate?.data)
+      setProductos(productosLocal?.productos)
     }
 
     const onLoadStorage = (productos) => {
-        cargarProductosStorage(productos, "productosEgresos")
-        setProductCargado(true)
+      cargarProductosEgresoStorage(productos, "productosEgresos")
+      setProductCargado(true)
     }
 
     const onBorrado = (productos) => {
@@ -43,6 +43,7 @@ const EgresosAlta = () => {
    }
 
    useEffect(() => { onFetch() }, [productCargado, productBorrado])
+   useEffect(() => { if(productos.length > 0 ) { setLoading(false) } }, [productCargado, productBorrado])
 
   return (
     <>
@@ -51,8 +52,10 @@ const EgresosAlta = () => {
         <title>Alta de egresos</title>
         <link rel="canonical" href="http://mysite.com/example" />
      </Helmet>
-     <FormBusqueda
+     <FormRegistrar
         onGetByCode={ onGetByCode }
+        categorias={ categorias }
+        isEgreso={ true }
      />
      <TablaProductosEgresos
         dataSourse={ productos }

@@ -28,6 +28,30 @@ export const cargarProductosStorage = (productos, itemNombre) => {
 }
 
 /**
+ * Carga el LocalStorage con productos para registrar egresos.
+ * @param {*} productos datos de los productos a cargar.
+ * @param {*} itemNombre nombre del item a cargar. 
+ */
+export const cargarProductosEgresoStorage = (productos, itemNombre) => {
+    const produPrev = obtenerProductosStorage(itemNombre)
+    if (produPrev != null) {
+
+        if (produPrev.observacion != productos.observacion) {
+            produPrev.observacion = productos.observacion
+        }
+
+        produPrev.productos.push(productos)
+        localStorage.setItem(itemNombre, JSON.stringify(produPrev))
+    } else {
+        const usuario = productos.usuario
+        const observacion = productos.observacion
+        delete productos.observacion
+        delete productos.cant
+        localStorage.setItem(itemNombre, JSON.stringify({observacion:observacion, usuario:usuario, productos:[productos]}))
+    }
+}
+
+/**
  * Obtiene los productos del LocalStorage.
  * @param {*} itemNombre nombre del item de datos a obtener.
  * @returns un Array de productos.

@@ -9,7 +9,7 @@ import { useGetNombreUsuario } from '../../Hooks/util/localStorage/Auth';
 import { useEffect, useState } from 'react';
 import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
 
- const FormRegistrar = ({ onSend, provedores, categorias, onRegister }) => {
+ const FormRegistrar = ({ onSend, provedores, categorias, onRegister, isEgreso }) => {
 
   const [form] = useForm()
 
@@ -25,14 +25,14 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
       nombre: producto?.nombre ? producto?.nombre : "",
       marca: producto?.marca ? producto?.marca : "",
       precio: producto?.precio ? producto?.precio : "",
-      categoria: producto?.categoria ? producto?.categoria : "",
+      categoria: producto?.categoria ? producto?.categoria.titulo : "",
       descripcion: producto?.descripcion ? producto?.descripcion : ""
 
   })}, [ producto ])
     
   const nombreUsuario = useGetNombreUsuario()
 
-  const onFinish = (values) => {
+  const onSendEgreso = () => {
 
     const data = {
       usuario: nombreUsuario,
@@ -42,14 +42,48 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
       precio: values?.precio,
       cant: values?.cant,
       observacion: values?.observacion,
-      provedor: values?.provedor,
       categoria: producto.categoria ? values?.categoria : {id:values?.categoria},
       descripcion: values?.descripcion
+   }
+
+     onSend(data)
+     console.log('Success');  
+  }
+
+  const onSendIngreso = (values) => {
+
+    const data = {
+       usuario: nombreUsuario,
+       codigo: values?.codigo,
+       nombre: values?.nombre,
+       marca: values?.marca,
+       precio: values?.precio,
+       cant: values?.cant,
+       observacion: values?.observacion,
+       provedor: values?.provedor,
+       categoria: producto.categoria ? values?.categoria : {id:values?.categoria},
+       descripcion: values?.descripcion
     }
 
-    onSend(data)
-    console.log('Success');  
+      onSend(data)
+      console.log('Success');  
 
+    form.setFieldsValue({
+      usuario:"",
+      codigo: "",
+      nombre: "",
+      marca: "",
+      precio: "",
+      cant: "",
+      categoria: "",
+      descripcion: ""
+    })
+    
+  }
+
+  const onFinish = (values) => { 
+    
+    isEgreso ? onSendEgreso(values) : onSendIngreso(values) 
     form.setFieldsValue({
       usuario:"",
       codigo: "",
@@ -98,6 +132,7 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                   />
                 </Form.Item>
               </Col>
+              { !isEgreso ?
               <Col span={ 24 } sm={ 6 }>
                 <Form.Item
                   label="Provedor"
@@ -118,6 +153,9 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                   </Select>
                 </Form.Item>
               </Col>
+               :
+               <></>
+              }
             </Row>
           </Card>
           <>
@@ -140,6 +178,7 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                   <InputNumber
                     className='w-full'
                     min={ 0 }
+                    minLength={ 4 }
                     onChange={ handleChange }
                   />
                 </Form.Item>
@@ -156,7 +195,7 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                   ]}
                 >
                   <Input 
-                    disabled={ producto?.nombre ? true : false }
+                    disabled={ producto?.nombre || isEgreso ? true : false }
                   />
                 </Form.Item>
                 </Col>
@@ -172,7 +211,7 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                   ]}
                 >
                   <Input 
-                    disabled={ producto?.marca ? true : false }
+                    disabled={ producto?.marca || isEgreso ? true : false }
                   />
                 </Form.Item>
                 </Col>
@@ -188,7 +227,9 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                   ]}
                 >
                   <InputNumber 
-                    disabled={ producto?.precio ? true : false }
+                    min={ 1 }
+                    minLength={ 1 }
+                    disabled={ producto?.precio || isEgreso ? true : false }
                   />
                 </Form.Item>
                 </Col>
@@ -220,7 +261,7 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                   ]}
                 >
                   <TextArea
-                      disabled={ producto?.descripcion ? true : false }
+                      disabled={ producto?.descripcion || isEgreso ? true : false }
                       showCount
                       maxLength={ 200 }
                   />
@@ -237,12 +278,10 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                       },
                     ]}
                   >
-                    <Select
-                        disabled={ producto?.categoria ? true : false }
-                    >
+                    <Select disabled={ producto?.categoria || isEgreso ? true : false }>
                       {
                         categorias?.map(categoria =>
-                          <Select.Option key={categoria.id} value={categoria.id}>{categoria.titulo}</Select.Option>
+                          <Select.Option key={ categoria.id } value={ categoria.id }>{ categoria.titulo }</Select.Option>
                         )
                       }
                     </Select>

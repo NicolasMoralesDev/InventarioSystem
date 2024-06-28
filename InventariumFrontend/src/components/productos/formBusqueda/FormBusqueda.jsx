@@ -36,13 +36,13 @@ const FormBusqueda = ({ onGetByCode }) => {
                       rules={[
                           {
                               required: true,
-                              message:'El codigo es obligatorio!',
+                              message:'El codigo de barras es obligatorio!',
                           },
                       ]}
                   >
                       <InputNumber
-                      allowClear={ true }
                           placeholder='Ingrese el codigo de barras...'
+                          min={ 100 }
                           maxLength={ 25 }
                           minLength={ 5 }
                           className='w-10/12'
