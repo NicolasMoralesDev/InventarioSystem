@@ -53,7 +53,7 @@ const IngresosAlta = () => {
     const onRegistrar = async () => {
         const registro = obtenerProductosStorage("productos")
         const request = await registrarIngresos(registro)
-        setStatusReg(request.data.msg)
+        setStatusReg(request?.data.msg)
     }
 
     useEffect(() => { onFetch(), loadingPop("Cargando productos...", "cargandoProductos") }, [obtenerProductosStorage])

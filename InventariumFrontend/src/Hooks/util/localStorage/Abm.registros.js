@@ -16,6 +16,7 @@ export const cargarProductosStorage = (productos, itemNombre) => {
             produPrev.provedor = productos.provedor
         }
 
+        delete productos.usuario
         produPrev.productos.push(productos)
         localStorage.setItem(itemNombre, JSON.stringify(produPrev))
     } else {
@@ -23,6 +24,8 @@ export const cargarProductosStorage = (productos, itemNombre) => {
         const observacion = productos.observacion
         const provedor = productos.provedor
         delete productos.observacion
+        delete productos.usuario
+
         localStorage.setItem(itemNombre, JSON.stringify({observacion:observacion, provedor:provedor, usuario:usuario, productos:[productos]}))
     }
 }
@@ -40,13 +43,14 @@ export const cargarProductosEgresoStorage = (productos, itemNombre) => {
             produPrev.observacion = productos.observacion
         }
 
+        delete productos.usuario
         produPrev.productos.push(productos)
         localStorage.setItem(itemNombre, JSON.stringify(produPrev))
     } else {
         const usuario = productos.usuario
         const observacion = productos.observacion
         delete productos.observacion
-        delete productos.cant
+        delete productos.usuario
         localStorage.setItem(itemNombre, JSON.stringify({observacion:observacion, usuario:usuario, productos:[productos]}))
     }
 }

@@ -2,7 +2,7 @@ import { Button, Card, Col, Input, InputNumber, Row, Select, Space } from 'antd'
 import Form from 'antd/es/form/Form'
 import TextArea from 'antd/es/input/TextArea'
 import useForm  from "antd/lib/form/hooks/useForm"
-import { ProductOutlined, UploadOutlined } from "@ant-design/icons";
+import { ProductFilled, ProductOutlined, UploadOutlined } from "@ant-design/icons";
 import './estilos/formIngresos.css'
 import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.registros';
 import { useGetNombreUsuario } from '../../Hooks/util/localStorage/Auth';
@@ -25,14 +25,15 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
       nombre: producto?.nombre ? producto?.nombre : "",
       marca: producto?.marca ? producto?.marca : "",
       precio: producto?.precio ? producto?.precio : "",
-      categoria: producto?.categoria ? producto?.categoria.titulo : "",
-      descripcion: producto?.descripcion ? producto?.descripcion : ""
+      categoria: producto?.categoria ? producto?.categoria.id : "",
+      descripcion: producto?.descripcion ? producto?.descripcion : "",
+      cant: ""
 
   })}, [ producto ])
     
   const nombreUsuario = useGetNombreUsuario()
 
-  const onSendEgreso = () => {
+  const onSendEgreso = (values) => {
 
     const data = {
       usuario: nombreUsuario,
@@ -42,7 +43,7 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
       precio: values?.precio,
       cant: values?.cant,
       observacion: values?.observacion,
-      categoria: producto.categoria ? values?.categoria : {id:values?.categoria},
+      categoria: {id:values?.categoria},
       descripcion: values?.descripcion
    }
 
@@ -61,23 +62,12 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
        cant: values?.cant,
        observacion: values?.observacion,
        provedor: values?.provedor,
-       categoria: producto.categoria ? values?.categoria : {id:values?.categoria},
+       categoria: {id:values?.categoria},
        descripcion: values?.descripcion
     }
 
       onSend(data)
       console.log('Success');  
-
-    form.setFieldsValue({
-      usuario:"",
-      codigo: "",
-      nombre: "",
-      marca: "",
-      precio: "",
-      cant: "",
-      categoria: "",
-      descripcion: ""
-    })
     
   }
 
@@ -85,6 +75,7 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
     
     isEgreso ? onSendEgreso(values) : onSendIngreso(values) 
     form.setFieldsValue({
+      id:"",
       usuario:"",
       codigo: "",
       nombre: "",
@@ -117,7 +108,7 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
             <Row gutter={ [40,30] }>
               <Col span={ 25 }>
                 <Form.Item
-                  label="Observación del Ingreso"
+                  label={ !isEgreso ? "Observación del Ingreso" : "Observación del Egreso" }
                   name="observacion"
                   rules={[
                     {
@@ -244,7 +235,11 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                     },
                   ]}
                 >
-                  <InputNumber/>
+                  <InputNumber
+                   min={ 1 }
+                   max={ isEgreso ? producto?.cant : 200 }
+                   minLength={ 1 }
+                  />
                 </Form.Item>
                 </Col>
               </Row>
@@ -296,9 +291,15 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
               Cargar producto
             </Button>
           </Form.Item>
+            { !isEgreso ?
             <Button type="primary" className='bg-blue-950 text-white' disabled={ obtenerProductosStorage("productos") != null ? false : true } onClick={ ()=> onRegister() } icon={ <UploadOutlined/> }>
               Registrar ingreso
-            </Button>
+            </Button> 
+            :
+            <Button type="primary" className='bg-blue-950 text-white' disabled={ obtenerProductosStorage("productosEgresos") != null ? false : true } onClick={ ()=> onRegister() } icon={ <ProductFilled/> }>
+              Registrar egreso
+            </Button> 
+            }
           </Space>
         </Form>
       </Card>

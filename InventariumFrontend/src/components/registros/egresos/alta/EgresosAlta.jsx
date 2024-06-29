@@ -5,6 +5,8 @@ import TablaProductosEgresos from '../alta/TablaProductosEgresos'
 import { obtenerProductoByCodigo } from "../../../../Hooks/fetch/Productos.hook"
 import { obtenerCategorias } from '../../../../Hooks/fetch/Categorias.hook'
 import FormRegistrar from '../../FormRegistrar'
+import { registrarEgreso } from '../../../../Hooks/fetch/Expense.hook'
+import { successPop } from '../../../../Hooks/util/messages/alerts'
 
 const EgresosAlta = () => {
 
@@ -31,19 +33,27 @@ const EgresosAlta = () => {
       setProductCargado(true)
     }
 
+    const onRegister = async () => {
+       const data = obtenerProductosStorage("productosEgresos")
+       const request = await registrarEgreso(data)
+       console.log(request);
+       setStatusReg(request.data.msg)
+    }
+
     const onBorrado = (productos) => {
       borrarProductosStorage(productos, "productosEgresos")
       setProductBorrado(true)
-  }
+    }
 
     const onGetByCode = async (code) => {
       setLoading(true)
       const request = await obtenerProductoByCodigo(code, setLoading)
-      onLoadStorage(request.data)
-   }
+      onLoadStorage(request?.data)
+    }
 
-   useEffect(() => { onFetch() }, [productCargado, productBorrado])
-   useEffect(() => { if(productos.length > 0 ) { setLoading(false) } }, [productCargado, productBorrado])
+    useEffect(() => { onFetch() }, [productCargado, productBorrado, onRegister])
+    useEffect(() => { if(productos?.length > 0 ) { setLoading(false) } }, [productCargado, productBorrado])
+    useEffect(() => { if(statusReg.length > 0) { successPop("Egreso registrado correctamente!", "egresoReg"), localStorage.removeItem("productosEgresos") } }, [statusReg])
 
   return (
     <>
@@ -54,10 +64,13 @@ const EgresosAlta = () => {
      </Helmet>
      <FormRegistrar
         onGetByCode={ onGetByCode }
+        onSend={ onLoadStorage }
         categorias={ categorias }
+        onRegister={ onRegister }
         isEgreso={ true }
      />
      <TablaProductosEgresos
+        onSend={ onRegister }
         dataSourse={ productos }
         onBorrado={ onBorrado }
         categorias={ categorias }
