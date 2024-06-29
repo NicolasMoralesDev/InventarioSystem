@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author Nicolas Morales.
- * Metodos Mapper para mapear produtos.
+ * Metodos Mapper para mapear Productos.
  */
 @Component
 public class ProductsMapper {

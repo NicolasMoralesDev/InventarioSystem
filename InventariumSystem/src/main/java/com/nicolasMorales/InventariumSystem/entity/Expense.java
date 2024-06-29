@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -19,7 +20,7 @@ public class Expense {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     @ElementCollection
-    private Set<Long> products;
-    private LocalDateTime dateIncome = LocalDateTime.now();
+    private List<Long> products;
+    private LocalDateTime dateExpense = LocalDateTime.now();
 
 }

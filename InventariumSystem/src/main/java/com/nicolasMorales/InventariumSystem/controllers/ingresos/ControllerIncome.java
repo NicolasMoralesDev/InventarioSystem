@@ -45,7 +45,6 @@ public class ControllerIncome {
             response.put("error", e.getMessage());
             return  ResponseEntity.badRequest().body("Error "+ response);
         }
-
     }
 
     /**
