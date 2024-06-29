@@ -64,9 +64,9 @@ public class ProductService implements IProductService {
         try {
             Product producto = productRepo.findByCodigo(nuevo.getCodigo());
             if ( producto == null) {
-                productRepo.save(nuevo);
+                throw new BussinesException("Error, No se pudo cargar el producto: " + nuevo.getNombre());
             } else if (producto.getCodigo() == nuevo.getCodigo()){
-                producto.setCant(nuevo.getCant()-producto.getCant());
+                producto.setCant(producto.getCant()-nuevo.getCant());
                 productRepo.save(producto);
             }
         } catch ( Exception  e) {
