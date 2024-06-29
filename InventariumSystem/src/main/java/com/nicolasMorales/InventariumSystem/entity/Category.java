@@ -17,9 +17,12 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
     private String titulo;
+
     @Nullable
     private String descripcion;
+
     private boolean borrado;
 
 }

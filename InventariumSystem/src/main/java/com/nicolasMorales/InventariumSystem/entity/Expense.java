@@ -19,8 +19,10 @@ public class Expense {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
     @ElementCollection
     private List<Long> products;
+
     private LocalDateTime dateExpense = LocalDateTime.now();
 
 }

@@ -25,15 +25,24 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
     private long codigo;
+
     private String nombre;
+
     @Nullable
     private String descripcion;
+
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "categoria_id")
     private Category categoria;
+
     private String marca;
+
     private double precio;
+
     private int cant;
+
     private boolean borrado = false;
 
 }
