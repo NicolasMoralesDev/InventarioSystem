@@ -23,6 +23,10 @@ public class Expense {
     @ElementCollection
     private List<Long> products;
 
+    private String userRegister;
+
+    private String description;
+
     private LocalDateTime dateExpense = LocalDateTime.now();
 
 }

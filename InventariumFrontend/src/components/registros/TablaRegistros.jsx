@@ -7,7 +7,7 @@ import Menu from "../menu/Menu"
 
 const TablaRegistros = (props) => {
 
-  const { setIngresoEdit, dataSourse, setVisibleEdit } = props
+  const { setIngresoEdit, dataSourse, setVisibleEdit, isEgreso } = props
 
   const [ingresosSeleccionados, setIngresosSeleccionados] = useState([])
   const onSelectIngresos = (ingresosSelected) => {
@@ -28,13 +28,14 @@ const TablaRegistros = (props) => {
       key: 'fechaIngreso',
       render: (fechaIngreso) => <p>{ dayjs(fechaIngreso).format('DD/MM/YYYY HH:mm') }</p>
     },
-     {
+    !isEgreso ? { 
       title: 'Proveedor',
       dataIndex: 'provedor',
       width: "10%",
       key: 'provedor',
       render: (provedor) => provedor ? <p> { provedor } </p> : <p>-</p> 
-    },
+    } : <></>
+    ,
     {
       title: 'Usuario que registro',
       dataIndex: 'usuario',

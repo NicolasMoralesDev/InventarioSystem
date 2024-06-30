@@ -27,6 +27,7 @@ const Egresos = () => {
     <TablaRegistros
      dataSourse={ egresos }
      loading={ loading }
+     isEgreso={ true }
     />
     </>
   )

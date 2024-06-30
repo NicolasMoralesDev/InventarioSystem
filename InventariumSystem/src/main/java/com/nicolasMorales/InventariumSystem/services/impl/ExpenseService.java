@@ -1,6 +1,7 @@
 package com.nicolasMorales.InventariumSystem.services.impl;
 
 import com.nicolasMorales.InventariumSystem.dto.ExpenseDTO;
+import com.nicolasMorales.InventariumSystem.dto.ExpenseDTOResponse;
 import com.nicolasMorales.InventariumSystem.entity.Expense;
 import com.nicolasMorales.InventariumSystem.entity.Product;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
@@ -40,6 +41,8 @@ public class ExpenseService implements IExpenseService {
                 throw new BussinesException("Se ha producido un error al intentar registrar el egreso!");
             } else {
                 egreso.setProducts(listProducts);
+                egreso.setDescription(expense.getObservacion());
+                egreso.setUserRegister(egreso.getUserRegister());
                 expenseRepository.save(egreso);
             }
 
@@ -49,13 +52,14 @@ public class ExpenseService implements IExpenseService {
     }
 
     @Override
-    public List<Expense> getAllExpense() throws BussinesException {
+    public List<ExpenseDTOResponse> getAllExpense() throws BussinesException {
         try {
             List <Expense> expenseList = expenseRepository.findAll();
             if (expenseList == null) {
                 throw new BussinesException("No se encontraron registros de egresos");
             } else {
-                return expenseList;
+                List <ExpenseDTOResponse> expenseDTOResponses = expenseList.stream().map( expense -> expenseMapper.expenseaExpenseDTOResponse(expense) ).toList();
+                return expenseDTOResponses;
             }
         } catch (BussinesException e) {
             throw new BussinesException("Error "+ e.getMessage());

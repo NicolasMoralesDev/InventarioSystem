@@ -1,7 +1,7 @@
 package com.nicolasMorales.InventariumSystem.controllers.egresos;
 
 import com.nicolasMorales.InventariumSystem.dto.ExpenseDTO;
-import com.nicolasMorales.InventariumSystem.entity.Expense;
+import com.nicolasMorales.InventariumSystem.dto.ExpenseDTOResponse;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 import com.nicolasMorales.InventariumSystem.services.impl.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +53,7 @@ public class ControllerExpense {
     @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> getExpense(){
         try {
-            List<Expense> expenseList = expenseService.getAllExpense();
+            List<ExpenseDTOResponse> expenseList = expenseService.getAllExpense();
             return  ResponseEntity.ok().body(expenseList);
         } catch (BussinesException e){
             return  ResponseEntity.badRequest().body("Error "+ e.getMessage());
