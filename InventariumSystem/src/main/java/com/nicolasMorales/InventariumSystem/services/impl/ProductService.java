@@ -35,8 +35,8 @@ public class ProductService implements IProductService {
     private PdfService pdfService;
 
     /**
-     * Metodo para crear un Producto.
-     * @param nuevo Recibe el nuevo producto a crear.
+     * Metodo para registrar un Producto.
+     * @param nuevo Recibe el nuevo producto a registrar.
      */
     @Transactional
     @Override
@@ -55,8 +55,28 @@ public class ProductService implements IProductService {
     }
 
     /**
-     * Metodo para crear masivaente productos.
-     * @param products Recibe los nuevos productos a crear.
+     * Metodo para registrar un Producto y descontarlo durante los egresos.
+     * @param nuevo Recibe el nuevo producto a registrar.
+     */
+    @Transactional
+    @Override
+    public void createProductExpense(Product nuevo) throws BussinesException {
+        try {
+            Product producto = productRepo.findByCodigo(nuevo.getCodigo());
+            if ( producto == null) {
+                throw new BussinesException("Error, No se pudo cargar el producto: " + nuevo.getNombre());
+            } else if (producto.getCodigo() == nuevo.getCodigo()){
+                producto.setCant(producto.getCant()-nuevo.getCant());
+                productRepo.save(producto);
+            }
+        } catch ( Exception  e) {
+            throw new BussinesException("Error, No se pudo cargar el producto: " + nuevo.getNombre());
+        }
+    }
+
+    /**
+     * Metodo para registrar masivaente productos.
+     * @param products Recibe los nuevos productos a registrar.
      */
     @Override
     @Transactional
@@ -66,6 +86,26 @@ public class ProductService implements IProductService {
         for (Product product : products ){
             try {
                 this.createProduct(product);
+                listProducts.add(product.getCodigo());
+            } catch (BussinesException e){
+                throw new BussinesException("Error, No se pudo cargar el producto: " + product.getNombre());
+            }
+        }
+        return listProducts;
+    }
+
+    /**
+     * Metodo para registrar masivaente productos con egresos.
+     * @param products Recibe los nuevos productos a registrar.
+     */
+    @Override
+    @Transactional
+    public List<Long> createExpenseProducts(List<Product> products) throws BussinesException {
+
+        List<Long> listProducts = new ArrayList<>();
+        for (Product product : products ){
+            try {
+                this.createProductExpense(product);
                 listProducts.add(product.getCodigo());
             } catch (BussinesException e){
                 throw new BussinesException("Error, No se pudo cargar el producto: " + product.getNombre());

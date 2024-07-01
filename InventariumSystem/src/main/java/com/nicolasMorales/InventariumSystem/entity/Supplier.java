@@ -26,8 +26,11 @@ public class Supplier {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
     private String nombre;
+
     private String correo;
+
     private String tel;
 
 }

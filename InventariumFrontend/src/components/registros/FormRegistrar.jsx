@@ -1,15 +1,15 @@
+import { useEffect, useState } from 'react';
 import { Button, Card, Col, Input, InputNumber, Row, Select, Space } from 'antd'
 import Form from 'antd/es/form/Form'
 import TextArea from 'antd/es/input/TextArea'
 import useForm  from "antd/lib/form/hooks/useForm"
-import { ProductOutlined, UploadOutlined } from "@ant-design/icons";
-import './estilos/formIngresos.css'
+import { ProductFilled, ProductOutlined, UploadOutlined } from "@ant-design/icons";
 import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.registros';
 import { useGetNombreUsuario } from '../../Hooks/util/localStorage/Auth';
-import { useEffect, useState } from 'react';
 import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
+import './estilos/formIngresos.css'
 
- const FormRegistrar = ({ onSend, provedores, categorias, onRegister }) => {
+ const FormRegistrar = ({ onSend, provedores, categorias, onRegister, isEgreso, setVisibleProve, setVisibleProveReg }) => {
 
   const [form] = useForm()
 
@@ -25,14 +25,15 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
       nombre: producto?.nombre ? producto?.nombre : "",
       marca: producto?.marca ? producto?.marca : "",
       precio: producto?.precio ? producto?.precio : "",
-      categoria: producto?.categoria ? producto?.categoria : "",
-      descripcion: producto?.descripcion ? producto?.descripcion : ""
+      categoria: producto?.categoria ? producto?.categoria.id : "",
+      descripcion: producto?.descripcion ? producto?.descripcion : "",
+      cant: ""
 
   })}, [ producto ])
     
   const nombreUsuario = useGetNombreUsuario()
 
-  const onFinish = (values) => {
+  const onSendEgreso = (values) => {
 
     const data = {
       usuario: nombreUsuario,
@@ -42,15 +43,39 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
       precio: values?.precio,
       cant: values?.cant,
       observacion: values?.observacion,
-      provedor: values?.provedor,
-      categoria: producto.categoria ? values?.categoria : {id:values?.categoria},
+      categoria: {id:values?.categoria},
       descripcion: values?.descripcion
+   }
+
+     onSend(data)
+     console.log('Success');  
+  }
+
+  const onSendIngreso = (values) => {
+
+    const data = {
+       usuario: nombreUsuario,
+       codigo: values?.codigo,
+       nombre: values?.nombre,
+       marca: values?.marca,
+       precio: values?.precio,
+       cant: values?.cant,
+       observacion: values?.observacion,
+       provedor: values?.provedor,
+       categoria: {id:values?.categoria},
+       descripcion: values?.descripcion
     }
 
-    onSend(data)
-    console.log('Success');  
+      onSend(data)
+      console.log('Success');  
+    
+  }
 
+  const onFinish = (values) => { 
+    
+    isEgreso ? onSendEgreso(values) : onSendIngreso(values) 
     form.setFieldsValue({
+      id:"",
       usuario:"",
       codigo: "",
       nombre: "",
@@ -83,12 +108,13 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
             <Row gutter={ [40,30] }>
               <Col span={ 25 }>
                 <Form.Item
-                  label="Observación del Ingreso"
+                  label={ !isEgreso ? "Observación del Ingreso" : "Observación del Egreso" }
                   name="observacion"
                   rules={[
                     {
                       required: true,
                       message: 'Ingrese una observacion!',
+                      transform: (value) => value.trim()
                     },
                   ]}
                 >
@@ -98,6 +124,8 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                   />
                 </Form.Item>
               </Col>
+              { !isEgreso ?
+              <>
               <Col span={ 24 } sm={ 6 }>
                 <Form.Item
                   label="Provedor"
@@ -118,6 +146,12 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                   </Select>
                 </Form.Item>
               </Col>
+              <Button type='primary' onClick={ ()=> setVisibleProve(true) } className='btn-cyan-custom bg-blue-950 text-white' >Ver provedores</Button>
+              <Button type='primary' onClick={ ()=> setVisibleProveReg(true) } className='btn-cyan-custom bg-blue-950 text-white' >Registrar provedor</Button>
+              </>
+               :
+               <></>
+              }
             </Row>
           </Card>
           <>
@@ -140,6 +174,7 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                   <InputNumber
                     className='w-full'
                     min={ 0 }
+                    minLength={ 4 }
                     onChange={ handleChange }
                   />
                 </Form.Item>
@@ -152,11 +187,12 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                     {
                       required: true,
                       message: 'Ingrese el nombre del producto!',
+                      transform: (value) => value.trim()
                     },
                   ]}
                 >
                   <Input 
-                    disabled={ producto?.nombre ? true : false }
+                    disabled={ producto?.nombre || isEgreso ? true : false }
                   />
                 </Form.Item>
                 </Col>
@@ -168,11 +204,12 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                     {
                       required: true,
                       message: 'Ingrese la marca del producto!',
+                      transform: (value) => value.trim()
                     },
                   ]}
                 >
                   <Input 
-                    disabled={ producto?.marca ? true : false }
+                    disabled={ producto?.marca || isEgreso ? true : false }
                   />
                 </Form.Item>
                 </Col>
@@ -188,7 +225,9 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                   ]}
                 >
                   <InputNumber 
-                    disabled={ producto?.precio ? true : false }
+                    min={ 1 }
+                    minLength={ 1 }
+                    disabled={ producto?.precio || isEgreso ? true : false }
                   />
                 </Form.Item>
                 </Col>
@@ -203,7 +242,11 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                     },
                   ]}
                 >
-                  <InputNumber/>
+                  <InputNumber
+                   min={ 1 }
+                   max={ isEgreso ? producto?.cant : 200 }
+                   minLength={ 1 }
+                  />
                 </Form.Item>
                 </Col>
               </Row>
@@ -216,11 +259,12 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                     {
                       required: true,
                       message: 'Ingrese una descripcion!',
+                      transform: (value) => value.trim()
                     },
                   ]}
                 >
                   <TextArea
-                      disabled={ producto?.descripcion ? true : false }
+                      disabled={ producto?.descripcion || isEgreso ? true : false }
                       showCount
                       maxLength={ 200 }
                   />
@@ -237,12 +281,10 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                       },
                     ]}
                   >
-                    <Select
-                        disabled={ producto?.categoria ? true : false }
-                    >
+                    <Select disabled={ producto?.categoria || isEgreso ? true : false }>
                       {
                         categorias?.map(categoria =>
-                          <Select.Option key={categoria.id} value={categoria.id}>{categoria.titulo}</Select.Option>
+                          <Select.Option key={ categoria.id } value={ categoria.id }>{ categoria.titulo }</Select.Option>
                         )
                       }
                     </Select>
@@ -257,9 +299,15 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
               Cargar producto
             </Button>
           </Form.Item>
+            { !isEgreso ?
             <Button type="primary" className='bg-blue-950 text-white' disabled={ obtenerProductosStorage("productos") != null ? false : true } onClick={ ()=> onRegister() } icon={ <UploadOutlined/> }>
               Registrar ingreso
-            </Button>
+            </Button> 
+            :
+            <Button type="primary" className='bg-blue-950 text-white' disabled={ obtenerProductosStorage("productosEgresos") != null ? false : true } onClick={ ()=> onRegister() } icon={ <ProductFilled/> }>
+              Registrar egreso
+            </Button> 
+            }
           </Space>
         </Form>
       </Card>

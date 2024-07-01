@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { defaultPagination } from "../../../../Hooks/util/DefaultPagination";
 import { Button, Space, Table, Tag, Tooltip } from "antd";
-import { DeleteFilled, EditOutlined, FileExcelFilled, FilePdfFilled, ProductFilled } from "@ant-design/icons"
+import { DeleteFilled, EditOutlined, ProductFilled } from "@ant-design/icons"
 import { alertPop } from "../../../../Hooks/util/messages/alerts";
 import Menu from "../../../menu/Menu";
 import "../../estilos/tablaProductos.css"
 
 const TablaProductosEgresos = (props) => {
 
-    const { setVisibleAdd, setVisibleEdit, setProductoEdit,  categorias, dataSourse, onBorrado, onGeneratePdf, loading } = props
+    const { setVisibleEdit, setProductoEdit,  categorias, dataSourse, onBorrado, onGeneratePdf, loading, onSend } = props
     const cateFilter = []
     categorias?.length > 0 ? categorias.map(cate => {cateFilter.push({text: cate.titulo, value: cate.titulo})}) : ""
     const [productosSeleccionados, setProductosSeleccionados] = useState([])
@@ -23,10 +23,6 @@ const TablaProductosEgresos = (props) => {
 
     const onSelectProductos = (productsSelected) => {
         setProductosSeleccionados(productsSelected)
-    }
-
-    const onAdd = () => {
-        setVisibleAdd(true)
     }
 
     const onEdit = (producto) => {
@@ -111,15 +107,10 @@ const TablaProductosEgresos = (props) => {
         <>
         <Menu/>
         <div className="p-5 pt-0 bg-slate-200" 
-        style={{
-            marginBottom: "5%"
-        }}> 
+            style={{
+              marginBottom: "5%"
+            }}> 
             <Space className="w-full flex p-3 justify-end" size="middle">
-                <>
-                 <Tooltip title="Registrar Egreso">
-                    <Button className="bg-blue-950 btn-cyan-custom text-white" onClick={ onAdd }> <ProductFilled/> Registrar Egreso</Button>
-                 </Tooltip>
-                </>
                 <Tooltip title="Borrado Multiple">
                     <Button disabled={ isDisabled() ? false : true } className="bg-red-800 text-white" type="primary" onClick={ () => onDelete() }> <DeleteFilled/> Borrado Multiple</Button> 
                 </Tooltip>

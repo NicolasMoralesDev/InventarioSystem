@@ -67,6 +67,7 @@ const ModalEdit = ({ form, ingresoEdit, visible, setVisible, onSend }) => {
                         {
                             required: true,
                             message: 'Ingrese una observacion!',
+                            transform: (value) => value.trim()
                         },
                     ]}
                 >

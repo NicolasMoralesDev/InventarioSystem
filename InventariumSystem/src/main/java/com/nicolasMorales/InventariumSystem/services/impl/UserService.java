@@ -1,6 +1,7 @@
 package com.nicolasMorales.InventariumSystem.services.impl;
 
 import com.nicolasMorales.InventariumSystem.entity.UserSec;
+import com.nicolasMorales.InventariumSystem.mapper.UserMapper;
 import com.nicolasMorales.InventariumSystem.repository.IUserRepository;
 import com.nicolasMorales.InventariumSystem.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,14 @@ public class UserService implements IUserService {
     @Autowired
     private IUserRepository userRepository;
 
+    @Autowired
+    private UserMapper userMapper;
+
     @Override
     public List findAll() {
-        return userRepository.findAll();
+
+        List usuarios = userRepository.findAll().stream().map(usuario -> userMapper.userSecaUserDTO(usuario)).toList();
+        return usuarios;
     }
 
     @Override
