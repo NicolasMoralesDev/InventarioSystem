@@ -1,15 +1,15 @@
+import { useEffect, useState } from 'react';
 import { Button, Card, Col, Input, InputNumber, Row, Select, Space } from 'antd'
 import Form from 'antd/es/form/Form'
 import TextArea from 'antd/es/input/TextArea'
 import useForm  from "antd/lib/form/hooks/useForm"
 import { ProductFilled, ProductOutlined, UploadOutlined } from "@ant-design/icons";
-import './estilos/formIngresos.css'
 import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.registros';
 import { useGetNombreUsuario } from '../../Hooks/util/localStorage/Auth';
-import { useEffect, useState } from 'react';
 import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
+import './estilos/formIngresos.css'
 
- const FormRegistrar = ({ onSend, provedores, categorias, onRegister, isEgreso }) => {
+ const FormRegistrar = ({ onSend, provedores, categorias, onRegister, isEgreso, setVisibleProve, setVisibleProveReg }) => {
 
   const [form] = useForm()
 
@@ -114,6 +114,7 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                     {
                       required: true,
                       message: 'Ingrese una observacion!',
+                      transform: (value) => value.trim()
                     },
                   ]}
                 >
@@ -124,6 +125,7 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                 </Form.Item>
               </Col>
               { !isEgreso ?
+              <>
               <Col span={ 24 } sm={ 6 }>
                 <Form.Item
                   label="Provedor"
@@ -144,6 +146,9 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                   </Select>
                 </Form.Item>
               </Col>
+              <Button type='primary' onClick={ ()=> setVisibleProve(true) } className='btn-cyan-custom bg-blue-950 text-white' >Ver provedores</Button>
+              <Button type='primary' onClick={ ()=> setVisibleProveReg(true) } className='btn-cyan-custom bg-blue-950 text-white' >Registrar provedor</Button>
+              </>
                :
                <></>
               }
@@ -182,6 +187,7 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                     {
                       required: true,
                       message: 'Ingrese el nombre del producto!',
+                      transform: (value) => value.trim()
                     },
                   ]}
                 >
@@ -198,6 +204,7 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                     {
                       required: true,
                       message: 'Ingrese la marca del producto!',
+                      transform: (value) => value.trim()
                     },
                   ]}
                 >
@@ -252,6 +259,7 @@ import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
                     {
                       required: true,
                       message: 'Ingrese una descripcion!',
+                      transform: (value) => value.trim()
                     },
                   ]}
                 >

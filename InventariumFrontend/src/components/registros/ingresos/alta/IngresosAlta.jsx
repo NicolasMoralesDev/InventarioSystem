@@ -8,19 +8,29 @@ import { loadingPop, successPop } from '../../../../Hooks/util/messages/alerts';
 import useForm from "antd/lib/form/hooks/useForm"
 import ProductosModal from '../../../productos/ProductosModal';
 import { registrarIngresos } from '../../../../Hooks/fetch/Ingresos.hook';
-import { obtenerProvedores } from '../../../../Hooks/fetch/Provedores.hook';
+import { obtenerProvedores, registrarProvedor } from '../../../../Hooks/fetch/Provedores.hook';
+import ProvedoresModal from '../../provedores/ProvedoresModal';
+import ProvedoresAltaModal from '../../provedores/ProvedoresAltaModal';
 
 const IngresosAlta = () => {
 
     const [form] = useForm()  
 
+    // fetch inicial del backend
     const [productos, setProductos] = useState([])
     const [provedores, setProvedores] = useState([])
     const [categorias, setCategorias] = useState([])
 
+    // estados para modales
     const [visibleEdit, setVisibleEdit] = useState(false)
+    const [visibleProve, setVisibleProve] = useState(false) 
+    const [visibleProveReg, setVisibleProveReg] = useState(false) 
     const [productoEditar, setProductoEditar] = useState([])
 
+    // Estados para provedores
+    const [provedorCargado, setProvedorCargado] = useState(false)
+
+    // Estados para los productos.
     const [statusReg, setStatusReg] = useState("")
     const [productCargado, setProductCargado] = useState(false)
     const [productEditado, setProductEditado] = useState(false)
@@ -30,9 +40,14 @@ const IngresosAlta = () => {
         const productosLocal = obtenerProductosStorage("productos")
         const requestProve = await obtenerProvedores()
         const requestCate = await obtenerCategorias()
-        setProvedores(requestProve.data)
-        setCategorias(requestCate.data)
+        setProvedores(requestProve?.data)
+        setCategorias(requestCate?.data)
         setProductos(productosLocal?.productos)
+    }
+
+    const onRegistrarProvedor = async (data) => {
+        const request = await registrarProvedor(data)
+        setProvedorCargado(true)
     }
 
     const onLoadStorage = (productos) => {
@@ -58,12 +73,13 @@ const IngresosAlta = () => {
 
     useEffect(() => { onFetch(), loadingPop("Cargando productos...", "cargandoProductos") }, [obtenerProductosStorage])
 
-    useEffect(() => { if (productCargado) { successPop("Producto Cargado!", "productoAdd"),  onFetch(), setProductCargado(false)} }, [productCargado])
-    useEffect(() => { if (productBorrado) { successPop("Producto Borrado!", "productoDelete"),  onFetch(), setProductBorrado(false)} }, [productBorrado])
-    useEffect(() => { if (productEditado) { successPop("Producto Editado!", "productoEdit"),  onFetch(), setProductEditado(false)} }, [productEditado])
+    useEffect(() => { if (productCargado) { successPop("Producto Cargado!", "productoAdd"),  onFetch(), setProductCargado(false) } }, [productCargado])
+    useEffect(() => { if (productBorrado) { successPop("Producto Borrado!", "productoDelete"),  onFetch(), setProductBorrado(false) } }, [productBorrado])
+    useEffect(() => { if (productEditado) { successPop("Producto Editado!", "productoEdit"),  onFetch(), setProductEditado(false) } }, [productEditado])
+    useEffect(() => { if (provedorCargado) { successPop("Provedor cargado!", "provedorCargado"),  onFetch(), setProvedorCargado(false) } }, [provedorCargado])
     useEffect(() => { if (statusReg) { successPop(statusReg, "productoReg"), localStorage.removeItem("productos"), onFetch() } }, [statusReg])
 
-  return (
+      return (
       <>
       <Helmet>
         <meta charSet="utf-8" />
@@ -71,11 +87,29 @@ const IngresosAlta = () => {
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       <FormRegistrar
-        onSend={ onLoadStorage }
-        onRegister={ onRegistrar }
-        provedores={ provedores }
-        categorias={ categorias }
+         onSend={ onLoadStorage }
+         onRegister={ onRegistrar }
+         provedores={ provedores }
+         categorias={ categorias }
+         setVisibleProve={ setVisibleProve }
+         setVisibleProveReg={ setVisibleProveReg }
       />
+      {
+        visibleProve &&
+        <ProvedoresModal
+          provedores={ provedores }
+          setVisible={ setVisibleProve }
+          visible={ visibleProve }
+        />
+      }
+      { 
+       visibleProveReg &&
+        <ProvedoresAltaModal
+          visible={ visibleProveReg }
+          setVisible={ setVisibleProveReg }
+          onSend={ onRegistrarProvedor }
+        />
+      }
       {
         visibleEdit &&
         <ProductosModal
@@ -90,10 +124,10 @@ const IngresosAlta = () => {
         />
       }
       <TablaProductos
-        onBorrado={ onBorrado }
-        dataSourse={ productos }
-        setVisibleEdit={ setVisibleEdit }
-        setProductoEdit={ setProductoEditar }
+         onBorrado={ onBorrado }
+         dataSourse={ productos }
+         setVisibleEdit={ setVisibleEdit }
+         setProductoEdit={ setProductoEditar }
       />
     </>
   )

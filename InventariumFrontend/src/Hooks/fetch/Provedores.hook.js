@@ -16,3 +16,17 @@ export const obtenerProvedores = async ()  => {
           errorPop("error al intentar conectarse con el servidor.");
      }
 }
+
+/**
+ * Registro de provedores.
+ * @returns Devuelve un mensaje con el resultado de la operacion.
+ */
+export const registrarProvedor = async (provedor) => {
+
+     try {
+        const request = await useAxiosConf.post(`${urlBase}/create`, provedor)
+        return request;
+     } catch (error) {
+        errorPop("error al intentar conectarse con el servidor." + error);
+     }
+}

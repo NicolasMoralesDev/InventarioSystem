@@ -37,6 +37,7 @@ const FormBusqueda = ({ onGetByCode }) => {
                           {
                               required: true,
                               message:'El codigo de barras es obligatorio!',
+                              transform: (value) => value.trim()
                           },
                       ]}
                   >
