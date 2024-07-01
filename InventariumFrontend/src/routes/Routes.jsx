@@ -12,7 +12,8 @@ import EgresosAlta from "../components/registros/egresos/alta/EgresosAlta";
 import ProtectedAuth from "../routes/rutasProtegidas/ProtectedAuth"
 import App from "../App";
 import '../index.css'
-
+import Page404 from "../components/common/Page404";
+import Usuarios from "../components/usuarios/Usuarios";
 
 const Routing = () => {
     return (
@@ -26,7 +27,8 @@ const Routing = () => {
                 <Route path="ingresosAlta" element={ <IngresosAlta/> } exact />
                 <Route path="egresos" element={ <Egresos/> } exact />
                 <Route path="egresosAlta" element={ <EgresosAlta/> } exact />
-                <Route path="usuarios" element={ <Ingresos/> } exact />
+                <Route path="usuarios" element={ <Usuarios/> } exact />
+                <Route path="*" element={ <Page404/> } exact />
               </Route>
             </Routes>
         </App>

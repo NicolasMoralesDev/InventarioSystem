@@ -33,7 +33,8 @@ const LoginForm = ( { onLogin } ) => {
             rules={ [
                     {
                       required: true,
-                      message: 'El nombre de uuario es obligatorio!',
+                      message: 'El nombre de usuario es obligatorio!',
+                      transform: (value) => value.trim()
                     },
                   ] }
             name="username"
@@ -44,7 +45,8 @@ const LoginForm = ( { onLogin } ) => {
             rules={ [
                     {
                       required: true,
-                      message: 'El nombre de uuario es obligatorio!',
+                      message: 'La contraseña es obligatoria!',
+                      transform: (value) => value.trim()
                     },
                   ] }
             name="password"

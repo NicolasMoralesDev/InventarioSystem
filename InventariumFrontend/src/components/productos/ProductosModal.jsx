@@ -94,6 +94,7 @@ import TextArea from "antd/es/input/TextArea";
                                             {
                                                 required: true,
                                                 message: 'El nombre es obligatorio!',
+                                                transform: (value) => value.trim()
                                             },
                                         ]}
                                     >
@@ -107,6 +108,9 @@ import TextArea from "antd/es/input/TextArea";
                             <Form.Item
                                 label="Descripcion:"
                                 name="descripcion"
+                                rules={[{
+                                    transform: (value) => value.trim()
+                                }]}
                             >
                                 <TextArea showCount maxLength={ 100 }/>
                             </Form.Item>
@@ -145,6 +149,7 @@ import TextArea from "antd/es/input/TextArea";
                                     {
                                         required: true,
                                         message: 'La marca es obligatoria!',
+                                        transform: (value) => value.trim()
                                     },
                                 ]}
                             >

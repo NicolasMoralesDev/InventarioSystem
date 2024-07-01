@@ -2,12 +2,11 @@ import { useState } from "react";
 import { Button, Table, Tooltip } from "antd";
 import { defaultPagination } from "../../Hooks/util/DefaultPagination";
 import { EditOutlined, FileExcelFilled, FilePdfFilled } from "@ant-design/icons";
-import dayjs from "dayjs";
 import Menu from "../menu/Menu"
 
-const TablaRegistros = (props) => {
+const TablaUsuarios = (props) => {
 
-  const { setIngresoEdit, dataSourse, setVisibleEdit, isEgreso } = props
+  const { setIngresoEdit, dataSourse, setVisibleEdit } = props
 
   const [ingresosSeleccionados, setIngresosSeleccionados] = useState([])
   const onSelectIngresos = (ingresosSelected) => {
@@ -21,39 +20,31 @@ const TablaRegistros = (props) => {
 
   const columns = [
     {
-      title: 'Fecha y Hora de ingreso',
-      dataIndex: 'fechaIngreso',
+      title: 'Usuario',
+      dataIndex: 'username',
       width: "13%",
-      sorter: (a, b) => a.fechaIngreso + b.fechaIngreso,
-      key: 'fechaIngreso',
-      render: (fechaIngreso) => <p>{ dayjs(fechaIngreso).format('DD/MM/YYYY HH:mm') }</p>
+      sorter: (a, b) => a.usuario + b.usuario,
+      key: 'username',
     },
-    !isEgreso ? { 
-      title: 'Proveedor',
-      dataIndex: 'provedor',
+    {
+      title: 'Nombre',
+      dataIndex: 'nombreCompleto',
+      width: "13%",
+      key: 'nombreCompleto',
+    },
+    { 
+      title: 'DNI',
+      dataIndex: 'dni',
       width: "10%",
-      key: 'provedor',
-      render: (provedor) => provedor ? <p> { provedor } </p> : <p>-</p> 
-    } : <></>
+      key: 'dni',
+    }
     ,
     {
-      title: 'Usuario que registro',
-      dataIndex: 'usuario',
+      title: 'Roles',
+      dataIndex: 'roles',
       width: "15%",
-      key: 'usuario',
-    },
-    {
-      title: 'Codigo y producto registrado',
-      dataIndex: 'productos',
-      width: "15%",
-      key: 'productos',
-      render: (productos) => productos ? productos.map((producto) => <p className="text-justify" key={ producto.codigo }>{ producto.codigo } - { producto.nombre }</p>) : ""
-    },
-    {
-      title: 'Observacion',
-      dataIndex: 'observacion',
-      width: "13%",
-      key: 'observacion',
+      key: 'roles',
+      render: (rol) => rol.map(role => <p key={ role.id }>{ role.role }</p>) 
     },
     {
       title: 'Generar Informe',
@@ -72,7 +63,7 @@ const TablaRegistros = (props) => {
       render: (ingreso) => <>
           <Button title="Editar Registro"  onClick={ () => onEdit(ingreso) } className="bg-cyan-950 btn-cyan-custom text-white">Editar <EditOutlined/></Button>
       </>
-    },
+  },
   ];
 
   return (
@@ -80,10 +71,12 @@ const TablaRegistros = (props) => {
       marginBottom: "5%",
     }}>  
      <Menu/>
+      <div className="w-full flex justify-end">
+      </div>
       <Table
         scroll="small"
         className="overflow-x-scroll"
-        rowKey={ (ingreso) => ingreso.id }
+        rowKey={ (usuario) => usuario.id }
         dataSource={ dataSourse }
         columns={ columns }
         pagination={ defaultPagination(dataSourse, 10) }
@@ -92,11 +85,11 @@ const TablaRegistros = (props) => {
           onChange: onSelectIngresos,
         } }
         locale={ {
-          emptyText: "No se encontraron registros"
+          emptyText: "No se encontraron usuarios registrados"
         } }
       />
     </div>
   )
 }
 
-export default TablaRegistros
+export default TablaUsuarios

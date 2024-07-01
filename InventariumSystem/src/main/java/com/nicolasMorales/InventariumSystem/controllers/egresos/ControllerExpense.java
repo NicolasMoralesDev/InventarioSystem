@@ -1,6 +1,7 @@
 package com.nicolasMorales.InventariumSystem.controllers.egresos;
 
-import com.nicolasMorales.InventariumSystem.entity.Expense;
+import com.nicolasMorales.InventariumSystem.dto.ExpenseDTO;
+import com.nicolasMorales.InventariumSystem.dto.ExpenseDTOResponse;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 import com.nicolasMorales.InventariumSystem.services.impl.ExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,6 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/v1/expense")
-@PreAuthorize("denyAll()")
 @CrossOrigin(origins = "*")
 public class ControllerExpense {
 
@@ -30,8 +30,7 @@ public class ControllerExpense {
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensaje.
      */
     @PostMapping(value = "/register")
-    @PreAuthorize("hasAuthority('EGRESO')")
-    public ResponseEntity<?> registerExpense(@RequestBody Expense expense){
+    public ResponseEntity<?> registerExpense(@RequestBody ExpenseDTO expense){
         HashMap<String, String> response = new HashMap<>();
 
         try {
@@ -54,7 +53,7 @@ public class ControllerExpense {
     @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> getExpense(){
         try {
-            List<Expense> expenseList = expenseService.getAllExpense();
+            List<ExpenseDTOResponse> expenseList = expenseService.getAllExpense();
             return  ResponseEntity.ok().body(expenseList);
         } catch (BussinesException e){
             return  ResponseEntity.badRequest().body("Error "+ e.getMessage());

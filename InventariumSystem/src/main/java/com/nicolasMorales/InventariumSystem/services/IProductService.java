@@ -18,6 +18,10 @@ public interface IProductService{
 
     List<Long> createBulkProducts(List<Product> products) throws BussinesException;
 
+    void createProductExpense(Product nuevo) throws BussinesException;
+
+    List<Long> createExpenseProducts(List<Product> products) throws BussinesException;
+
     void deleteProduct(UUID id) throws BussinesException;
 
     void deleteProducts(List <UUID> ids) throws BussinesException;

@@ -15,6 +15,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/api/users")
+@CrossOrigin(origins = "*")
 public class UserController {
 
     @Autowired
@@ -23,13 +24,13 @@ public class UserController {
     @Autowired
     private IRoleService roleService;
 
-    @GetMapping
-    public ResponseEntity<List> getAllUsers() {
+    @GetMapping(value = "/getAll")
+    public ResponseEntity<?> getAllUsers() {
         List users = userService.findAll();
         return ResponseEntity.ok(users);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity getUserById(@PathVariable Long id) {
         Optional<UserSec> user = userService.findById(id);
         return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());

@@ -24,14 +24,22 @@ public class UserSec {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
+
     @Column(unique = true)
     private String username;
+
     private String nombreCompleto;
+
     private String password;
+
     private int dni;
+
     private boolean enabled;
+
     private boolean accountNotExpired;
+
     private boolean accountNotLocked;
+
     private boolean credentialNotExpired;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
