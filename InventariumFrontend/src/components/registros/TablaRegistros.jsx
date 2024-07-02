@@ -20,14 +20,22 @@ const TablaRegistros = (props) => {
   }
 
   const columns = [
-    {
+    !isEgreso ? { 
       title: 'Fecha y Hora de ingreso',
       dataIndex: 'fechaIngreso',
       width: "13%",
-      sorter: (a, b) => a.fechaIngreso + b.fechaIngreso,
       key: 'fechaIngreso',
       render: (fechaIngreso) => <p>{ dayjs(fechaIngreso).format('DD/MM/YYYY HH:mm') }</p>
-    },
+    }
+    :
+    { 
+      title: 'Fecha y Hora de egreso',
+      dataIndex: 'fechaEgreso',
+      width: "13%",
+      key: 'fechaEgreso',
+      render: (fechaEgreso) => <p>{ dayjs(fechaEgreso).format('DD/MM/YYYY HH:mm') }</p>
+    }
+    ,
     !isEgreso ? { 
       title: 'Proveedor',
       dataIndex: 'provedor',
@@ -65,14 +73,15 @@ const TablaRegistros = (props) => {
               <Tooltip title="Generar EXCEL"> <Button title="Generar EXCEL" className="bg-green-700 btn-verde-custom text-white xl:w-1/2 sm:w-full"><FileExcelFilled />EXCEL</Button></Tooltip>
           </div>
     },
-    {
+    !isEgreso ?
+    { 
       title: 'Acciones',
       width: "10%",
       key: 'acciones',
       render: (ingreso) => <>
           <Button title="Editar Registro"  onClick={ () => onEdit(ingreso) } className="bg-cyan-950 btn-cyan-custom text-white">Editar <EditOutlined/></Button>
       </>
-    },
+    } : <></>,
   ];
 
   return (

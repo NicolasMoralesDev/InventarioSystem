@@ -94,7 +94,7 @@ const TablaProductos = (props) => {
             width: "15%",
             key: 'precio',
             sorter: (a, b) => a.precio - b.precio,
-            render: (precio) => <h2 className="text-center">{`$ ${precio}` }</h2>
+            render: (precio) => <h2 className="text-center">{ `$ ${precio}` }</h2>
         },
         
         {
