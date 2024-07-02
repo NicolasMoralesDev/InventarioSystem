@@ -7,6 +7,7 @@ import com.nicolasMorales.InventariumSystem.repository.ISupplierRepository;
 import com.nicolasMorales.InventariumSystem.services.ISupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -49,8 +50,39 @@ public class SupplierService implements ISupplierService {
 
     @Override
     public List<Supplier> getSuppliers() throws BussinesException, RuntimeException {
+
         try {
             return supplierRepo.findAll();
+        } catch (RuntimeException e){
+            throw new BussinesException( e.getMessage());
+        }
+    }
+
+    public Supplier getSupplierById(UUID id) throws BussinesException {
+
+        try {
+            Supplier supplier = this.supplierRepo.findById(id).orElse(null);
+            return supplier;
+        } catch (RuntimeException e){
+            throw new BussinesException( e.getMessage());
+        }
+    }
+
+    @Override
+    @Transactional
+    public void deleteSuppliers(List<UUID> ids) throws BussinesException {
+
+        try {
+           List<Supplier> supplierList = ids.stream().map(id -> {
+               try {
+                   return this.getSupplierById(id);
+               } catch (BussinesException e) {
+                   throw new RuntimeException(e);
+               }
+           }).toList();
+
+           supplierList.stream().forEach(supplier -> supplier.setBorrado(true));
+
         } catch (RuntimeException e){
             throw new BussinesException( e.getMessage());
         }

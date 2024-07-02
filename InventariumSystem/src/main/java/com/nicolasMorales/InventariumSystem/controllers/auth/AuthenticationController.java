@@ -29,7 +29,7 @@ public class AuthenticationController {
     private JwtUtils jwtUtils;
 
     //Todas estas requests y responses vamos a tratarlas como dto
-    @PostMapping("/login")
+    @PostMapping(value = "/login")
     public ResponseEntity<?> login(@RequestBody @Valid AuthLoginRequestDTO userRequest) {
         try {
             return new ResponseEntity<>(this.userDetailsService.loginUser(userRequest), HttpStatus.OK);

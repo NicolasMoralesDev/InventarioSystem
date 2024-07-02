@@ -52,7 +52,7 @@ public class ExpenseMapper {
 
         List<ProductDTO> productList = expense.getProducts().stream().map(codigo -> {
             try {
-                return productService.getProductsByCode(codigo);
+                return productService.getProductByCodeReg(codigo);
             } catch (BussinesException e) {
                 throw new RuntimeException(e);
             }
