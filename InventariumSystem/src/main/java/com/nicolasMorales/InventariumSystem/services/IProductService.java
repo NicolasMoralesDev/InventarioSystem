@@ -6,6 +6,7 @@ import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -34,5 +35,5 @@ public interface IProductService{
 
     ProductDTO getProductsByCode(long code) throws BussinesException;
 
-    HashMap<String, String> downloadPDF(List<UUID> productosIds) throws BussinesException;
+    Map<String, String> downloadPDF(List<UUID> productosIds) throws BussinesException;
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -195,8 +196,7 @@ public class ControllerProduct {
     @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> downloadPDF(@RequestBody List<UUID> productosIds) throws BussinesException, IOException {
         try {
-            HashMap<String, String> response = productServ.downloadPDF(productosIds);
-            System.out.println(response.get("url"));
+            Map<String, String> response = productServ.downloadPDF(productosIds);
             return ResponseEntity.ok().body(response);
         } catch (BussinesException e) {
             throw new BussinesException("Error " + e.getMessage());
