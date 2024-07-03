@@ -1,22 +1,13 @@
 import React, { useEffect, useState } from 'react'
-import useForm from "antd/lib/form/hooks/useForm"
 import ConfirmationModal from '../../modal/ConfirmationModal'
 import TablaProvedores from './TablaProvedores'
 import { borradoMultipleProvedores } from '../../../Hooks/fetch/Provedores.hook'
 import "./estilos/ModalProvedores.css"
-import { popUp, successPop } from '../../../Hooks/util/messages/alerts'
+import { successPop } from '../../../Hooks/util/messages/alerts'
 
-const ProvedoresModal = ({ provedores, visible, setVisible }) => {
+const ProvedoresModal = ({ provedores, visible, setVisible, setVisibleEdit, setProvedorEdit, setProvedorEditar }) => {
 
-    const [form] = useForm()
     const [proveDelete, setProveDelete] = useState(false)  
-
-    useEffect(() => {
-        form.setFieldsValue({
-            nombre: "",
-            descripcion: "",
-        })
-    }, [form])
 
     useEffect(() => { if(proveDelete) { successPop("Provedores borrados con exito!", "borrado"), setVisible(false), setProveDelete(false) } }, [proveDelete])
 
@@ -28,19 +19,6 @@ const ProvedoresModal = ({ provedores, visible, setVisible }) => {
         const request = await borradoMultipleProvedores(Ids)
         request?.data ? setProveDelete(true) : ""
     }
-
-    const onFinish = (values) => {
-      const data =  {
-            nombre: values.nombre,
-            descripcion: values.descripcion,
-        }
-        onSend(data)
-        setVisible(false)
-    };
-
-    const onFinishFailed = (errorInfo) => {
-        console.log('Failed:', errorInfo);
-    };
 
     return (
         <>
@@ -55,6 +33,9 @@ const ProvedoresModal = ({ provedores, visible, setVisible }) => {
                <TablaProvedores 
                 dataSourse={ provedores }
                 borrarProvedores={ onDelete }
+                setProvedorEdit={ setProvedorEdit }
+                setVisibleEdit={ setVisibleEdit }
+                setProvedorEditar={ setProvedorEditar }
                />
             </ConfirmationModal>
         </>

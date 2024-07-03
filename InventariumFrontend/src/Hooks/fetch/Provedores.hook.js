@@ -32,6 +32,20 @@ export const registrarProvedor = async (provedor) => {
 }
 
 /**
+ * Modificacion de provedores.
+ * @returns Devuelve un mensaje con el resultado de la operacion.
+ */
+export const editarProvedor = async (provedor) => {
+
+     try {
+        const request = await useAxiosConf.put(`${urlBase}/edit`, provedor)
+        return request;
+     } catch (error) {
+        errorPop("error al intentar conectarse con el servidor." + error);
+     }
+}
+
+/**
  * Realiza borrado multiple de provedores.
  * @returns Devuelve el estado de la operacion.
  */

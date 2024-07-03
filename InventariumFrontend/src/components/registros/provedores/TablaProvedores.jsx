@@ -5,7 +5,7 @@ import { defaultPagination } from "../../../Hooks/util/DefaultPagination";
 
 const TablaProvedores = (props) => {
 
-  const { setIngresoEdit, dataSourse, setVisibleEdit, borrarProvedores } = props
+  const { setProvedorEdit, dataSourse, setVisibleEdit, borrarProvedores, setProvedorEditar } = props
 
   const [provedoresSeleccionados, setProvedoresSeleccionados] = useState([])
   const onSelectProvedores = (provedorSelected) => {
@@ -16,7 +16,7 @@ const TablaProvedores = (props) => {
     if (provedoresSeleccionados.length > 0) {
        return true 
     } else {
-        return false
+       return false
     }
   }
   
@@ -25,7 +25,7 @@ const TablaProvedores = (props) => {
   }
 
   const onEdit = (provedor) => {
-    setIngresoEdit(provedor)
+    setProvedorEditar(provedor)
     setVisibleEdit(true)
   }
 
@@ -33,7 +33,7 @@ const TablaProvedores = (props) => {
     {
       title: 'nombre',
       dataIndex: 'nombre',
-      width: "15%",
+      width: "19%",
       key: 'nombre',
       render: (nombre) => <h6 className="font-normal">{ nombre }</h6>
     },
@@ -47,13 +47,13 @@ const TablaProvedores = (props) => {
     { 
       title: 'telefono',
       dataIndex: 'tel',
-      width: "15%",
+      width: "10%",
       key: 'tel',
       render: (tel) => <h6 className="font-normal">{ tel }</h6>
     },
     {
       title: 'acciones',
-      width: "5%",
+      width: "10%",
       key: 'acciones',
       render: (ingreso) => <>
           <Button title="Editar Registro"  onClick={ () => onEdit(ingreso) } className="bg-cyan-950 btn-cyan-custom text-white">Editar <EditOutlined/></Button>
@@ -65,11 +65,11 @@ const TablaProvedores = (props) => {
     <>
       <Space className="flex w-full justify-end">
       <Popconfirm
-           title="Borrar provedores"
-           description="¿Esta seguro que desea borrar?"
-           onConfirm={ onDelete }
-           okText="borrar"
-           cancelText="cancelar"
+          title="Borrar provedores"
+          description="¿Esta seguro que desea borrar?"
+          onConfirm={ onDelete }
+          okText="borrar"
+          cancelText="cancelar"
         >
          <Button className="bg-red-800 text-white" type="primary" disabled={ isDisabled() ? false : true } icon={ <DeleteFilled/> } >Borrado multiple</Button>
         </Popconfirm>

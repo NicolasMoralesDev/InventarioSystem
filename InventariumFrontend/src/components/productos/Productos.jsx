@@ -97,7 +97,7 @@ const Productos = () => {
     <>
       <Helmet>
         <meta charSet="utf-8" />
-        <title>Listado productos</title>
+        <title>Listado de productos</title>
         <link rel="canonical" href="http://mysite.com/example" />
       </Helmet>
       <FormBusqueda
