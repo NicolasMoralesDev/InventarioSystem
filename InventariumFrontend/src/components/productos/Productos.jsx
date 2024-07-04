@@ -37,7 +37,7 @@ const Productos = () => {
 
   const onGetByCode = async (code) => {
      const request = await obtenerProductoByCodigo(code)
-     setProductoCode([request?.data])
+     setProductoCode( request?.data ? [request?.data] : [])
   }
 
   const onBorrado = async (productosIds) => {
