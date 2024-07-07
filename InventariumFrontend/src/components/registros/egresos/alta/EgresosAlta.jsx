@@ -36,7 +36,6 @@ const EgresosAlta = () => {
     const onRegister = async () => {
        const data = obtenerProductosStorage("productosEgresos")
        const request = await registrarEgreso(data)
-       console.log(request);
        setStatusReg(request.data.msg)
     }
 

@@ -123,9 +123,9 @@ const TablaProductos = (props) => {
                  <Tooltip title="Generar PDF"> 
                     <Button title="Generar PDF" disabled={ isDisabled() ? false : true } className="bg-red-700 text-white" type="primary" onClick={ ()=> onDownloadPdf() }><FilePdfFilled />PDF</Button>
                  </Tooltip> 
-                 <Tooltip title="Generar EXCEL"> 
+                {/*  <Tooltip title="Generar EXCEL"> 
                     <Button title="Generar EXCEL" disabled={ isDisabled() ? false : true } className="bg-green-700 text-white" type="primary" ><FileExcelFilled />EXCEL</Button>
-                 </Tooltip>
+                 </Tooltip> */}
                 </>
                 : 
                 <></>
@@ -137,7 +137,7 @@ const TablaProductos = (props) => {
             <Table
                 size="small"
                 className="overflow-x-scroll"
-                rowKey={ (product) => !isList ? product.codigo : product.id }
+                rowKey={ (product) => !isList ? product?.codigo : product?.id }
                 dataSource={ dataSourse }
                 sortDirections={ ["ascend", "descend"] }
                 columns={ columns }

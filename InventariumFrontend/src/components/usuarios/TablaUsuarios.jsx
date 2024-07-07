@@ -39,14 +39,14 @@ const TablaUsuarios = (props) => {
       key: 'roles',
       render: (rol) => rol.map(role => <p key={ role.id }>{ role.role }</p>) 
     },
-    {
+/*     {
       title: 'Acciones',
       width: "10%",
       key: 'acciones',
       render: (ingreso) => <>
           <Button title="Editar Registro"  onClick={ () => onEdit(ingreso) } className="bg-cyan-950 btn-cyan-custom text-white">Editar <EditOutlined/></Button>
       </>
-  },
+  }, */
   ];
 
   return (

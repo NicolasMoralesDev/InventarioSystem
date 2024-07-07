@@ -130,10 +130,10 @@ import TextArea from "antd/es/input/TextArea";
                                         ]}
                                     >
                                         <Select>
-                                            { categorias.length > 0 ?
-                                                categorias.map(categoria =>
+                                            { 
+                                                categorias?.map(categoria =>
                                                     <Select.Option key={categoria.id} value={categoria.id}>{categoria.titulo}</Select.Option>
-                                                ) : <></>
+                                                )
                                             }
                                         </Select>
                                     </Form.Item>

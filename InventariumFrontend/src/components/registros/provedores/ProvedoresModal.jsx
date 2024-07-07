@@ -26,9 +26,10 @@ const ProvedoresModal = ({ provedores, visible, setVisible, setVisibleEdit, setP
                 className="provedores-modal"
                 title="Provedores"
                 open={ visible }
+                cancelButtonProps={ { style: { display: 'none' } } }
                 okText="Cerrar"
                 onCancel={ cancelModal }
-                onClose={ cancelModal }
+                onOk={ cancelModal }
             >
                <TablaProvedores 
                 dataSourse={ provedores }
