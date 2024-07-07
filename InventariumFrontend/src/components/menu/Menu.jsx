@@ -2,12 +2,13 @@ import { FullscreenExitOutlined, FullscreenOutlined, PieChartOutlined, Usergroup
 import { Tabs } from 'antd'
 import { useNavigate } from 'react-router-dom';
 import { usePermission } from '../../Hooks/util/auth.hook';
+import { ROLE_CAJERO, ROLE_DUENIO } from '../../constants/permisos';
 
 const Menu = () => {
 
     const navigate = useNavigate()
-    const isAdmin = usePermission("ROLE_DUEÑO")
-    const isCajero = usePermission("ROLE_CAJERO")
+    const isAdmin = usePermission(ROLE_DUENIO)
+    const isCajero = usePermission(ROLE_CAJERO)
 
       const items = [
         { key: '', label: "Productos", children: '', icon: <PieChartOutlined/>  },
