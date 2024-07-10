@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { defaultPagination } from "../../Hooks/util/DefaultPagination";
-import { Button, Space, Table, Tag, Tooltip } from "antd";
+import { Button, Space, Table, Tabs, Tag, Tooltip } from "antd";
 import { DeleteFilled, EditOutlined, FileExcelFilled, FilePdfFilled, ProductFilled } from "@ant-design/icons"
 import { alertPop } from "../../Hooks/util/messages/alerts";
 import Menu from "../menu/Menu";
@@ -94,9 +94,8 @@ const TablaProductos = (props) => {
             width: "15%",
             key: 'precio',
             sorter: (a, b) => a.precio - b.precio,
-            render: (precio) => <h2 className="text-center">{`$ ${precio}` }</h2>
+            render: (precio) => <h2 className="text-center">{ `$ ${precio}` }</h2>
         },
-        
         {
             title: 'Acciones',
             width: "10%",
@@ -111,11 +110,11 @@ const TablaProductos = (props) => {
         <>
         <Menu/>
         <div className="p-5 pt-0 bg-slate-200" 
-        style={{
+        style={ {
             marginBottom: "5%",
-        }}> 
-            <Space className="w-full flex p-3 justify-end tabla_botonera" size="middle" >
-                { isList ?
+        } }> 
+            <Space className="w-full flex flex-wrap gap-3 p-3 justify-end tabla_botonera" size="large" >
+                { isList &&
                 <>
                  <Tooltip title="Cargar Producto">
                     <Button className="bg-blue-950 btn-cyan-custom text-white" onClick={ onAdd }> <ProductFilled/> Cargar Producto</Button>
@@ -123,12 +122,10 @@ const TablaProductos = (props) => {
                  <Tooltip title="Generar PDF"> 
                     <Button title="Generar PDF" disabled={ isDisabled() ? false : true } className="bg-red-700 text-white" type="primary" onClick={ ()=> onDownloadPdf() }><FilePdfFilled />PDF</Button>
                  </Tooltip> 
-                 <Tooltip title="Generar EXCEL"> 
+                {/*  <Tooltip title="Generar EXCEL"> 
                     <Button title="Generar EXCEL" disabled={ isDisabled() ? false : true } className="bg-green-700 text-white" type="primary" ><FileExcelFilled />EXCEL</Button>
-                 </Tooltip>
+                 </Tooltip> */}
                 </>
-                : 
-                <></>
                 }
                 <Tooltip title="Borrado Multiple">
                     <Button disabled={ isDisabled() ? false : true } className="bg-red-800 text-white" type="primary" onClick={ () => onDelete() }> <DeleteFilled/> Borrado Multiple</Button> 
@@ -137,18 +134,18 @@ const TablaProductos = (props) => {
             <Table
                 size="small"
                 className="overflow-x-scroll"
-                rowKey={ (product) => !isList ? product.codigo : product.id }
+                rowKey={ (product) => !isList ? product?.codigo : product?.id }
                 dataSource={ dataSourse }
                 sortDirections={ ["ascend", "descend"] }
                 columns={ columns }
                 pagination={ defaultPagination(dataSourse, 15) }
-                rowSelection={{
+                rowSelection={ {
                     selectedRowKeys: productosSeleccionados,
                     onChange: onSelectProductos,
-                }}
-                locale={{
+                } }
+                locale={ {
                     emptyText: "No se encontraron Productos",
-                }}
+                } }
                 loading={ loading }
             />
         </div>

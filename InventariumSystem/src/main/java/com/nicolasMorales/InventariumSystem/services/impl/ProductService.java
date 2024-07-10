@@ -11,11 +11,12 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 
 /**
  *  @author Nicolas Morales.
@@ -33,6 +34,8 @@ public class ProductService implements IProductService {
 
     @Autowired
     private PdfService pdfService;
+
+    private final Path fileStorageLocation = Paths.get("pdf-storage").toAbsolutePath().normalize();
 
     /**
      * Metodo para registrar un Producto.
@@ -239,22 +242,28 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public HashMap<String, String> downloadPDF(List<UUID> productosIds) throws BussinesException {
-        return null;
-    }
+    public Map<String, String> downloadPDF(List<UUID> productosIds) throws BussinesException {
+        try {
+            List<ProductDTO> productList = new ArrayList<>();
+            Map<String, String> response = new HashMap<>();
 
-//    @Override
-//    public HashMap<String, String> downloadPDF(List<UUID> productosIds) throws BussinesException {
-//        try {
-//            List<ProductDTO> productList = new ArrayList<>();
-//            for(UUID productID : productosIds) {
-//                productList.add(productMapper.productaProductDTO(this.getProductsById(productID)));
-//            }
-//            return pdfService.generatePdfProductos(productList);
-//        } catch (BussinesException e) {
-//            throw new BussinesException(e.getMessage());
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
+            for(UUID productID : productosIds) {
+                productList.add(productMapper.productaProductDTO(this.getProductsById(productID)));
+            }
+
+            ByteArrayOutputStream pdfContent = pdfService.generatePdfProductos(productList);
+            String fileName = "informacion_productos-" + UUID.randomUUID() + ".pdf";
+            Path targetLocation = this.fileStorageLocation.resolve(fileName);
+            Files.write(targetLocation, pdfContent.toByteArray());
+            String fileDownloadUri = "http://localhost:8080" + "/api/v1/pdf/download/"+ fileName;
+
+            response.put("url", fileDownloadUri);
+
+            return response;
+        } catch (BussinesException e) {
+            throw new BussinesException(e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

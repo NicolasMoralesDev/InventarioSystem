@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -18,4 +19,8 @@ public interface ISupplierRepository extends JpaRepository<Supplier, UUID> {
 
     @Query("SELECT s FROM Supplier s WHERE s.nombre = :nombre")
     Supplier findByNombre(@Param("nombre") String nombre);
+
+    @Override
+    @Query("SELECT s FROM Supplier s WHERE s.borrado = false")
+    List<Supplier> findAll();
 }

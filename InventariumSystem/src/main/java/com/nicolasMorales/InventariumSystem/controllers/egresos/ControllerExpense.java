@@ -18,6 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/v1/expense")
+@PreAuthorize("denyAll()")
 @CrossOrigin(origins = "*")
 public class ControllerExpense {
 
@@ -30,6 +31,7 @@ public class ControllerExpense {
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensaje.
      */
     @PostMapping(value = "/register")
+    @PreAuthorize("hasAuthority('MODIFICACION')")
     public ResponseEntity<?> registerExpense(@RequestBody ExpenseDTO expense){
         HashMap<String, String> response = new HashMap<>();
 

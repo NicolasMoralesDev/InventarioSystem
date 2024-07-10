@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 /**
@@ -66,7 +67,7 @@ public class ControllerProduct {
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y una lista de productos.
      */
     @GetMapping(value = "/getAll")
-    @PreAuthorize("hasAuthority('READ')")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<?> getProduct() {
         try {
             return ResponseEntity.ok().body(productServ.getProducts());
@@ -97,7 +98,7 @@ public class ControllerProduct {
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y el producto (si es que se encuenta).
      */
     @GetMapping(value = "/get/code/{code}")
-    @PreAuthorize("hasAuthority('READ')")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<?> getProductByCode(@PathVariable Long code) {
         HashMap<String, String> response = new HashMap<>();
         try {
@@ -192,11 +193,10 @@ public class ControllerProduct {
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado, un mensaje y el PDF generado.
      */
     @PostMapping(value = "/generate/pdf")
-    @PreAuthorize("hasAuthority('READ')")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<?> downloadPDF(@RequestBody List<UUID> productosIds) throws BussinesException, IOException {
         try {
-            HashMap<String, String> response = productServ.downloadPDF(productosIds);
-            System.out.println(response.get("url"));
+            Map<String, String> response = productServ.downloadPDF(productosIds);
             return ResponseEntity.ok().body(response);
         } catch (BussinesException e) {
             throw new BussinesException("Error " + e.getMessage());

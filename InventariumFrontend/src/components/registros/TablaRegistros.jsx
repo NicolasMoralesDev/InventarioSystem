@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { Button, Table, Tooltip } from "antd";
+import { Button, Table } from "antd";
 import { defaultPagination } from "../../Hooks/util/DefaultPagination";
-import { EditOutlined, FileExcelFilled, FilePdfFilled } from "@ant-design/icons";
+import { EditOutlined } from "@ant-design/icons";
 import dayjs from "dayjs";
 import Menu from "../menu/Menu"
 
@@ -9,10 +8,10 @@ const TablaRegistros = (props) => {
 
   const { setIngresoEdit, dataSourse, setVisibleEdit, isEgreso } = props
 
-  const [ingresosSeleccionados, setIngresosSeleccionados] = useState([])
+  /* const [ingresosSeleccionados, setIngresosSeleccionados] = useState([])
   const onSelectIngresos = (ingresosSelected) => {
     setIngresosSeleccionados(ingresosSelected)
-  }
+  } */
 
   const onEdit = (income) => {
     setIngresoEdit(income)
@@ -20,14 +19,22 @@ const TablaRegistros = (props) => {
   }
 
   const columns = [
-    {
+    !isEgreso ? { 
       title: 'Fecha y Hora de ingreso',
       dataIndex: 'fechaIngreso',
       width: "13%",
-      sorter: (a, b) => a.fechaIngreso + b.fechaIngreso,
       key: 'fechaIngreso',
       render: (fechaIngreso) => <p>{ dayjs(fechaIngreso).format('DD/MM/YYYY HH:mm') }</p>
-    },
+    }
+    :
+    { 
+      title: 'Fecha y Hora de egreso',
+      dataIndex: 'fechaEgreso',
+      width: "13%",
+      key: 'fechaEgreso',
+      render: (fechaEgreso) => <p>{ dayjs(fechaEgreso).format('DD/MM/YYYY HH:mm') }</p>
+    }
+    ,
     !isEgreso ? { 
       title: 'Proveedor',
       dataIndex: 'provedor',
@@ -55,24 +62,15 @@ const TablaRegistros = (props) => {
       width: "13%",
       key: 'observacion',
     },
-    {
-      title: 'Generar Informe',
-      width: "13%",
-      key: 'generarInforme',
-      render: () => 
-          <div className="p-0 text-center">
-              <Tooltip title="Generar PDF"> <Button title="Generar PDF" className="bg-red-700 btn-rojo-custom text-white xl:w-1/2 sm:w-full"><FilePdfFilled />PDF</Button></Tooltip> 
-              <Tooltip title="Generar EXCEL"> <Button title="Generar EXCEL" className="bg-green-700 btn-verde-custom text-white xl:w-1/2 sm:w-full"><FileExcelFilled />EXCEL</Button></Tooltip>
-          </div>
-    },
-    {
+    !isEgreso ?
+    { 
       title: 'Acciones',
       width: "10%",
       key: 'acciones',
       render: (ingreso) => <>
           <Button title="Editar Registro"  onClick={ () => onEdit(ingreso) } className="bg-cyan-950 btn-cyan-custom text-white">Editar <EditOutlined/></Button>
       </>
-    },
+    } : <></>,
   ];
 
   return (
@@ -86,11 +84,11 @@ const TablaRegistros = (props) => {
         rowKey={ (ingreso) => ingreso.id }
         dataSource={ dataSourse }
         columns={ columns }
-        pagination={ defaultPagination(dataSourse, 10) }
-        rowSelection={ {
+        pagination={ defaultPagination(dataSourse, 15) }
+      /*   rowSelection={ {
           selectedRowKeys: ingresosSeleccionados,
           onChange: onSelectIngresos,
-        } }
+        } } */
         locale={ {
           emptyText: "No se encontraron registros"
         } }

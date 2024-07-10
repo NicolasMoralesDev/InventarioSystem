@@ -33,4 +33,6 @@ public class Supplier {
 
     private String tel;
 
+    private boolean borrado = false;
+
 }

@@ -58,7 +58,7 @@ public class ControllerCategory {
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensage de la operacion.
      */
     @GetMapping(value = "/getAll")
-    @PreAuthorize("hasAuthority('READ')")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<?> getCategory(){
         try {
             return  ResponseEntity.ok().body(categoryServ.getCategorys());

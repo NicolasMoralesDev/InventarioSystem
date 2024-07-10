@@ -25,9 +25,6 @@ public class ExpenseMapper {
     @Autowired
     private ProductService productService;
 
-    @Autowired
-    private ProductsMapper productsMapper;
-
     /**
      * Metodo para Mappear un Expense individual a un ExpenseDTO individual.
      * @param expenseDTO Recibe un egreso individual a mappear.
@@ -52,7 +49,7 @@ public class ExpenseMapper {
 
         List<ProductDTO> productList = expense.getProducts().stream().map(codigo -> {
             try {
-                return productService.getProductsByCode(codigo);
+                return productService.getProductByCodeReg(codigo);
             } catch (BussinesException e) {
                 throw new RuntimeException(e);
             }

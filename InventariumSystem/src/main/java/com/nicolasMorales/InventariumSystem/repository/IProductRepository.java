@@ -1,6 +1,5 @@
 package com.nicolasMorales.InventariumSystem.repository;
 
-import com.nicolasMorales.InventariumSystem.dto.ProductDTO;
 import com.nicolasMorales.InventariumSystem.entity.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

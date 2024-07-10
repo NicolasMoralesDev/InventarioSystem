@@ -14,11 +14,9 @@ const EgresosAlta = () => {
     const [categorias, setCategorias] = useState([])
 
     const [loading, setLoading] = useState(false)
-    const [productoEditar, setProductoEditar] = useState([])
 
     const [statusReg, setStatusReg] = useState("")
     const [productCargado, setProductCargado] = useState(false)
-    const [productEditado, setProductEditado] = useState(false)
     const [productBorrado, setProductBorrado] = useState(false)
 
     const onFetch = async () => {
@@ -36,7 +34,6 @@ const EgresosAlta = () => {
     const onRegister = async () => {
        const data = obtenerProductosStorage("productosEgresos")
        const request = await registrarEgreso(data)
-       console.log(request);
        setStatusReg(request.data.msg)
     }
 

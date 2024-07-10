@@ -42,7 +42,7 @@ public class ExpenseService implements IExpenseService {
             } else {
                 egreso.setProducts(listProducts);
                 egreso.setDescription(expense.getObservacion());
-                egreso.setUserRegister(egreso.getUserRegister());
+                egreso.setUserRegister(expense.getUsuario());
                 expenseRepository.save(egreso);
             }
 

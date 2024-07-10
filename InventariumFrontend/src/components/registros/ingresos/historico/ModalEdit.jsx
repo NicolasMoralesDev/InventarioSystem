@@ -59,7 +59,6 @@ const ModalEdit = ({ form, ingresoEdit, visible, setVisible, onSend }) => {
                 onFinishFailed={ onFinishFailed }
                 autoComplete="off"
             >
-                <Form.Item name="id" hidden><Input/></Form.Item>
                 <Form.Item
                     label="Observación"
                     name="observacion"
