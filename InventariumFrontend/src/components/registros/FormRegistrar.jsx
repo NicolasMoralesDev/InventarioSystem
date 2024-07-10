@@ -8,10 +8,14 @@ import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.regis
 import { useGetNombreUsuario } from '../../Hooks/util/localStorage/Auth';
 import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
 import './estilos/formIngresos.css'
+import { usePermission } from '../../Hooks/util/auth.hook';
+import { ROLE_DUENIO } from '../../constants/permisos';
 
  const FormRegistrar = ({ onSend, provedores, categorias, onRegister, isEgreso, setVisibleProve, setVisibleProveReg }) => {
 
   const [form] = useForm()
+
+  const isAdmin = usePermission(ROLE_DUENIO)
 
   const [producto, setProducto] = useState([])
 
@@ -147,9 +151,9 @@ import './estilos/formIngresos.css'
                 </Form.Item>
               </Col>
               <Col>
-                <Space align='start' className='flex md:flex-row sm:flex-col'>
+                <Space align='start' className='flex flex-wrap justify-center md:flex-row sm:flex-col'>
                   <Button icon={ <BookOutlined /> } type='primary' onClick={ ()=> setVisibleProve(true) } className='btn-cyan-custom bg-blue-950 text-white' >Ver provedores</Button>
-                  <Button icon={ <InboxOutlined /> } type='primary' onClick={ ()=> setVisibleProveReg(true) } className='btn-cyan-custom bg-blue-950 text-white' >Registrar provedor</Button>
+                  <Button icon={ <InboxOutlined /> } disabled={ !isAdmin } type='primary' onClick={ ()=> setVisibleProveReg(true) } className='btn-cyan-custom bg-blue-950 text-white' >Registrar provedor</Button>
                 </Space>
               </Col>
               </>

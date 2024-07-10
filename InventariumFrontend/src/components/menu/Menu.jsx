@@ -10,14 +10,14 @@ const Menu = () => {
     const isAdmin = usePermission(ROLE_DUENIO)
     const isCajero = usePermission(ROLE_CAJERO)
 
-      const items = [
+    const items = [
         { key: '', label: "Productos", children: '', icon: <PieChartOutlined/>  },
       !isCajero && { key: 'ingresos', label: "Historial de ingresos" , children: '', icon: <FullscreenExitOutlined/> },
       !isCajero && { key: 'ingresosAlta', label: "Alta ingresos" , children: '', icon: <SnippetsOutlined /> },
       !isCajero && { key: 'egresos', label: "Historial de egresos" , children: '', icon: <FullscreenOutlined/> },
       !isCajero && { key: 'egresosAlta', label: "Alta egresos" , children: '', icon: <SnippetsOutlined /> },
       isAdmin && { key: 'usuarios', label: "Gestion de usuarios" , children: '', icon: <UsergroupAddOutlined/> }
-      ]
+    ]
 
   return (
     <>

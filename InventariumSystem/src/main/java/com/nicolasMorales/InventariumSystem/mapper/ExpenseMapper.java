@@ -25,9 +25,6 @@ public class ExpenseMapper {
     @Autowired
     private ProductService productService;
 
-    @Autowired
-    private ProductsMapper productsMapper;
-
     /**
      * Metodo para Mappear un Expense individual a un ExpenseDTO individual.
      * @param expenseDTO Recibe un egreso individual a mappear.

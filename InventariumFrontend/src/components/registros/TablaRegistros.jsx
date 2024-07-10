@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Button, Table } from "antd";
 import { defaultPagination } from "../../Hooks/util/DefaultPagination";
 import { EditOutlined } from "@ant-design/icons";
@@ -9,10 +8,10 @@ const TablaRegistros = (props) => {
 
   const { setIngresoEdit, dataSourse, setVisibleEdit, isEgreso } = props
 
-  const [ingresosSeleccionados, setIngresosSeleccionados] = useState([])
+  /* const [ingresosSeleccionados, setIngresosSeleccionados] = useState([])
   const onSelectIngresos = (ingresosSelected) => {
     setIngresosSeleccionados(ingresosSelected)
-  }
+  } */
 
   const onEdit = (income) => {
     setIngresoEdit(income)
@@ -86,10 +85,10 @@ const TablaRegistros = (props) => {
         dataSource={ dataSourse }
         columns={ columns }
         pagination={ defaultPagination(dataSourse, 15) }
-        rowSelection={ {
+      /*   rowSelection={ {
           selectedRowKeys: ingresosSeleccionados,
           onChange: onSelectIngresos,
-        } }
+        } } */
         locale={ {
           emptyText: "No se encontraron registros"
         } }

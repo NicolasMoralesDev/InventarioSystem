@@ -2,10 +2,14 @@ import { useState } from "react";
 import { Button, Popconfirm, Space, Table } from "antd";
 import { DeleteFilled, EditOutlined } from "@ant-design/icons";
 import { defaultPagination } from "../../../Hooks/util/DefaultPagination";
+import { usePermission } from "../../../Hooks/util/auth.hook";
+import { ROLE_DUENIO } from "../../../constants/permisos";
 
 const TablaProvedores = (props) => {
 
-  const { setProvedorEdit, dataSourse, setVisibleEdit, borrarProvedores, setProvedorEditar } = props
+  const { dataSourse, setVisibleEdit, borrarProvedores, setProvedorEditar } = props
+
+  const isAdmin = usePermission(ROLE_DUENIO)
 
   const [provedoresSeleccionados, setProvedoresSeleccionados] = useState([])
   const onSelectProvedores = (provedorSelected) => {
@@ -56,7 +60,7 @@ const TablaProvedores = (props) => {
       width: "10%",
       key: 'acciones',
       render: (ingreso) => <>
-          <Button title="Editar Registro"  onClick={ () => onEdit(ingreso) } className="bg-cyan-950 btn-cyan-custom text-white">Editar <EditOutlined/></Button>
+          <Button title="Editar Registro" disabled={ !isAdmin }  onClick={ () => onEdit(ingreso) } className="bg-cyan-950 btn-cyan-custom text-white">Editar <EditOutlined/></Button>
       </>
     },
   ];
@@ -83,7 +87,7 @@ const TablaProvedores = (props) => {
         dataSource={ dataSourse }
         columns={ columns }
         pagination={ defaultPagination(dataSourse, 10) }
-        rowSelection={ {
+        rowSelection={ !isAdmin ? null : {
           selectedRowKeys: provedoresSeleccionados,
           onChange: onSelectProvedores,
         } }
