@@ -30,7 +30,7 @@ public class PermissionController {
         return ResponseEntity.ok(permissions);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity getPermissionById(@PathVariable Long id) {
         Optional<Permission> permission = permissionService.findById(id);
         return permission.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());

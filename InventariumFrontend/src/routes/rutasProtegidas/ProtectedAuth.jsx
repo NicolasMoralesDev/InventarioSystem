@@ -7,7 +7,7 @@ import { useUser } from '../../Hooks/util/auth.hook';
  * @param {*} param0 
  * @returns conjunto de rutas.
  */
-const ProtectedAuth = ({children}) => {
+const ProtectedAuth = ({ children }) => {
 
     const { isAuthenticated } = useUser()
     const navigate = useNavigate();

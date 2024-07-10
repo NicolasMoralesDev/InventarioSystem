@@ -37,20 +37,18 @@ export const useUser = () => {
 };
 
 /**
- * Funcion verificadora de rol administrador.
- * @returns valor si el usuario es o no administrador.
+ * Funcion verificadora de rol.
+ * @returns valor si el usuario es o no permitido.
  */
-export const useAdmin = () => {
-  let isAdmin = null;
+export const usePermission = (permiso) => {
+  let isPermitted = null;
 
-  if (localStorage.getItem("permisos")?.match("ROLE_DUEÑO")) {
-    isAdmin = true;
+  if (localStorage.getItem("permisos")?.match(permiso)) {
+    isPermitted = true;
   } else {
-    isAdmin = false;
+    isPermitted = false;
   }
-  return {
-    isAdmin,
-  };
+  return isPermitted
 };
 
 /**

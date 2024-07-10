@@ -16,4 +16,6 @@ public interface ISupplierService {
     void modifySupplier(Supplier edit) throws BussinesException, RuntimeException;
 
     List<Supplier> getSuppliers() throws BussinesException, RuntimeException;
+
+    void deleteSuppliers(List<UUID> ids) throws BussinesException;
 }

@@ -30,7 +30,7 @@ public class RoleController {
         return ResponseEntity.ok(roles);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping(value = "/{id}")
     public ResponseEntity getRoleById(@PathVariable Long id) {
         Optional<Role> role = roleService.findById(id);
         return role.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());

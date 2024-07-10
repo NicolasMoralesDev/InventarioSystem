@@ -88,6 +88,25 @@ public class SupplierController {
     }
 
     /**
+     * Controllador para borrar multiples provedores por su id.
+     * @param ids Recibe los UUID de los provedores a borrar.
+     * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensage de la operacion.
+     */
+    @PostMapping(value = "/delete/bulk")
+    @PreAuthorize("hasAuthority('MODIFICACION')")
+    public ResponseEntity<?> deleteSuppliers(@RequestBody List<UUID> ids){
+        HashMap<String, String> response = new HashMap<>();
+        try {
+            supplierServ.deleteSuppliers(ids);
+            response.put("msg", "Provedores borrados correctamente");
+            return  ResponseEntity.ok().body(response);
+        } catch (Exception e){
+            response.put("error", e.getMessage());
+            return  ResponseEntity.badRequest().body(response);
+        }
+    }
+
+    /**
      * Controllador para editar un provedor.
      * @param modify Recibe el provedor a editar.
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensage de la operacion.

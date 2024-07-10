@@ -108,7 +108,7 @@ public class ControllerIncome {
      * @return ResponseEntity Devuelve esta entidad con el codigo de estado y un mensaje.
      */
     @PutMapping(value = "/modify")
-    @PreAuthorize("hasAuthority('MODIFICACION')")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<?> editIncome(@RequestBody IncomeEditDTO edit){
         HashMap<String, String> response = new HashMap<>();
 

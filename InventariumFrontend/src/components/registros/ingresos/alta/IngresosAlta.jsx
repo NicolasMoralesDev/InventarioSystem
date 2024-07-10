@@ -8,7 +8,7 @@ import { loadingPop, successPop } from '../../../../Hooks/util/messages/alerts';
 import useForm from "antd/lib/form/hooks/useForm"
 import ProductosModal from '../../../productos/ProductosModal';
 import { registrarIngresos } from '../../../../Hooks/fetch/Ingresos.hook';
-import { obtenerProvedores, registrarProvedor } from '../../../../Hooks/fetch/Provedores.hook';
+import { editarProvedor, obtenerProvedores, registrarProvedor } from '../../../../Hooks/fetch/Provedores.hook';
 import ProvedoresModal from '../../provedores/ProvedoresModal';
 import ProvedoresAltaModal from '../../provedores/ProvedoresAltaModal';
 
@@ -25,10 +25,13 @@ const IngresosAlta = () => {
     const [visibleEdit, setVisibleEdit] = useState(false)
     const [visibleProve, setVisibleProve] = useState(false) 
     const [visibleProveReg, setVisibleProveReg] = useState(false) 
+    const [visibleProveEdit, setVisibleProveEdit] = useState(false) 
     const [productoEditar, setProductoEditar] = useState([])
+    const [provedorEditar, setProvedorEditar] = useState([])
 
     // Estados para provedores
     const [provedorCargado, setProvedorCargado] = useState(false)
+    const [provedorEditado, setProvedorEditado] = useState(false)
 
     // Estados para los productos.
     const [statusReg, setStatusReg] = useState("")
@@ -58,6 +61,13 @@ const IngresosAlta = () => {
     const onEditar = (producto) => {
         editarProductosStorage(producto, "productos")
         setProductEditado(true)
+    }
+
+    const onEditarProvedor = async (provedor) => {
+      const request = await editarProvedor(provedor)
+      setVisibleProveEdit(false)
+      setVisibleProve(false)
+      setProvedorEditado(true)
     }
 
     const onBorrado = (productos) => {
@@ -100,6 +110,8 @@ const IngresosAlta = () => {
           provedores={ provedores }
           setVisible={ setVisibleProve }
           visible={ visibleProve }
+          setVisibleEdit={ setVisibleProveEdit }
+          setProvedorEditar={ setProvedorEditar }
         />
       }
       { 
@@ -108,6 +120,17 @@ const IngresosAlta = () => {
           visible={ visibleProveReg }
           setVisible={ setVisibleProveReg }
           onSend={ onRegistrarProvedor }
+          isEdit={ false }
+        />
+      }
+      { 
+       visibleProveEdit &&
+        <ProvedoresAltaModal
+          visible={ visibleProveEdit }
+          setVisible={ setVisibleProveEdit }
+          onSend={ onEditarProvedor }
+          provedor={ provedorEditar }
+          isEdit={ true }
         />
       }
       {
