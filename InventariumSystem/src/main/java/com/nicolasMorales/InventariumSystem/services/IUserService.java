@@ -5,12 +5,16 @@ import com.nicolasMorales.InventariumSystem.entity.UserSec;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ *  @author Nicolas Morales.
+ *  Interfaz para los servicios de Usuarios.
+ */
 public interface IUserService {
 
-    public List findAll();
-    public Optional findById(Long id);
-    public UserSec save(UserSec userSec);
-    public void deleteById(Long id);
-    public void update(UserSec userSec);
-    public String encriptPasword(String password);
+     List findAll();
+     Optional findById(Long id);
+     UserSec save(UserSec userSec);
+     void deleteById(Long id);
+     void update(UserSec userSec);
+     String encriptPasword(String password);
 }

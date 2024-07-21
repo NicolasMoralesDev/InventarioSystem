@@ -5,6 +5,8 @@ import com.nicolasMorales.InventariumSystem.dto.IncomeDTO;
 import com.nicolasMorales.InventariumSystem.dto.IncomeEditDTO;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 import com.nicolasMorales.InventariumSystem.services.impl.IncomeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +24,8 @@ import java.util.UUID;
 @PreAuthorize("denyAll()")
 @CrossOrigin(origins = "*")
 public class ControllerIncome {
+
+    private static Logger logger = LoggerFactory.getLogger(ControllerIncome.class);
 
     @Autowired
     private IncomeService incomeService;
@@ -42,6 +46,7 @@ public class ControllerIncome {
             return ResponseEntity.ok().body(response);
 
         } catch (Exception e){
+            logger.error(e.getMessage());
             response.put("error", e.getMessage());
             return  ResponseEntity.badRequest().body("Error "+ response);
         }
@@ -57,6 +62,7 @@ public class ControllerIncome {
         try {
             return ResponseEntity.ok().body(incomeService.getAllIncome());
         } catch (Exception e){
+            logger.error(e.getMessage());
             return ResponseEntity.badRequest().body("Error "+ e.getMessage());
         }
     }
@@ -72,6 +78,7 @@ public class ControllerIncome {
         try {
             return ResponseEntity.ok().body(incomeService.getIncomeById(id));
         } catch (Exception e){
+            logger.error(e.getMessage());
             return ResponseEntity.badRequest().body("Error "+ e.getMessage());
         }
     }
@@ -97,6 +104,7 @@ public class ControllerIncome {
                 return ResponseEntity.badRequest().body(response);
             }
         } catch (Exception e){
+            logger.error(e.getMessage());
             response.put("error", e.getMessage());
             return  ResponseEntity.badRequest().body("Error "+response);
         }
@@ -117,6 +125,7 @@ public class ControllerIncome {
             response.put("msg", "Registro editado con Exito!!");
             return ResponseEntity.ok().body(response);
         } catch (BussinesException e){
+            logger.error(e.getMessage());
             response.put("error", e.getMessage());
             return  ResponseEntity.badRequest().body(response);
         }

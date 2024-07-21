@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.nicolasMorales</groupId>
 	<artifactId>InventariumSystem</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>InventariumSystem</name>
 	<description>Sistema de inventario para proyecto final de carrera.</description>
 	<properties>

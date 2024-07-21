@@ -3,6 +3,8 @@ package com.nicolasMorales.InventariumSystem.controllers.productos;
 import com.nicolasMorales.InventariumSystem.entity.Product;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 import com.nicolasMorales.InventariumSystem.services.impl.ProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,6 +26,8 @@ import java.util.UUID;
 @CrossOrigin(origins = "*")
 public class ControllerProduct {
 
+    private static Logger logger = LoggerFactory.getLogger(ControllerProduct.class);
+
     @Autowired
     private ProductService productServ;
 
@@ -40,6 +44,7 @@ public class ControllerProduct {
             List<Long> listProducts = productServ.createBulkProducts(product);
             return ResponseEntity.ok().body(listProducts);
         } catch (BussinesException e) {
+            logger.error(e.getMessage());
             return ResponseEntity.badRequest().body(response.put("error", e.getMessage()));
         }
     }
@@ -58,6 +63,7 @@ public class ControllerProduct {
             response.put("msg", "Producto cargado Correctamente!!");
             return ResponseEntity.ok().body(response);
         } catch (BussinesException e) {
+            logger.error(e.getMessage());
             return ResponseEntity.badRequest().body(response.put("error", e.getMessage()));
         }
     }
@@ -72,6 +78,7 @@ public class ControllerProduct {
         try {
             return ResponseEntity.ok().body(productServ.getProducts());
         } catch (BussinesException e) {
+            logger.error(e.getMessage());
             return ResponseEntity.badRequest().body("Error " + e.getMessage());
         }
     }
@@ -88,6 +95,7 @@ public class ControllerProduct {
         try {
             return ResponseEntity.ok().body(productServ.getProductsById(id));
         } catch (Exception e) {
+            logger.error(e.getMessage());
             return ResponseEntity.badRequest().body("Error " + e.getMessage());
         }
     }
@@ -104,6 +112,7 @@ public class ControllerProduct {
         try {
             return ResponseEntity.ok().body(productServ.getProductsByCode(code));
         } catch (BussinesException e) {
+            logger.error(e.getMessage());
             response.put("error", e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
         }
@@ -144,6 +153,7 @@ public class ControllerProduct {
             response.put("msg", "Producto borrado Correctamente!!");
             return ResponseEntity.ok().body(response);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             response.put("Error ", e.getMessage());
             return ResponseEntity.badRequest().body(response);
         }
@@ -163,6 +173,7 @@ public class ControllerProduct {
             response.put("msg", "Productos borrados Correctamente!!");
             return ResponseEntity.ok().body(response);
         } catch (BussinesException e) {
+            logger.error(e.getMessage());
             return ResponseEntity.badRequest().body("Error " + e.getMessage());
         }
     }
@@ -182,6 +193,7 @@ public class ControllerProduct {
             response.put("msg", "Producto modificado con exito!");
             return ResponseEntity.ok().body(response);
         } catch (Exception e) {
+            logger.error(e.getMessage());
             response.put("error", e.getMessage());
             return ResponseEntity.badRequest().body(response);
         }
@@ -199,6 +211,7 @@ public class ControllerProduct {
             Map<String, String> response = productServ.downloadPDF(productosIds);
             return ResponseEntity.ok().body(response);
         } catch (BussinesException e) {
+            logger.error(e.getMessage());
             throw new BussinesException("Error " + e.getMessage());
         }
     }

@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { defaultPagination } from "../../Hooks/util/DefaultPagination";
-import { Button, Space, Table, Tabs, Tag, Tooltip } from "antd";
+import { Button, Space, Table, Tag, Tooltip } from "antd";
 import { DeleteFilled, EditOutlined, FileExcelFilled, FilePdfFilled, ProductFilled } from "@ant-design/icons"
 import { alertPop } from "../../Hooks/util/messages/alerts";
 import Menu from "../menu/Menu";
 import "./estilos/tablaProductos.css"
+import { usePermission } from "../../Hooks/util/auth.hook";
+import { ROLE_CAJERO } from "../../constants/permisos";
 
 const TablaProductos = (props) => {
 
@@ -12,6 +14,8 @@ const TablaProductos = (props) => {
     const cateFilter = []
     categorias?.length > 0 ? categorias.map(cate => {cateFilter.push({text: cate.titulo, value: cate.titulo})}) : ""
     const [productosSeleccionados, setProductosSeleccionados] = useState([])
+
+    const isCajero = usePermission(ROLE_CAJERO)
 
     const isDisabled = () => {
         if (productosSeleccionados.length > 0) {
@@ -101,7 +105,7 @@ const TablaProductos = (props) => {
             width: "10%",
             key: 'acciones',
             render: (producto) => <>
-                <Button title="Editar Producto" onClick={ () => onEdit(producto) } className="bg-cyan-950 btn-cyan-custom text-white">Editar <EditOutlined /></Button>
+                <Button title="Editar Producto" onClick={ () => onEdit(producto) } disabled={ isCajero } className="bg-cyan-950 btn-cyan-custom text-white">Editar <EditOutlined /></Button>
             </>
         },
     ];
@@ -117,7 +121,7 @@ const TablaProductos = (props) => {
                 { isList &&
                 <>
                  <Tooltip title="Cargar Producto">
-                    <Button className="bg-blue-950 btn-cyan-custom text-white" onClick={ onAdd }> <ProductFilled/> Cargar Producto</Button>
+                    <Button className="bg-blue-950 btn-cyan-custom text-white" disabled={ isCajero } onClick={ onAdd }> <ProductFilled/> Cargar Producto</Button>
                  </Tooltip>  
                  <Tooltip title="Generar PDF"> 
                     <Button title="Generar PDF" disabled={ isDisabled() ? false : true } className="bg-red-700 text-white" type="primary" onClick={ ()=> onDownloadPdf() }><FilePdfFilled />PDF</Button>
@@ -139,7 +143,7 @@ const TablaProductos = (props) => {
                 sortDirections={ ["ascend", "descend"] }
                 columns={ columns }
                 pagination={ defaultPagination(dataSourse, 15) }
-                rowSelection={ {
+                rowSelection={ isCajero ? null : {
                     selectedRowKeys: productosSeleccionados,
                     onChange: onSelectProductos,
                 } }

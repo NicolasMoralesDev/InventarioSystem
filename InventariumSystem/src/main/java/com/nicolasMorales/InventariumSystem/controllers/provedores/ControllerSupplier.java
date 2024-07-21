@@ -4,6 +4,8 @@ package com.nicolasMorales.InventariumSystem.controllers.provedores;
 import com.nicolasMorales.InventariumSystem.entity.Supplier;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 import com.nicolasMorales.InventariumSystem.services.impl.SupplierService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,7 +22,9 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/supplier")
 @CrossOrigin(origins = "*")
-public class SupplierController {
+public class ControllerSupplier {
+
+    private static Logger logger = LoggerFactory.getLogger(ControllerSupplier.class);
 
     @Autowired
     private SupplierService supplierServ;
@@ -37,8 +41,8 @@ public class SupplierController {
         try {
             List<Supplier> suppliers = supplierServ.getSuppliers();
             return  ResponseEntity.ok().body(suppliers);
-
         } catch (RuntimeException | BussinesException e){
+            logger.error(e.getMessage());
             response.put("error", e.getMessage());
             return  ResponseEntity.badRequest().body(response);
         }
@@ -58,6 +62,7 @@ public class SupplierController {
             response.put("msg", "Provedor cargado Exitosamente!");
             return  ResponseEntity.ok().body(response);
         } catch (BussinesException  e) {
+            logger.error(e.getMessage());
             response.put("error", e.getMessage());
             return ResponseEntity.badRequest().body(response);
         }
@@ -72,6 +77,7 @@ public class SupplierController {
     @PreAuthorize("hasAuthority('MODIFICACION')")
     public ResponseEntity<?> deleteSupplier(@PathVariable UUID id){
         HashMap<String, String> response = new HashMap<>();
+
         try {
             String status = supplierServ.deleteSupplier(id);
             if (status == "Proveedor Borrado!") {
@@ -82,6 +88,7 @@ public class SupplierController {
                 return ResponseEntity.badRequest().body(response);
             }
         } catch (Exception e){
+            logger.error(e.getMessage());
             response.put("error", e.getMessage());
             return  ResponseEntity.badRequest().body(response);
         }
@@ -96,11 +103,13 @@ public class SupplierController {
     @PreAuthorize("hasAuthority('MODIFICACION')")
     public ResponseEntity<?> deleteSuppliers(@RequestBody List<UUID> ids){
         HashMap<String, String> response = new HashMap<>();
+
         try {
             supplierServ.deleteSuppliers(ids);
             response.put("msg", "Provedores borrados correctamente");
             return  ResponseEntity.ok().body(response);
         } catch (Exception e){
+            logger.error(e.getMessage());
             response.put("error", e.getMessage());
             return  ResponseEntity.badRequest().body(response);
         }
@@ -120,8 +129,8 @@ public class SupplierController {
             supplierServ.modifySupplier(modify);
             response.put("msg", "Proveedor modificado correctamente!!");
             return  ResponseEntity.ok().body(response);
-
         } catch (RuntimeException | BussinesException e){
+            logger.error(e.getMessage());
             response.put("error", e.getMessage());
             return  ResponseEntity.badRequest().body(response);
         }

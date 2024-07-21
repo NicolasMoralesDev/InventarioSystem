@@ -7,6 +7,10 @@ import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
+/**
+ *  @author Nicolas Morales.
+ *  Interfaz para los servicios de Provedores.
+ */
 public interface ISupplierService {
 
     void createSupplier(Supplier nuevo) throws BussinesException, ExecutionException;

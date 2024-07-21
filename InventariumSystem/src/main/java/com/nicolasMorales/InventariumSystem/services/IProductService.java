@@ -11,7 +11,7 @@ import java.util.UUID;
 
 /**
  *  @author Nicolas Morales.
- *  Interfaz para los servicios de Producto.
+ *  Interfaz para los servicios de Productos.
  */
 public interface IProductService{
 

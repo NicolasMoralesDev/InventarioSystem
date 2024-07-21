@@ -2,6 +2,7 @@ package com.nicolasMorales.InventariumSystem.services.impl;
 
 
 import com.nicolasMorales.InventariumSystem.entity.Category;
+import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 import com.nicolasMorales.InventariumSystem.repository.ICategoryRepository;
 import com.nicolasMorales.InventariumSystem.services.ICategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,58 +22,71 @@ public class CategoryService implements ICategoryService {
     @Autowired
     private ICategoryRepository cateRepo;
 
+    /**
+     * @see ICategoryService#createCategory(Category)
+     */
     @Override
-    public String createCategory(Category nueva) {
+    public void createCategory(Category nueva) throws BussinesException {
 
         try {
             if (cateRepo.findByTitle(nueva.getTitulo()) == null) {
-
                 cateRepo.save(nueva);
-                return "Categoria agregada!!";
             } else {
-                return  "Esta categoria ya Existe!";
+                throw new BussinesException("Esta categoria ya Existe!");
             }
-
         } catch (Exception e){
-            return  "Error "+ e;
+            throw new BussinesException("Error "+e.getMessage());
         }
     }
 
+    /**
+     * @see ICategoryService#deleteCategory(UUID)
+     */
     @Override
-    public String deleteCategory(UUID id) {
+    public void deleteCategory(UUID id) throws BussinesException {
 
         try {
             cateRepo.deleteById(id);
-
-            return "Producto Borrado Correctamente!!";
         } catch (Exception e){
-            return  "Error "+ e;
+            throw new BussinesException("Error "+ e);
         }
-
     }
 
+    /**
+     * @see ICategoryService#getCategorys()
+     */
     @Override
     public List<Category> getCategorys() {
-
-        return  cateRepo.findAll();
-
+        return cateRepo.findAll();
     }
 
+    /**
+     * @see ICategoryService#getCategorysById(UUID)
+     */
     @Override
-    public Category getCategorysById(UUID id) {
-        return cateRepo.findById(id).orElse(null);
-
-    }
-
-    @Override
-    public String modifyCategory(Category edit) {
+    public Category getCategorysById(UUID id) throws BussinesException {
 
         try {
+            Category category = cateRepo.findById(id).orElse(null);
+            if (category == null) {
+                throw new BussinesException("Error al obtener la categoria");
+            }
+            return category;
+        } catch (BussinesException e) {
+            throw new BussinesException(e.getMessage());
+        }
+    }
 
+    /**
+     * @see ICategoryService#modifyCategory(Category)
+     */
+    @Override
+    public void modifyCategory(Category edit) throws BussinesException {
+
+        try {
             cateRepo.save(edit);
-            return "Categoria Modificada!";
         } catch (Exception e){
-            return "Error "+ e.getMessage();
+            throw new BussinesException("Error "+ e.getMessage());
         }
     }
 

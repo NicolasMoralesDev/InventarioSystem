@@ -1,6 +1,7 @@
 package com.nicolasMorales.InventariumSystem.services;
 
 import com.nicolasMorales.InventariumSystem.entity.Category;
+import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 
 import java.util.List;
 import java.util.UUID;
@@ -11,14 +12,43 @@ import java.util.UUID;
  */
 public interface ICategoryService {
 
-    String createCategory(Category nuevo);
+    /**
+     * Crea una nueva categoria para los productos.
+     *
+     * @param nuevo {@link Category}
+     * @throws BussinesException Error
+     */
+    void createCategory(Category nuevo) throws BussinesException;
 
-    String deleteCategory(UUID id);
+    /**
+     * Borra una categoria por id.
+     *
+     * @param id {@link UUID}
+     * @throws BussinesException Error
+     */
+    void deleteCategory(UUID id) throws BussinesException;
 
-    List<Category> getCategorys();
+    /**
+     * Obtiene todas las categorias..
+     *
+     * @throws BussinesException Error
+     */
+    List<Category> getCategorys() throws BussinesException;
 
-    Category getCategorysById(UUID id);
+    /**
+     * Borra una categoria por id.
+     *
+     * @param id {@link UUID}
+     * @throws BussinesException Error
+     */
+    Category getCategorysById(UUID id) throws BussinesException;
 
-    String modifyCategory(Category edit);
+    /**
+     * Modifica una categoria.
+     *
+     * @param edit {@link Category}
+     * @throws BussinesException Error
+     */
+    void modifyCategory(Category edit) throws BussinesException;
 
 }

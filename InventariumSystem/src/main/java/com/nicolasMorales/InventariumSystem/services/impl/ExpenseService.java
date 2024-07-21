@@ -2,12 +2,14 @@ package com.nicolasMorales.InventariumSystem.services.impl;
 
 import com.nicolasMorales.InventariumSystem.dto.ExpenseDTO;
 import com.nicolasMorales.InventariumSystem.dto.ExpenseDTOResponse;
+import com.nicolasMorales.InventariumSystem.entity.Category;
 import com.nicolasMorales.InventariumSystem.entity.Expense;
 import com.nicolasMorales.InventariumSystem.entity.Product;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 import com.nicolasMorales.InventariumSystem.mapper.ExpenseMapper;
 import com.nicolasMorales.InventariumSystem.mapper.ProductsMapper;
 import com.nicolasMorales.InventariumSystem.repository.IExpenseRepository;
+import com.nicolasMorales.InventariumSystem.services.ICategoryService;
 import com.nicolasMorales.InventariumSystem.services.IExpenseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +32,9 @@ public class ExpenseService implements IExpenseService {
     @Autowired
     private ProductsMapper productsMapper;
 
+    /**
+     * @see IExpenseService#createExpense(ExpenseDTO)
+     */
     @Override
     public void createExpense(ExpenseDTO expense) throws BussinesException {
         try {
@@ -45,12 +50,14 @@ public class ExpenseService implements IExpenseService {
                 egreso.setUserRegister(expense.getUsuario());
                 expenseRepository.save(egreso);
             }
-
         } catch (Exception e) {
             throw new BussinesException("Error "+ e.getMessage());
         }
     }
 
+    /**
+     * @see IExpenseService#getAllExpense()
+     */
     @Override
     public List<ExpenseDTOResponse> getAllExpense() throws BussinesException {
         try {

@@ -2,6 +2,8 @@ package com.nicolasMorales.InventariumSystem.controllers.categorias;
 
 import com.nicolasMorales.InventariumSystem.entity.Category;
 import com.nicolasMorales.InventariumSystem.services.impl.CategoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,6 +21,8 @@ import java.util.UUID;
 @CrossOrigin(origins = "*")
 public class ControllerCategory {
 
+    private static Logger logger = LoggerFactory.getLogger(ControllerCategory.class);
+
     @Autowired
     private CategoryService categoryServ;
 
@@ -32,22 +36,11 @@ public class ControllerCategory {
         HashMap<String, String> response = new HashMap<>();
         try {
 
-            String status = categoryServ.createCategory(category);
-
-            if (status == "Categoria agregada!!") {
-
-                response.put("msg", status );
-                return ResponseEntity.ok().body(response);
-            } else if (status == "Esta categoria ya Existe!"){
-
-                response.put("error", status);
-                return  ResponseEntity.badRequest().body(response);
-
-            } else {
-                response.put("error", status);
-                return  ResponseEntity.badRequest().body(response);
-            }
+            categoryServ.createCategory(category);
+            response.put("msg", "Categoria agregada!!");
+            return ResponseEntity.ok().body(response);
         } catch (Exception e){
+            logger.error(e.getMessage());
             response.put("error", e.getMessage());
             return  ResponseEntity.badRequest().body("Error "+ response);
         }
@@ -63,6 +56,7 @@ public class ControllerCategory {
         try {
             return  ResponseEntity.ok().body(categoryServ.getCategorys());
         } catch (Exception e){
+            logger.error(e.getMessage());
             return  ResponseEntity.badRequest().body("Error "+ e.getMessage());
         }
     }
@@ -76,9 +70,9 @@ public class ControllerCategory {
     @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> getCategoryById(@PathVariable UUID id){
         try {
-
             return  ResponseEntity.ok().body(categoryServ.getCategorysById(id));
         } catch (Exception e){
+            logger.error(e.getMessage());
             return  ResponseEntity.badRequest().body("Error "+ e.getMessage());
         }
     }
@@ -93,17 +87,11 @@ public class ControllerCategory {
         HashMap<String, String> response = new HashMap<>();
         try {
 
-            String status = categoryServ.deleteCategory(id);
-
-            if (status == "Producto Borrado Correctamente!!") {
-                response.put("msg", status );
-
-                return  ResponseEntity.ok().body(response);
-            } else {
-                response.put("error", status);
-                return  ResponseEntity.badRequest().body(response);
-            }
+            categoryServ.deleteCategory(id);
+            response.put("msg", "Producto Borrado Correctamente!!");
+            return  ResponseEntity.ok().body(response);
         } catch (Exception e){
+            logger.error(e.getMessage());
             response.put("error", e.getMessage());
             return  ResponseEntity.badRequest().body("Error "+response);
         }
@@ -119,18 +107,13 @@ public class ControllerCategory {
         HashMap<String, String> response = new HashMap<>();
 
         try {
-            String status = categoryServ.modifyCategory(edit);
-
-            if (status == "Categoria Modificada!") {
-                response.put("msg", status);
-                return ResponseEntity.ok().body(response);
-            } else {
-                response.put("error", status);
-                return ResponseEntity.ok().body(response);
-            }
+            categoryServ.modifyCategory(edit);
+            response.put("msg", "Categoria Modificada!");
+            return ResponseEntity.ok().body(response);
         } catch (Exception e){
+            logger.error(e.getMessage());
             response.put("error", e.getMessage());
-            return  ResponseEntity.badRequest().body(response);
+            return ResponseEntity.badRequest().body(response);
         }
     }
 }

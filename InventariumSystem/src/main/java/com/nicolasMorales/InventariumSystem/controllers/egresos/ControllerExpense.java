@@ -4,6 +4,8 @@ import com.nicolasMorales.InventariumSystem.dto.ExpenseDTO;
 import com.nicolasMorales.InventariumSystem.dto.ExpenseDTOResponse;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 import com.nicolasMorales.InventariumSystem.services.impl.ExpenseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -21,6 +23,8 @@ import java.util.List;
 @PreAuthorize("denyAll()")
 @CrossOrigin(origins = "*")
 public class ControllerExpense {
+
+    private static Logger logger = LoggerFactory.getLogger(ControllerExpense.class);
 
     @Autowired
     private ExpenseService expenseService;
@@ -41,10 +45,10 @@ public class ControllerExpense {
             return ResponseEntity.ok().body(response);
 
         } catch (Exception e){
+            logger.error(e.getMessage());
             response.put("error", e.getMessage());
             return  ResponseEntity.badRequest().body("Error "+ response);
         }
-
     }
 
     /**
@@ -58,6 +62,7 @@ public class ControllerExpense {
             List<ExpenseDTOResponse> expenseList = expenseService.getAllExpense();
             return  ResponseEntity.ok().body(expenseList);
         } catch (BussinesException e){
+            logger.error(e.getMessage());
             return  ResponseEntity.badRequest().body("Error "+ e.getMessage());
         }
     }

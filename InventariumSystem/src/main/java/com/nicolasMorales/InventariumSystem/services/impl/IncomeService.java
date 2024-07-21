@@ -42,11 +42,17 @@ public class IncomeService implements IIncomeService {
     @Autowired
     private ProductService productService;
 
+    /**
+     * @see IIncomeService#getAllIncome()
+     */
     @Override
     public List<IncomeDTOResponse> getAllIncome() throws BussinesException {
         return incomeMapper.incomeListToIncomeDTOList(incomeRepo.findAll());
     }
 
+    /**
+     * @see IIncomeService#getIncomeById(UUID)
+     */
     @Override
     public Income getIncomeById(UUID id) throws BussinesException {
         try {
@@ -61,6 +67,9 @@ public class IncomeService implements IIncomeService {
         }
     }
 
+    /**
+     * @see IIncomeService#createIncome(IncomeDTO)
+     */
     @Override
     @Transactional
     public void createIncome(IncomeDTO nuevo) throws BussinesException {
@@ -85,6 +94,9 @@ public class IncomeService implements IIncomeService {
         }
     }
 
+    /**
+     * @see IIncomeService#deleteByIdIncome(UUID)
+     */
     @Override
     public String deleteByIdIncome(UUID id) {
 
@@ -98,6 +110,9 @@ public class IncomeService implements IIncomeService {
         }
     }
 
+    /**
+     * @see IIncomeService#editIncome(IncomeEditDTO)
+     */
     @Transactional
     @Override
     public void editIncome(IncomeEditDTO edit) throws BussinesException {

@@ -13,6 +13,7 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import com.nicolasMorales.InventariumSystem.dto.ProductDTO;
+import com.nicolasMorales.InventariumSystem.services.IIncomeService;
 import com.nicolasMorales.InventariumSystem.services.IPdfService;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +25,7 @@ import java.util.List;
 public class PdfService implements IPdfService {
 
     /**
-     * Servicio para generar reportes PDF de Productos seleccionados.
-     * @param productos Recibe un Array de ProductDTO con los productos.
-     * @return Retorna el ByteArrayOutputStream del PDF generado.
-     * @throws IOException Excepcion para manejar errores de la generacion del PDF.
+     * @see IPdfService#generatePdfProductos(List)
      */
     @Override
     public ByteArrayOutputStream generatePdfProductos(List<ProductDTO> productos) throws IOException  {
