@@ -18,6 +18,9 @@ public class SupplierService implements ISupplierService {
     @Autowired
     private ISupplierRepository supplierRepo;
 
+    /**
+     * @see ISupplierService#createSupplier(Supplier)
+     */
     @Override
     public void createSupplier(Supplier nuevo) throws BussinesException {
         if (supplierRepo.findByNombre(nuevo.getNombre()) == null) {
@@ -27,6 +30,9 @@ public class SupplierService implements ISupplierService {
         }
     }
 
+    /**
+     * @see ISupplierService#deleteSupplier(UUID)
+     */
     @Override
     public String deleteSupplier(UUID id) {
 
@@ -38,6 +44,9 @@ public class SupplierService implements ISupplierService {
         }
     }
 
+    /**
+     * @see ISupplierService#modifySupplier(Supplier)
+     */
     @Override
     public void modifySupplier(Supplier edit) throws BussinesException, RuntimeException {
 
@@ -48,6 +57,9 @@ public class SupplierService implements ISupplierService {
         }
     }
 
+    /**
+     * @see ISupplierService#getSuppliers()
+     */
     @Override
     public List<Supplier> getSuppliers() throws BussinesException, RuntimeException {
 
@@ -58,6 +70,10 @@ public class SupplierService implements ISupplierService {
         }
     }
 
+    /**
+     * @see ISupplierService#getSupplierById(UUID)
+     */
+    @Override
     public Supplier getSupplierById(UUID id) throws BussinesException {
 
         try {
@@ -68,6 +84,9 @@ public class SupplierService implements ISupplierService {
         }
     }
 
+    /**
+     * @see ISupplierService#deleteSuppliers(List)
+     */
     @Override
     @Transactional
     public void deleteSuppliers(List<UUID> ids) throws BussinesException {
@@ -80,7 +99,6 @@ public class SupplierService implements ISupplierService {
                    throw new RuntimeException(e);
                }
            }).toList();
-
            supplierList.stream().forEach(supplier -> supplier.setBorrado(true));
 
         } catch (RuntimeException e){

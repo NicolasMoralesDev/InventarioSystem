@@ -13,7 +13,6 @@ import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
 import com.nicolasMorales.InventariumSystem.dto.ProductDTO;
-import com.nicolasMorales.InventariumSystem.services.IIncomeService;
 import com.nicolasMorales.InventariumSystem.services.IPdfService;
 import org.springframework.stereotype.Service;
 

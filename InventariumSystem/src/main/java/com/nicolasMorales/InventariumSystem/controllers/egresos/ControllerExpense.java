@@ -3,7 +3,7 @@ package com.nicolasMorales.InventariumSystem.controllers.egresos;
 import com.nicolasMorales.InventariumSystem.dto.ExpenseDTO;
 import com.nicolasMorales.InventariumSystem.dto.ExpenseDTOResponse;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
-import com.nicolasMorales.InventariumSystem.services.impl.ExpenseService;
+import com.nicolasMorales.InventariumSystem.services.IExpenseService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +27,7 @@ public class ControllerExpense {
     private static Logger logger = LoggerFactory.getLogger(ControllerExpense.class);
 
     @Autowired
-    private ExpenseService expenseService;
+    private IExpenseService expenseService;
 
     /**
      * Controllador para registrar egresos.

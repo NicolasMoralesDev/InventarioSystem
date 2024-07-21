@@ -4,7 +4,7 @@ package com.nicolasMorales.InventariumSystem.controllers.ingresos;
 import com.nicolasMorales.InventariumSystem.dto.IncomeDTO;
 import com.nicolasMorales.InventariumSystem.dto.IncomeEditDTO;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
-import com.nicolasMorales.InventariumSystem.services.impl.IncomeService;
+import com.nicolasMorales.InventariumSystem.services.IIncomeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class ControllerIncome {
     private static Logger logger = LoggerFactory.getLogger(ControllerIncome.class);
 
     @Autowired
-    private IncomeService incomeService;
+    private IIncomeService incomeService;
 
     /**
      * Controllador para registrar ingresos.

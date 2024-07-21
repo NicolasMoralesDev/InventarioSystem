@@ -99,13 +99,11 @@ public class IncomeService implements IIncomeService {
      */
     @Override
     public String deleteByIdIncome(UUID id) {
-
         try {
             incomeRepo.deleteById(id);
             return "Registro Borrado Correctamente!";
 
         } catch (Exception e){
-
             return "Error "+ e.getMessage();
         }
     }

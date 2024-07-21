@@ -2,7 +2,7 @@ package com.nicolasMorales.InventariumSystem.controllers.productos;
 
 import com.nicolasMorales.InventariumSystem.entity.Product;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
-import com.nicolasMorales.InventariumSystem.services.impl.ProductService;
+import com.nicolasMorales.InventariumSystem.services.IProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class ControllerProduct {
     private static Logger logger = LoggerFactory.getLogger(ControllerProduct.class);
 
     @Autowired
-    private ProductService productServ;
+    private IProductService productServ;
 
     /**
      * Controllador para registrar masivaente productos.

@@ -3,7 +3,7 @@ package com.nicolasMorales.InventariumSystem.controllers.provedores;
 
 import com.nicolasMorales.InventariumSystem.entity.Supplier;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
-import com.nicolasMorales.InventariumSystem.services.impl.SupplierService;
+import com.nicolasMorales.InventariumSystem.services.ISupplierService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author Nicolas Morales.
@@ -27,7 +28,7 @@ public class ControllerSupplier {
     private static Logger logger = LoggerFactory.getLogger(ControllerSupplier.class);
 
     @Autowired
-    private SupplierService supplierServ;
+    private ISupplierService supplierServ;
 
     /**
      * Controllador para obtener todos los provedores registrados.
@@ -65,6 +66,8 @@ public class ControllerSupplier {
             logger.error(e.getMessage());
             response.put("error", e.getMessage());
             return ResponseEntity.badRequest().body(response);
+        } catch (ExecutionException e) {
+            throw new RuntimeException(e);
         }
     }
 

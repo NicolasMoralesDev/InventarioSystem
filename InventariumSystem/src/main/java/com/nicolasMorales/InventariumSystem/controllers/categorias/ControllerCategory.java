@@ -1,7 +1,7 @@
 package com.nicolasMorales.InventariumSystem.controllers.categorias;
 
 import com.nicolasMorales.InventariumSystem.entity.Category;
-import com.nicolasMorales.InventariumSystem.services.impl.CategoryService;
+import com.nicolasMorales.InventariumSystem.services.ICategoryService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class ControllerCategory {
     private static Logger logger = LoggerFactory.getLogger(ControllerCategory.class);
 
     @Autowired
-    private CategoryService categoryServ;
+    private ICategoryService categoryServ;
 
     /**
      * Controllador para crear una categoria.
