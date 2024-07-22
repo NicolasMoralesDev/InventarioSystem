@@ -1,11 +1,14 @@
 package com.nicolasMorales.InventariumSystem.services.impl;
 
+import com.nicolasMorales.InventariumSystem.controllers.categorias.ControllerCategory;
 import com.nicolasMorales.InventariumSystem.dto.ProductDTO;
 import com.nicolasMorales.InventariumSystem.entity.Product;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 import com.nicolasMorales.InventariumSystem.mapper.ProductsMapper;
 import com.nicolasMorales.InventariumSystem.repository.IProductRepository;
 import com.nicolasMorales.InventariumSystem.services.IProductService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
@@ -26,6 +29,8 @@ import java.util.*;
 @Service
 public class ProductService implements IProductService {
 
+    private static Logger logger = LoggerFactory.getLogger(ControllerCategory.class);
+
     @Autowired
     private IProductRepository productRepo;
 
@@ -45,6 +50,7 @@ public class ProductService implements IProductService {
     @Override
     public void createProduct(Product nuevo) throws BussinesException {
         try {
+            logger.info("Registrando nuevo producto...");
             Product producto = productRepo.findByCodigo(nuevo.getCodigo());
             if ( producto == null) {
                 productRepo.save(nuevo);
@@ -65,6 +71,7 @@ public class ProductService implements IProductService {
     @Override
     public void createProductExpense(Product nuevo) throws BussinesException {
         try {
+            logger.info("Registrando nuevo producto en ingreso...");
             Product producto = productRepo.findByCodigo(nuevo.getCodigo());
             if ( producto == null) {
                 throw new BussinesException("Error, No se pudo cargar el producto: " + nuevo.getNombre());
@@ -88,6 +95,7 @@ public class ProductService implements IProductService {
         List<Long> listProducts = new ArrayList<>();
         for (Product product : products ){
             try {
+                logger.info("Registrando productos...");
                 this.createProduct(product);
                 listProducts.add(product.getCodigo());
             } catch (BussinesException e){
@@ -108,6 +116,7 @@ public class ProductService implements IProductService {
         List<Long> listProducts = new ArrayList<>();
         for (Product product : products ){
             try {
+                logger.info("Descontando stock de productos...");
                 this.createProductExpense(product);
                 listProducts.add(product.getCodigo());
             } catch (BussinesException e){
@@ -125,6 +134,7 @@ public class ProductService implements IProductService {
     @Transactional
     public void deleteProduct(UUID id) throws BussinesException{
         try {
+            logger.info("Borrando producto con id: {}", id);
             productRepo.deleteById(id);
             Product producto = this.getProductsById(id);
 
@@ -147,6 +157,7 @@ public class ProductService implements IProductService {
     public void deleteProducts(List <UUID> ids) throws BussinesException{
         Product producto;
         try {
+            logger.info("Borrando productos...");
             for (UUID id : ids){
                 producto = productRepo.findById(id).orElse(null);
                 if (producto == null) {
@@ -165,6 +176,7 @@ public class ProductService implements IProductService {
     @Override
     public List <Product> getProducts() throws BussinesException{
         try {
+            logger.info("Obteniendo productos...");
             List <Product> listProducts = productRepo.findAll();
             if (listProducts == null) {
                 throw new BussinesException("No se encontraron Productos cargados!!");
@@ -182,11 +194,11 @@ public class ProductService implements IProductService {
     @Override
     public Product getProductsById(UUID id) throws BussinesException {
         try {
+            logger.info("Obteniendo producto con id: {}", id);
             Product producto = productRepo.findById(id).orElse(null);
             if (producto == null) {
                 throw new BussinesException("El ID: "+ id + "es invalido.");
             }
-
             return producto;
         } catch (BussinesException e) {
             throw new BussinesException(e.getMessage());
@@ -200,6 +212,7 @@ public class ProductService implements IProductService {
     @Override
     public void modifyProduct(Product edit) throws BussinesException {
         try {
+            logger.info("Editando producto...");
             productRepo.save(edit);
         } catch (Exception e){
             throw new BussinesException("Se ha producido un error");
@@ -213,6 +226,7 @@ public class ProductService implements IProductService {
     @Override
     public ProductDTO getProductsByCode(long code) throws BussinesException {
         try {
+            logger.info("Obteniendo producto por su codigo de barras: {}", code);
             Product product = productRepo.findByCodigo(code);
             if (product != null) {
                 return productMapper.productaProductDTO(product);
@@ -225,7 +239,7 @@ public class ProductService implements IProductService {
     }
 
     /**
-     * Metodo para obtener un producto por su codigo de barras para eorna registros.
+     * Metodo para obtener un producto por su codigo de barras para reornar registros.
      * @param code Recibe el codigo de barras del producto.
      */
     public ProductDTO getProductByCodeReg(long code) throws BussinesException {
@@ -247,7 +261,7 @@ public class ProductService implements IProductService {
             List<ProductDTO> productList = new ArrayList<>();
             Map<String, String> response = new HashMap<>();
 
-            for(UUID productID : productosIds) {
+            for (UUID productID : productosIds) {
                 productList.add(productMapper.productaProductDTO(this.getProductsById(productID)));
             }
 

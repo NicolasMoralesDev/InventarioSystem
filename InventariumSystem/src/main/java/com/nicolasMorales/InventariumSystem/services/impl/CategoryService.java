@@ -1,10 +1,13 @@
 package com.nicolasMorales.InventariumSystem.services.impl;
 
 
+import com.nicolasMorales.InventariumSystem.controllers.categorias.ControllerCategory;
 import com.nicolasMorales.InventariumSystem.entity.Category;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 import com.nicolasMorales.InventariumSystem.repository.ICategoryRepository;
 import com.nicolasMorales.InventariumSystem.services.ICategoryService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,8 @@ import java.util.UUID;
 @Service
 public class CategoryService implements ICategoryService {
 
+    private static Logger logger = LoggerFactory.getLogger(ControllerCategory.class);
+
     @Autowired
     private ICategoryRepository cateRepo;
 
@@ -29,6 +34,7 @@ public class CategoryService implements ICategoryService {
     public void createCategory(Category nueva) throws BussinesException {
 
         try {
+            logger.info("Creando categoria...");
             if (cateRepo.findByTitle(nueva.getTitulo()) == null) {
                 cateRepo.save(nueva);
             } else {
@@ -46,6 +52,7 @@ public class CategoryService implements ICategoryService {
     public void deleteCategory(UUID id) throws BussinesException {
 
         try {
+            logger.info("Borrando categoria con id: {}", id);
             cateRepo.deleteById(id);
         } catch (Exception e){
             throw new BussinesException("Error "+ e);
@@ -67,6 +74,7 @@ public class CategoryService implements ICategoryService {
     public Category getCategorysById(UUID id) throws BussinesException {
 
         try {
+            logger.info("Obteniendo categoria con id: {}", id);
             Category category = cateRepo.findById(id).orElse(null);
             if (category == null) {
                 throw new BussinesException("Error al obtener la categoria");
@@ -84,6 +92,7 @@ public class CategoryService implements ICategoryService {
     public void modifyCategory(Category edit) throws BussinesException {
 
         try {
+            logger.info("Editando categoria...");
             cateRepo.save(edit);
         } catch (Exception e){
             throw new BussinesException("Error "+ e.getMessage());

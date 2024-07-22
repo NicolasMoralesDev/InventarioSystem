@@ -1,5 +1,6 @@
 package com.nicolasMorales.InventariumSystem.services.impl;
 
+import com.nicolasMorales.InventariumSystem.controllers.categorias.ControllerCategory;
 import com.nicolasMorales.InventariumSystem.dto.ExpenseDTO;
 import com.nicolasMorales.InventariumSystem.dto.ExpenseDTOResponse;
 import com.nicolasMorales.InventariumSystem.entity.Expense;
@@ -9,6 +10,8 @@ import com.nicolasMorales.InventariumSystem.mapper.ExpenseMapper;
 import com.nicolasMorales.InventariumSystem.mapper.ProductsMapper;
 import com.nicolasMorales.InventariumSystem.repository.IExpenseRepository;
 import com.nicolasMorales.InventariumSystem.services.IExpenseService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,8 @@ import java.util.stream.Stream;
 
 @Service
 public class ExpenseService implements IExpenseService {
+
+    private static Logger logger = LoggerFactory.getLogger(ControllerCategory.class);
 
     @Autowired
     private IExpenseRepository expenseRepository;
@@ -36,7 +41,7 @@ public class ExpenseService implements IExpenseService {
     @Override
     public void createExpense(ExpenseDTO expense) throws BussinesException {
         try {
-
+            logger.info("Registrando nuevo egreso...");
             Stream<Product> productList = expense.getProductos().stream().map(producto -> productsMapper.productDTOaProduct(producto));
             List <Long> listProducts = productService.createExpenseProducts(productList.toList());
             Expense egreso = expenseMapper.expenseDTOaExpense(expense);
@@ -59,6 +64,7 @@ public class ExpenseService implements IExpenseService {
     @Override
     public List<ExpenseDTOResponse> getAllExpense() throws BussinesException {
         try {
+            logger.info("Obteniendo registros de egresos...");
             List <Expense> expenseList = expenseRepository.findAll();
             if (expenseList == null) {
                 throw new BussinesException("No se encontraron registros de egresos");

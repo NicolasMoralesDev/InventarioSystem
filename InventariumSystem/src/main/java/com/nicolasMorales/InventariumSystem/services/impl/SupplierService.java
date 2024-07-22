@@ -66,7 +66,7 @@ public class SupplierService implements ISupplierService {
         try {
             return supplierRepo.findAll();
         } catch (RuntimeException e){
-            throw new BussinesException( e.getMessage());
+            throw new BussinesException(e.getMessage());
         }
     }
 

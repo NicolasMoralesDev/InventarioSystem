@@ -1,5 +1,6 @@
 package com.nicolasMorales.InventariumSystem.services.impl;
 
+import com.nicolasMorales.InventariumSystem.controllers.categorias.ControllerCategory;
 import com.nicolasMorales.InventariumSystem.dto.IncomeDTO;
 import com.nicolasMorales.InventariumSystem.dto.IncomeDTOResponse;
 import com.nicolasMorales.InventariumSystem.dto.IncomeEditDTO;
@@ -12,6 +13,8 @@ import com.nicolasMorales.InventariumSystem.mapper.ProductsMapper;
 import com.nicolasMorales.InventariumSystem.repository.IIncomeRepository;
 import com.nicolasMorales.InventariumSystem.repository.ISupplierRepository;
 import com.nicolasMorales.InventariumSystem.services.IIncomeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +29,8 @@ import java.util.stream.Stream;
  */
 @Service
 public class IncomeService implements IIncomeService {
+
+    private static Logger logger = LoggerFactory.getLogger(ControllerCategory.class);
 
     @Autowired
     private IncomeMapper incomeMapper;
@@ -47,6 +52,7 @@ public class IncomeService implements IIncomeService {
      */
     @Override
     public List<IncomeDTOResponse> getAllIncome() throws BussinesException {
+        logger.info("Obteniendo registros de ingresos...");
         return incomeMapper.incomeListToIncomeDTOList(incomeRepo.findAll());
     }
 
@@ -56,6 +62,7 @@ public class IncomeService implements IIncomeService {
     @Override
     public Income getIncomeById(UUID id) throws BussinesException {
         try {
+            logger.info("Obteniendo registro de ingreso con id: {}", id);
             Income registro = incomeRepo.findById(id).orElse(null);
             if (registro == null) {
                 throw new BussinesException("No se encontro ningun registro con el ID : "+ id);
@@ -74,7 +81,7 @@ public class IncomeService implements IIncomeService {
     @Transactional
     public void createIncome(IncomeDTO nuevo) throws BussinesException {
         try {
-
+            logger.info("Registrando ingreso...");
             Income register = new Income();
             Stream <Product> productList = nuevo.getProductos().stream().map(producto -> productsMapper.productDTOaProduct(producto));
             Supplier supplier = supplierRepository.findByNombre(nuevo.getProvedor());
@@ -100,9 +107,9 @@ public class IncomeService implements IIncomeService {
     @Override
     public String deleteByIdIncome(UUID id) {
         try {
+            logger.info("Borrando registro de ingreso con id: {}", id);
             incomeRepo.deleteById(id);
             return "Registro Borrado Correctamente!";
-
         } catch (Exception e){
             return "Error "+ e.getMessage();
         }
@@ -115,6 +122,7 @@ public class IncomeService implements IIncomeService {
     @Override
     public void editIncome(IncomeEditDTO edit) throws BussinesException {
         try {
+            logger.info("Editando registro de ingreso...");
             Income ingreso = this.getIncomeById(edit.getId());
             ingreso.setId(edit.getId());
             ingreso.setDescription(edit.getObservacion());

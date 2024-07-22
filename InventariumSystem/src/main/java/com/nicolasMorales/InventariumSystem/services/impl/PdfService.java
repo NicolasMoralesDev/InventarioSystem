@@ -12,8 +12,11 @@ import com.itextpdf.layout.element.Paragraph;
 import com.itextpdf.layout.element.Table;
 import com.itextpdf.layout.property.TextAlignment;
 import com.itextpdf.layout.property.UnitValue;
+import com.nicolasMorales.InventariumSystem.controllers.categorias.ControllerCategory;
 import com.nicolasMorales.InventariumSystem.dto.ProductDTO;
 import com.nicolasMorales.InventariumSystem.services.IPdfService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayOutputStream;
@@ -23,13 +26,17 @@ import java.util.List;
 @Service
 public class PdfService implements IPdfService {
 
+    private static Logger logger = LoggerFactory.getLogger(ControllerCategory.class);
+
     /**
      * @see IPdfService#generatePdfProductos(List)
      */
     @Override
     public ByteArrayOutputStream generatePdfProductos(List<ProductDTO> productos) throws IOException  {
-        // Creación del documento PDF
 
+        logger.info("Generando reporte PDF de mercaderia...");
+
+        // Creación del documento PDF
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         PdfWriter pdf = new PdfWriter(byteArrayOutputStream);
         PdfDocument pdfDocument = new PdfDocument(pdf);
