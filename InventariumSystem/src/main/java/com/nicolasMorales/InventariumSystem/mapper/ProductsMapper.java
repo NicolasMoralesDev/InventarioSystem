@@ -14,11 +14,21 @@ public class ProductsMapper {
 
     private final ModelMapper modelMapper = new ModelMapper();
 
+    /**
+     * Metodo para Mappear de ProductDTO a Product.
+     * @param productDTO Recibe un productDTO a mappear.
+     * @return Devuelve un Product.
+     */
     public Product productDTOaProduct (ProductDTO productDTO) {
         Product producto = modelMapper.map(productDTO, Product.class);
         return producto;
     }
 
+    /**
+     * Metodo para Mappear de Product a ProductDTO.
+     * @param product Recibe un Product a mappear.
+     * @return Devuelve un ProductDTO.
+     */
     public ProductDTO productaProductDTO (Product product) {
         ProductDTO producto = modelMapper.map(product, ProductDTO.class);
         return producto;

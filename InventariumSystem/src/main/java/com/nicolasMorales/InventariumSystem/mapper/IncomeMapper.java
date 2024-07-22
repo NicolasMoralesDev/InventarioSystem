@@ -4,9 +4,7 @@ import com.nicolasMorales.InventariumSystem.dto.IncomeDTOResponse;
 import com.nicolasMorales.InventariumSystem.dto.ProductDTO;
 import com.nicolasMorales.InventariumSystem.entity.Income;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
-import com.nicolasMorales.InventariumSystem.repository.IProductRepository;
 import com.nicolasMorales.InventariumSystem.services.impl.ProductService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,8 +17,6 @@ import java.util.List;
  */
 @Component
 public class IncomeMapper {
-
-    private final ModelMapper modelMapper = new ModelMapper();
 
     @Autowired
     private ProductService productService;
