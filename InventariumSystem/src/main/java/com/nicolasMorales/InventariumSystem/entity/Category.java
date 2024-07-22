@@ -12,6 +12,7 @@ import java.util.UUID;
  */
 @Entity
 @Data
+@Table(name = "CATEGORIAS")
 public class Category {
 
     @Id

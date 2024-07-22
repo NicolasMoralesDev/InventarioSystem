@@ -14,6 +14,7 @@ import java.util.UUID;
  */
 @Entity
 @Data
+@Table(name = "EGRESOS")
 public class Expense {
 
     @Id
