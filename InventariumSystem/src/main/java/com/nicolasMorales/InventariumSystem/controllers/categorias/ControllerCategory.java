@@ -35,7 +35,6 @@ public class ControllerCategory {
     public ResponseEntity<?> createCategory(@RequestBody Category category){
         HashMap<String, String> response = new HashMap<>();
         try {
-
             categoryServ.createCategory(category);
             response.put("msg", "Categoria agregada!!");
             return ResponseEntity.ok().body(response);

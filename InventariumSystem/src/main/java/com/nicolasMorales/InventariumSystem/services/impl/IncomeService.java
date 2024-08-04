@@ -7,11 +7,13 @@ import com.nicolasMorales.InventariumSystem.dto.IncomeEditDTO;
 import com.nicolasMorales.InventariumSystem.entity.Income;
 import com.nicolasMorales.InventariumSystem.entity.Product;
 import com.nicolasMorales.InventariumSystem.entity.Supplier;
+import com.nicolasMorales.InventariumSystem.entity.UserSec;
 import com.nicolasMorales.InventariumSystem.exceptions.BussinesException;
 import com.nicolasMorales.InventariumSystem.mapper.IncomeMapper;
 import com.nicolasMorales.InventariumSystem.mapper.ProductsMapper;
 import com.nicolasMorales.InventariumSystem.repository.IIncomeRepository;
 import com.nicolasMorales.InventariumSystem.repository.ISupplierRepository;
+import com.nicolasMorales.InventariumSystem.repository.IUserRepository;
 import com.nicolasMorales.InventariumSystem.services.IIncomeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,6 +48,9 @@ public class IncomeService implements IIncomeService {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private IUserRepository userRepository;
 
     /**
      * @see IIncomeService#getAllIncome()
@@ -85,12 +90,14 @@ public class IncomeService implements IIncomeService {
             Income register = new Income();
             Stream <Product> productList = nuevo.getProductos().stream().map(producto -> productsMapper.productDTOaProduct(producto));
             Supplier supplier = supplierRepository.findByNombre(nuevo.getProvedor());
+            UserSec usuario = (UserSec) userRepository.findUserEntityByUsername(nuevo.getUsuario()).orElse(null);
             List <Long> listProducts = productService.createBulkProducts(productList.toList());
+
             if (listProducts == null) {
                 throw new BussinesException("Se ha producido un error al intentar registrar el ingreso!");
             } else {
                 register.setDescription(nuevo.getObservacion());
-                register.setUserRegister(nuevo.getUsuario());
+                register.setUserRegister(usuario);
                 register.setProducts(listProducts);
                 register.setSupplier(supplier);
                 incomeRepo.save(register);

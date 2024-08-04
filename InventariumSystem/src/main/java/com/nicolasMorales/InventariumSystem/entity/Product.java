@@ -44,6 +44,6 @@ public class Product {
 
     private int cant;
 
-    private boolean borrado = false;
+    private boolean borrado;
 
 }

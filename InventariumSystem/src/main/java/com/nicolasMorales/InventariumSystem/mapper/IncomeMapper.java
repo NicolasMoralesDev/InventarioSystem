@@ -47,7 +47,7 @@ public class IncomeMapper {
         incomeDTOResponse.setFechaIngreso(income.getDateIncome());
         incomeDTOResponse.setProvedor(income.getSupplier().getNombre());
         incomeDTOResponse.setSaldado(income.isSettled());
-        incomeDTOResponse.setUsuario(income.getUserRegister());
+        incomeDTOResponse.setUsuario(income.getUserRegister().getNombreCompleto());
 
         for (long codigo : income.getProducts()) {
             productos.add( productService.getProductByCodeReg(codigo) );

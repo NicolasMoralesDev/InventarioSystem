@@ -24,7 +24,9 @@ public class Expense {
     @ElementCollection
     private List<Long> products;
 
-    private String userRegister;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_register_id", referencedColumnName = "id")
+    private UserSec userRegister;
 
     private String description;
 

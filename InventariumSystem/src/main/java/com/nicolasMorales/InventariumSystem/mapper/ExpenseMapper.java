@@ -43,7 +43,6 @@ public class ExpenseMapper {
     public ExpenseDTOResponse expenseaExpenseDTOResponse (Expense expense) {
         modelMapper.typeMap(Expense.class, ExpenseDTOResponse.class)
                 .addMapping(Expense::getDateExpense, ExpenseDTOResponse::setFechaEgreso)
-                .addMapping(Expense::getUserRegister, ExpenseDTOResponse::setUsuario)
                 .addMapping(Expense::getDescription, ExpenseDTOResponse::setObservacion)
                 .addMapping(Expense::getId, ExpenseDTOResponse::setId);
 
@@ -56,7 +55,7 @@ public class ExpenseMapper {
         }).toList();
 
         ExpenseDTOResponse egreso = modelMapper.map(expense, ExpenseDTOResponse.class);
-
+        egreso.setUsuario(expense.getUserRegister().getNombreCompleto());
         egreso.setProductos(productList);
         return egreso;
     }

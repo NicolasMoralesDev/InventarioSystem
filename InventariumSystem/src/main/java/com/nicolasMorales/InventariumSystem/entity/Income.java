@@ -22,7 +22,9 @@ public class Income {
 
     private String description;
 
-    private String userRegister;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_register_id", referencedColumnName = "id")
+    private UserSec userRegister;
 
     private LocalDateTime dateIncome = LocalDateTime.now();
 
