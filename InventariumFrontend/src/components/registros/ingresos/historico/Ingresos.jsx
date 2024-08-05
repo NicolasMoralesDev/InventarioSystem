@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, React } from "react"
 import { modificarIngresos, obtenerIngresos } from "../../../../Hooks/fetch/Ingresos.hook"
 import { Helmet } from "react-helmet"
 import ModalEdit from "./ModalEdit"
