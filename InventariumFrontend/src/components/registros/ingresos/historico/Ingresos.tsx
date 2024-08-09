@@ -1,10 +1,11 @@
-import { useEffect, useState, React } from "react"
+import React, { useEffect, useState } from "react"
 import { modificarIngresos, obtenerIngresos } from "../../../../Hooks/fetch/Ingresos.hook"
 import { Helmet } from "react-helmet"
 import ModalEdit from "./ModalEdit"
 import TablaRegistros from "../../TablaRegistros"
 import { loadingPop, successPop } from "../../../../Hooks/util/messages/alerts"
 import useForm from "antd/lib/form/hooks/useForm"
+import { columnsIngresos } from "../../registros.constants.table"
 
 const Ingresos = () => {
 
@@ -50,6 +51,7 @@ const Ingresos = () => {
         setIngresoEdit={ setIngresoEdit }
         setVisibleEdit={ setVisibleEdit }
         dataSourse={ ingresos }
+        columnas={ columnsIngresos }
       />
     </>
   )

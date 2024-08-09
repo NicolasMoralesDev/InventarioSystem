@@ -3,7 +3,14 @@ import useForm from "antd/lib/form/hooks/useForm";
 import { Card, Col, Form, Input, InputNumber, Row } from "antd";
 import ConfirmationModal from "../../modal/ConfirmationModal";
 
-const ProvedoresAltaModal = ({ visible, setVisible, onSend, provedor }) => {
+interface ProvedorModal {
+  visible: boolean;
+  setVisible: Function;
+  onSend: Function;
+  provedor? : any;
+}
+
+const ProvedorModal = ({ visible, setVisible, onSend, provedor }:  ProvedorModal) => {
   const [form] = useForm();
 
   useEffect(() => { form.setFieldsValue({
@@ -101,4 +108,4 @@ const ProvedoresAltaModal = ({ visible, setVisible, onSend, provedor }) => {
   );
 };
 
-export default ProvedoresAltaModal;
+export default ProvedorModal;

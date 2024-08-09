@@ -7,6 +7,7 @@ import { obtenerCategorias } from '../../../../Hooks/fetch/Categorias.hook'
 import FormRegistrar from '../../FormRegistrar'
 import { registrarEgreso } from '../../../../Hooks/fetch/Expense.hook'
 import { successPop } from '../../../../Hooks/util/messages/alerts'
+import { Producto } from '../../../../classes/Producto'
 
 const EgresosAlta = () => {
 
@@ -37,7 +38,7 @@ const EgresosAlta = () => {
        setStatusReg(request.data.msg)
     }
 
-    const onBorrado = (productos) => {
+    const onBorrado = (productos : Producto) => {
       borrarProductosStorage(productos, "productosEgresos")
       setProductBorrado(true)
     }
@@ -60,12 +61,11 @@ const EgresosAlta = () => {
         <link rel="canonical" href="http://mysite.com/example" />
      </Helmet>
      <FormRegistrar
-        onGetByCode={ onGetByCode }
-        onSend={ onLoadStorage }
-        categorias={ categorias }
-        onRegister={ onRegister }
-        isEgreso={ true }
-     />
+        onSend={onLoadStorage}
+        categorias={categorias}
+        onRegister={onRegister}
+        isEgreso={true}
+      />
      <TablaProductosEgresos
         onSend={ onRegister }
         dataSourse={ productos }

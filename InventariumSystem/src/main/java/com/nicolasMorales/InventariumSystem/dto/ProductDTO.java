@@ -23,6 +23,6 @@ public class ProductDTO {
     private Category categoria;
     private String marca;
     private double precio;
-    private int cant;
+    private int cantidad;
     private boolean borrado;
 }

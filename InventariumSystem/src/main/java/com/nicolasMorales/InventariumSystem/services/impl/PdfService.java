@@ -65,7 +65,7 @@ public class PdfService implements IPdfService {
             table.addCell(String.valueOf(producto.getCategoria().getTitulo())); // Categoria
             table.addCell(String.valueOf(producto.getMarca())); // Marca
             table.addCell( new Paragraph(String.valueOf(" $ "+producto.getPrecio())).setTextAlignment(TextAlignment.CENTER)); // Precio
-            table.addCell( new Paragraph(String.valueOf(producto.getCant())).setTextAlignment(TextAlignment.CENTER)); // Stock
+            table.addCell( new Paragraph(String.valueOf(producto.getCantidad())).setTextAlignment(TextAlignment.CENTER)); // Stock
         }
         document.add(titulo);
         document.add(table);

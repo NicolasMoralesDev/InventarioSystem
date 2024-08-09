@@ -10,7 +10,7 @@ const cookies = new Cookies();
  * @param {*} token Recibe el token de la session.
  */
 export const onAuth = (token) => {
-  const date : Date = new Date();
+  const date : any = new Date();
   date.setTime(new Date(new Date().getTime() + 1800000));
   const user : any = jwtDecode(token);
   useLoadLocal(user.nombreCompleto, user.authorities);
@@ -45,7 +45,7 @@ export const usePermission = (permiso) => {
   if (localStorage.getItem("permisos")?.match(permiso)) {
     isPermitted = true;
   } 
-  
+
   return isPermitted
 };
 

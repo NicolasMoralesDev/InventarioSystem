@@ -7,10 +7,10 @@ import RoutingLogin from './routes/RoutingLogin.tsx'
 const root = document.getElementById('root');
 const container = root ? ReactDOM.createRoot(root) : null;
 
-if (container) {
+if (true) {
   container.render(
     <RoutingLogin>
-      <App children={undefined} />
+      <App children={ undefined } />
     </RoutingLogin>
   );
 }

@@ -1,6 +1,6 @@
 import React from 'react'
 import LoginForm from './LoginForm'
-import { loginUsuarios } from '../../Hooks/fetch/Auth.hook.ts'
+import { loginUsuarios } from '../../Hooks/fetch/Auth.hook'
 import { onAuth } from '../../Hooks/util/auth.hook'
 import { useNavigate } from 'react-router-dom'
 import "./estilos/login.css"

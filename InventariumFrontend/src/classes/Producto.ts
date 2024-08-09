@@ -1,3 +1,4 @@
+import { Categoria } from "./Categoria"
 
 export class Producto {
    id : Number
@@ -8,4 +9,5 @@ export class Producto {
    precio : Number
    cantidad : Number
    borrado : Boolean
+   categoria : Categoria
 }

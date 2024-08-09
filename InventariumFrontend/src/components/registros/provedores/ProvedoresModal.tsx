@@ -2,10 +2,19 @@ import React, { useEffect, useState } from 'react'
 import ConfirmationModal from '../../modal/ConfirmationModal'
 import TablaProvedores from './TablaProvedores'
 import { borradoMultipleProvedores } from '../../../Hooks/fetch/Provedores.hook'
-import "./estilos/ModalProvedores.css"
 import { successPop } from '../../../Hooks/util/messages/alerts'
+import "./estilos/ModalProvedores.css"
 
-const ProvedoresModal = ({ provedores, visible, setVisible, setVisibleEdit, setProvedorEdit, setProvedorEditar }) => {
+interface ProvedoresModal {
+    provedores?: any;
+    visible: boolean;
+    setVisible: Function;
+    setVisibleEdit: Function;
+    setProvedorEdit?: Function;
+    setProvedorEditar: Function;
+ }
+
+const ProvedoresModal = ({ provedores, visible, setVisible, setVisibleEdit, setProvedorEdit, setProvedorEditar }: ProvedoresModal) => {
 
     const [proveDelete, setProveDelete] = useState(false)  
 
@@ -32,11 +41,11 @@ const ProvedoresModal = ({ provedores, visible, setVisible, setVisibleEdit, setP
                 onOk={ cancelModal }
             >
                <TablaProvedores 
-                dataSourse={ provedores }
-                borrarProvedores={ onDelete }
-                setProvedorEdit={ setProvedorEdit }
-                setVisibleEdit={ setVisibleEdit }
-                setProvedorEditar={ setProvedorEditar }
+                  dataSourse={ provedores }
+                  borrarProvedores={ onDelete }
+                  setProvedorEdit={ setProvedorEdit }
+                  setVisibleEdit={ setVisibleEdit }
+                 setProvedorEditar={ setProvedorEditar }
                />
             </ConfirmationModal>
         </>

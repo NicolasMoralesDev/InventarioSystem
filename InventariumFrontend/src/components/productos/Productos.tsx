@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Helmet } from "react-helmet"
 import { obtenerCategorias } from "../../Hooks/fetch/Categorias.hook"
 import { borradoMultipleProductos, crearProducto, editarProducto, genearReportePDFproductos, obtenerProductoByCodigo, obtenerProductos } from "../../Hooks/fetch/Productos.hook"
@@ -71,7 +71,6 @@ const Productos = () => {
   }, [ statusBorrado ])
 
   useEffect(() => { onFetch(), loadingPop("Obteniendo Productos...", "productosLoad") }, [])
-/*   useEffect(() => { editarProducto ? loadingPop("Editando Producto...") : ""}, [editarProducto]) */
   useEffect(() => { 
     if (statusEdit) { 
       successPop(statusEdit, "statusEdit")
@@ -87,7 +86,7 @@ const Productos = () => {
     if (statusBorrado || statusEdit || statusAdd) { 
       loadingPop("Obteniendo Productos...", "productosLoad") 
       setStatusAdd("")
-      setBorrando("")
+      setBorrando(false)
       setStatusEdit("")
   } }, [ productos ])
 

@@ -1,9 +1,20 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import ConfirmationModal from "../modal/ConfirmationModal"
 import { Card, Col, Form, Input, InputNumber, Row, Select } from "antd"
 import TextArea from "antd/es/input/TextArea";
 
-  const ProductosModal = ({ form, categorias, productoEdit, visible, setVisible, onSend, edit, altaReg }) => {
+interface ProductosModal {
+    form: any;
+    categorias: any;
+    productoEdit: any;
+    visible: boolean;
+    setVisible: Function;
+    onSend: Function;
+    edit: boolean;
+    altaReg?: boolean;
+}
+
+const ProductosModal = ({ form, categorias, productoEdit, visible, setVisible, onSend, edit, altaReg }: ProductosModal) => {
 
     useEffect(() => {
         form.setFieldsValue({

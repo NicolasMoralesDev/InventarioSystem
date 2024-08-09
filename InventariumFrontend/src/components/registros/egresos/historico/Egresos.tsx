@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import TablaRegistros from '../../TablaRegistros'
 import { Helmet } from 'react-helmet'
 import { obtenerEgresos } from '../../../../Hooks/fetch/Expense.hook'
+import { columnsEgresos } from '../../registros.constants.table'
 
 const Egresos = () => {
 
@@ -27,7 +28,7 @@ const Egresos = () => {
     <TablaRegistros
      dataSourse={ egresos }
      loading={ loading }
-     isEgreso={ true }
+     columnas={ columnsEgresos }
     />
     </>
   )

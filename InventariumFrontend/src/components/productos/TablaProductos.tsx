@@ -1,12 +1,12 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { defaultPagination } from "../../Hooks/util/DefaultPagination";
 import { Button, Space, Table, Tag, Tooltip } from "antd";
 import { DeleteFilled, EditOutlined, FileExcelFilled, FilePdfFilled, ProductFilled } from "@ant-design/icons"
 import { alertPop } from "../../Hooks/util/messages/alerts";
 import Menu from "../menu/Menu";
-import "./estilos/tablaProductos.css"
 import { usePermission } from "../../Hooks/util/auth.hook";
 import { ROLE_CAJERO } from "../../constants/permisos";
+import "./estilos/tablaProductos.css"
 
 const TablaProductos = (props) => {
 
@@ -120,9 +120,9 @@ const TablaProductos = (props) => {
             <Space className="w-full flex flex-wrap gap-3 p-3 justify-end tabla_botonera" size="large" >
                 { isList &&
                 <>
-                 <Tooltip title="Cargar Producto">
+                 {/* <Tooltip title="Cargar Producto">
                     <Button className="bg-blue-950 btn-cyan-custom text-white" disabled={ isCajero } onClick={ onAdd }> <ProductFilled/> Cargar Producto</Button>
-                 </Tooltip>  
+                 </Tooltip>   */}
                  <Tooltip title="Generar PDF"> 
                     <Button title="Generar PDF" disabled={ isDisabled() ? false : true } className="bg-red-700 text-white" type="primary" onClick={ ()=> onDownloadPdf() }><FilePdfFilled />PDF</Button>
                  </Tooltip> 

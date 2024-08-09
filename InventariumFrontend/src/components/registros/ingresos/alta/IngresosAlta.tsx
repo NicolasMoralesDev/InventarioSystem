@@ -10,7 +10,7 @@ import ProductosModal from '../../../productos/ProductosModal';
 import { registrarIngresos } from '../../../../Hooks/fetch/Ingresos.hook';
 import { editarProvedor, obtenerProvedores, registrarProvedor } from '../../../../Hooks/fetch/Provedores.hook';
 import ProvedoresModal from '../../provedores/ProvedoresModal';
-import ProvedoresAltaModal from '../../provedores/ProvedoresAltaModal';
+import ProvedorModal from '../../provedores/ProvedorModal';
 
 const IngresosAlta = () => {
 
@@ -116,21 +116,19 @@ const IngresosAlta = () => {
       }
       { 
        visibleProveReg &&
-        <ProvedoresAltaModal
+        <ProvedorModal
           visible={ visibleProveReg }
           setVisible={ setVisibleProveReg }
           onSend={ onRegistrarProvedor }
-          isEdit={ false }
         />
       }
       { 
        visibleProveEdit &&
-        <ProvedoresAltaModal
+        <ProvedorModal
           visible={ visibleProveEdit }
           setVisible={ setVisibleProveEdit }
           onSend={ onEditarProvedor }
           provedor={ provedorEditar }
-          isEdit={ true }
         />
       }
       {

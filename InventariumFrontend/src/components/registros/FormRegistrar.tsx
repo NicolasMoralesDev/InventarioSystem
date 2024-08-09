@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState }from 'react';
 import { Button, Card, Col, Input, InputNumber, Row, Select, Space } from 'antd'
 import Form from 'antd/es/form/Form'
 import TextArea from 'antd/es/input/TextArea'
@@ -8,12 +7,22 @@ import { BookOutlined, InboxOutlined, ProductFilled, ProductOutlined, UploadOutl
 import { obtenerProductosStorage } from '../../Hooks/util/localStorage/Abm.registros';
 import { useGetNombreUsuario } from '../../Hooks/util/localStorage/Auth';
 import { obtenerProductoByCodigo } from '../../Hooks/fetch/Productos.hook';
-import './estilos/formIngresos.css'
 import { usePermission } from '../../Hooks/util/auth.hook';
 import { ROLE_DUENIO } from '../../constants/permisos';
 import { Producto } from '../../classes/Producto';
+import './estilos/formIngresos.css'
 
- const FormRegistrar = ({ onSend, provedores, categorias, onRegister, isEgreso, setVisibleProve, setVisibleProveReg }) => {
+ interface FormRegistrar {
+    provedores?: any;
+    categorias: any;
+    onSend: Function;
+    onRegister: Function;
+    isEgreso?: boolean;
+    setVisibleProve?: Function;
+    setVisibleProveReg?: Function;
+ }
+
+ const FormRegistrar = ({ onSend, provedores, categorias, onRegister, isEgreso, setVisibleProve, setVisibleProveReg }: FormRegistrar) => {
 
   const [form] = useForm()
 
@@ -47,9 +56,9 @@ import { Producto } from '../../classes/Producto';
       nombre: values?.nombre,
       marca: values?.marca,
       precio: values?.precio,
-      cant: values?.cant,
+      cantidad: values?.cantidad,
       observacion: values?.observacion,
-      categoria: {id:values?.categoria},
+      categoria: { id:values?.categoria },
       descripcion: values?.descripcion
    }
 
@@ -65,10 +74,10 @@ import { Producto } from '../../classes/Producto';
        nombre: values?.nombre,
        marca: values?.marca,
        precio: values?.precio,
-       cant: values?.cant,
+       cantidad: values?.cantidad,
        observacion: values?.observacion,
        provedor: values?.provedor,
-       categoria: {id:values?.categoria},
+       categoria: { id:values?.categoria },
        descripcion: values?.descripcion
     }
 
@@ -87,7 +96,7 @@ import { Producto } from '../../classes/Producto';
       nombre: "",
       marca: "",
       precio: "",
-      cant: "",
+      cantidad: "",
       categoria: "",
       descripcion: ""
     })
@@ -244,7 +253,7 @@ import { Producto } from '../../classes/Producto';
                 <Col>
                 <Form.Item
                   label="Cantidad"
-                  name="cant"
+                  name="cantidad"
                   rules={[
                     {
                       required: true,
@@ -254,7 +263,7 @@ import { Producto } from '../../classes/Producto';
                 >
                   <InputNumber
                    min={ 1 }
-                   max={ isEgreso ? producto?.cant : 200 }
+                   max={ isEgreso ? producto?.cantidad : 200 }
                    minLength={ 1 }
                   />
                 </Form.Item>

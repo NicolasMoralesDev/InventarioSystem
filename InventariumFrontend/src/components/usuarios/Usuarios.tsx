@@ -3,7 +3,7 @@ import TablaUsuarios from './TablaUsuarios'
 import { Helmet }  from 'react-helmet'
 import { obtenerUsuarios } from '../../Hooks/fetch/Usuarios.hook'
 
-const Usuarios = () => {
+const Usuarios =  () => {
     
     const [ usuarios, setUsuarios ] = useState([])
 
@@ -15,7 +15,7 @@ const Usuarios = () => {
     useEffect(() => { onFetch() }, [])
 
   return (
-    <>
+    <div>
     <Helmet>
         <meta charSet="utf-8" />
         <title>Gestion de usuarios</title>
@@ -24,7 +24,7 @@ const Usuarios = () => {
     <TablaUsuarios
        dataSourse={ usuarios }
     />
-    </>
+    </div>
   )
 }
 

@@ -8,12 +8,12 @@ import "../../estilos/tablaProductos.css"
 
 const TablaProductosEgresos = (props) => {
 
-    const { setVisibleEdit, setProductoEdit,  categorias, dataSourse, onBorrado, onGeneratePdf, loading, onSend } = props
+    const { setVisibleEdit, setProductoEdit,  categorias, dataSourse, onBorrado, onGeneratePdf, loading } = props
     const cateFilter = []
     categorias?.length > 0 ? categorias.map(cate => {cateFilter.push({text: cate.titulo, value: cate.titulo})}) : ""
     const [productosSeleccionados, setProductosSeleccionados] = useState([])
 
-    const isDisabled = () => {
+    const isDisabled  = () : Boolean => {
         if (productosSeleccionados.length > 0) {
            return true 
         } else {
